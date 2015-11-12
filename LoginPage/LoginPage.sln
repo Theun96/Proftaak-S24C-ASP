@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginPage", "LoginPage\LoginPage.csproj", "{C7B5042D-CA02-4070-AD35-009D0EEA78B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICT4Rails-S24C ASP.NET", "LoginPage\ICT4Rails-S24C ASP.NET.csproj", "{C7B5042D-CA02-4070-AD35-009D0EEA78B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginPage.Tests", "LoginPage.Tests\LoginPage.Tests.csproj", "{4D3AC505-B04A-4D95-9528-91E7DDD37399}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICT4Rails-S24C ASP.NET.test", "LoginPage.Tests\ICT4Rails-S24C ASP.NET.test.csproj", "{4D3AC505-B04A-4D95-9528-91E7DDD37399}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

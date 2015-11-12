@@ -52,9 +52,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LoginPage\LoginPage.csproj">
+    <ProjectReference Include="..\LoginPage\ICT4Rails-S24C ASP.NET.csproj">
       <Project>{C7B5042D-CA02-4070-AD35-009D0EEA78B3}</Project>
-      <Name>LoginPage</Name>
+      <Name>ICT4Rails-S24C ASP.NET</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
