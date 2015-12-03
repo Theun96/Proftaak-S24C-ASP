@@ -41,22 +41,24 @@
                         <li><a runat="server" href="~/">in/uit rij</a></li>
                         <li><a runat="server" href="~/">Admin</a></li>
                     </ul>
+
+                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/">Log in</a></li>
+                            </ul>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, %> !</a></li>
+                                <li><asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" /></li>
+                            </ul>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+
+
                 </div>
-
-                <div id="navbar" class="navbar-collapse collapse">
-                    <div class="navbar-form navbar-right">
-                        <div class="form-group">
-                            <input type="text" placeholder="Username" class="form-control" />
-                        </div>
-
-                        <div class="form-group">
-                            <input type="password" placeholder="Password" class="form-control" />
-                        </div>
-
-                        <button type="submit" class="btn btn-success">Sign in</button>
-                    </div>
-                </div>
-                <!--/.navbar-collapse -->
+            <!--/.navbar-collapse -->
             </div>
         </nav>
         <div>
@@ -72,3 +74,4 @@
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+
