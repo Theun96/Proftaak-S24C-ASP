@@ -8,21 +8,21 @@ namespace ICT4Rails.Data_Layer
 {
     public class Database
     {
-        private OracleConnection connection;
+        private OracleConnection _connection;
         public OracleConnection Connection
         {
             get
             {
-                connection = new OracleConnection();
+                _connection = new OracleConnection();
                 try
                 {
-                    connection.Open();
+                    _connection.Open();
                 }
                 catch
                 {
                     HttpContext.Current.Response.Redirect("UserPage.aspx", true);
                 }
-                return connection;
+                return _connection;
             }
         }
     }
