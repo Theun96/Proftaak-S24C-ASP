@@ -52,8 +52,6 @@
                             </ul>
                         </LoggedInTemplate>
                     </asp:LoginView>
-
-
                 </div>
             <!--/.navbar-collapse -->
             </div>
