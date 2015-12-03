@@ -117,6 +117,7 @@
     <Compile Include="Beheer.aspx.designer.cs">
       <DependentUpon>Beheer.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Data Layer\Active Directory.cs" />
     <Compile Include="DatabaseError.aspx.cs">
       <DependentUpon>DatabaseError.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -124,7 +125,7 @@
     <Compile Include="DatabaseError.aspx.designer.cs">
       <DependentUpon>DatabaseError.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Database\Database.cs" />
+    <Compile Include="Data Layer\Database.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
