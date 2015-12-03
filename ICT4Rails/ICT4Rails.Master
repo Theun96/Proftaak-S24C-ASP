@@ -56,10 +56,10 @@
             <!--/.navbar-collapse -->
             </div>
         </nav>
-        <div>
+        <div class="container body-content">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
             </asp:ContentPlaceHolder>
-
+            <hr />
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - EYECT ICT4Rails</p>
             </footer>
