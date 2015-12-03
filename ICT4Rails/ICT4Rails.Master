@@ -61,7 +61,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - EYECT ICT4Rails</p>
+                <p>&copy; <%: DateTime.Now.Year %> - ICT4Rails</p>
             </footer>
         </div>
     </form>
