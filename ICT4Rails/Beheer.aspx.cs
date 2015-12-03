@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICT4Rails.Classes;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace ICT4Rails
 {
     public partial class Beheer : System.Web.UI.Page
     {
-        //public List<Rail> Rails { get; private set; }
-        //public List<Sector> Sectors { get; private set; }
+        public List<Rail> Rails { get; private set; }
+        public List<Sector> Sectors { get; private set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -41,9 +42,6 @@ namespace ICT4Rails
 
         public void UpdateGrid()
         {
-            //tlpGrid.Visible = false;
-            //tlpGrid.Controls.Clear();
-            /*
             foreach (Sector s in Sectors)
             {
                 Label l = s.AddSectorLabel(this);
@@ -79,7 +77,7 @@ namespace ICT4Rails
 
                 tlpGrid.Controls.Add(l, column, row);
             }
-            */
+            
             //tlpGrid.Visible = true;
         }
 

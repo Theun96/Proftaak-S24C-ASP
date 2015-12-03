@@ -127,7 +127,7 @@
     <Compile Include="DatabaseError.aspx.designer.cs">
       <DependentUpon>DatabaseError.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Data Layer\Database.cs" />
+    <Compile Include="Data Layer\DatabaseManager.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

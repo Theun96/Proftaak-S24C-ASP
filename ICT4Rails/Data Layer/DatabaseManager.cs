@@ -6,7 +6,7 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace ICT4Rails.Data_Layer
 {
-    public class Database
+    public class DatabaseManager
     {
         private OracleConnection _connection;
         public OracleConnection Connection
