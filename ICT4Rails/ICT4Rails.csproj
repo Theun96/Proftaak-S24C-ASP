@@ -90,6 +90,7 @@
     <Content Include="Beheer.aspx" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\signin.css" />
+    <Content Include="css\style.css" />
     <Content Include="DatabaseError.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
