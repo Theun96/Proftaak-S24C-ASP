@@ -15,9 +15,6 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="jumbotron.css" rel="stylesheet" />
-
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -30,7 +27,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">ICT4Rails</a>
+                    <a class="navbar-brand" href="/">ICT4Rails</a>
                 </div>
 
                 <div class="navbar-collapse collapse">
