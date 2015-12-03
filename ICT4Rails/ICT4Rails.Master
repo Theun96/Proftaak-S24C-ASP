@@ -59,6 +59,10 @@
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
             </asp:ContentPlaceHolder>
+
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - EYECT ICT4Rails</p>
+            </footer>
         </div>
     </form>
 
