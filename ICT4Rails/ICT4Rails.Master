@@ -35,11 +35,11 @@
 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Beheer</a></li>
-                        <li><a runat="server" href="~/">Schoonmaak</a></li>
-                        <li><a runat="server" href="~/">Techniek</a></li>
-                        <li><a runat="server" href="~/">in/uit rij</a></li>
-                        <li><a runat="server" href="~/">Admin</a></li>
+                        <li><a runat="server" href="/Beheer.aspx">Beheer</a></li>
+                        <li><a runat="server" href="/Schoonmaak.aspx">Schoonmaak</a></li>
+                        <li><a runat="server" href="/Techniek.aspx">Techniek</a></li>
+                        <li><a runat="server" href="/InUitRij.aspx">in/uit rij</a></li>
+                        <li><a runat="server" href="/Admin.aspx">Admin</a></li>
                     </ul>
 
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
