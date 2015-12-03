@@ -3,11 +3,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
 
     <div class="jumbotron">
-        <h1>Head</h1>
-        <p class="lead">p1</p>
-        <p class="lead">p2</p>
+        <h1>Welkom!</h1>
 
-        <p><a href="Default.aspx" class="btn btn-primary btn-lg">button &raquo;</a></p>
+        <p class="lead">
+            Dit is de home pagina voor alle werknemers van ICT4Rails
+        </p>
+
+        <p><a href="Login.aspx" class="btn btn-primary btn-lg">Login &raquo;</a></p>
     </div>
 
     <div class="row">
