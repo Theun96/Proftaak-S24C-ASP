@@ -31,26 +31,27 @@
 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a id="navBeheer" runat="server" href="/Beheer.aspx">Beheer</a></li>
-                        <li><a id="navSchoonmaak" runat="server" href="/Schoonmaak.aspx">Schoonmaak</a></li>
-                        <li><a id="navTechniek" runat="server" href="/Techniek.aspx">Techniek</a></li>
-                        <li><a id="navInUitRij" runat="server" href="/InUitRij.aspx">in/uit rij</a></li>
-                        <li><a id="navAdmin" runat="server" href="/Admin.aspx">Admin</a></li>
+                        <li><a id="navBeheer" runat="server"  Visible="False" href="/Beheer.aspx">Beheer</a></li>
+                        <li><a id="navSchoonmaak" runat="server" Visible="False" href="/Schoonmaak.aspx">Schoonmaak</a></li>
+                        <li><a id="navTechniek" runat="server" Visible="False" href="/Techniek.aspx">Techniek</a></li>
+                        <li><a id="navInUitRij" runat="server" Visible="False" href="/InUitRij.aspx">in/uit rij</a></li>
+                        <li><a id="navAdmin" runat="server" Visible="False" href="/Admin.aspx">Admin</a></li>
                     </ul>
 
-                    <asp:LoginView runat="server" ViewStateMode="Disabled">
-                        <AnonymousTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="/Login.aspx">Log in</a></li>
-                            </ul>
-                        </AnonymousTemplate>
-                        <LoggedInTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, %> !</a></li>
-                                <li><asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="/" /></li>
-                            </ul>
-                        </LoggedInTemplate>
-                    </asp:LoginView>
+                    
+-                    <asp:PlaceHolder ID="LoggedInPH" Visible="False" runat="server">
+-                        <ul class="nav navbar-nav navbar-right">
+-                            <li><a runat="server" href="/" title="Manage your account">Hello, %> !</a></li>
+-                            <li>
+-                                <asp:Button runat="server" />
+-                            </li>
+-                        </ul>
+-                    </asp:PlaceHolder>
+-                    <asp:PlaceHolder ID="AnonymousPH" runat="server">
+-                        <ul class="nav navbar-nav navbar-right">
+-                            <li><a runat="server" href="/Login.aspx">Log in</a></li>
+-                        </ul>
+-                    </asp:PlaceHolder>
                 </div>
             <!--/.navbar-collapse -->
             </div>

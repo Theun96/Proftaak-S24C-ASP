@@ -11,7 +11,10 @@ namespace ICT4Rails
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["User"] != null)
+            {
+                
+            }
         }
     }
 }
