@@ -1,4 +1,5 @@
 ﻿using ICT4Rails.Classes;
+using ICT4Rails.Data_Layer;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -43,7 +44,7 @@ namespace ICT4Rails
         public void UpdateGrid()
         {
             foreach (Sector s in Sectors)
-            {
+            {/*
                 Label l = s.AddSectorLabel(this);
 
                 string columnString = l.Tag.ToString();
@@ -56,12 +57,13 @@ namespace ICT4Rails
 
                 int column = Convert.ToInt32(columnString);
                 int row = Convert.ToInt32(rowString);
-
+                */
                 //tlpGrid.Controls.Add(l, column, row);
             }
 
             foreach (Rail r in Rails)
             {
+                /*
                 Label l = r.AddRailLabel();
 
                 string columnString = l.Tag.ToString();
@@ -75,7 +77,7 @@ namespace ICT4Rails
                 int column = Convert.ToInt32(columnString);
                 int row = Convert.ToInt32(rowString);
 
-                tlpGrid.Controls.Add(l, column, row);
+                tlpGrid.Controls.Add(l, column, row);*/
             }
             
             //tlpGrid.Visible = true;
@@ -86,15 +88,15 @@ namespace ICT4Rails
         /// </summary>
         private void GetAllRails()
         {
-            //DataTable DT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.query["GetAllRails"], null);
-            /*
+            DataTable DT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.query["GetAllRails"], null);
+            
             int railID;
 
             foreach (DataRow DR in DT.Rows)
             {
                 railID = Convert.ToInt32(DR["RAILID"]);
                 Rails.Add(new Rail(railID));
-            }*/
+            }
         }
     }
 }

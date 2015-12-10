@@ -120,6 +120,7 @@
     <Compile Include="Classes\Rail.cs" />
     <Compile Include="Classes\Sector.cs" />
     <Compile Include="Data Layer\Active Directory.cs" />
+    <Compile Include="Data Layer\DatabaseQuerys.cs" />
     <Compile Include="DatabaseError.aspx.cs">
       <DependentUpon>DatabaseError.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
