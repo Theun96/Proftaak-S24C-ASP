@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ICT4Rails.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ICT4Rails.Login" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
-    <link href="css/signin.css" rel="stylesheet" />
+    
     <div class="container">
         <div class="col-md-4"></div>
         <div class="col-md-4">

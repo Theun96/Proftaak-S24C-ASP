@@ -72,6 +72,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DefaultLogin.aspx" />
     <Content Include="packages.config" />
     <Content Include="ICT4Rails.Master" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -90,7 +91,6 @@
     <Content Include="Admin.aspx" />
     <Content Include="Beheer.aspx" />
     <Content Include="css\bootstrap.min.css" />
-    <Content Include="css\signin.css" />
     <Content Include="css\style.css" />
     <Content Include="DatabaseError.aspx" />
     <Content Include="Default.aspx" />
@@ -118,6 +118,8 @@
     <Compile Include="Beheer.aspx.designer.cs">
       <DependentUpon>Beheer.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Rail.cs" />
+    <Compile Include="Classes\Sector.cs" />
     <Compile Include="Data Layer\Active Directory.cs" />
     <Compile Include="DatabaseError.aspx.cs">
       <DependentUpon>DatabaseError.aspx</DependentUpon>
@@ -126,13 +128,20 @@
     <Compile Include="DatabaseError.aspx.designer.cs">
       <DependentUpon>DatabaseError.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Data Layer\Database.cs" />
+    <Compile Include="Data Layer\DatabaseManager.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultLogin.aspx.cs">
+      <DependentUpon>DefaultLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DefaultLogin.aspx.designer.cs">
+      <DependentUpon>DefaultLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="ICT4Rails.Master.cs">
       <DependentUpon>ICT4Rails.Master</DependentUpon>
