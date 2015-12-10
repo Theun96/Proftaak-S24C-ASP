@@ -10,7 +10,7 @@
 namespace ICT4Rails {
     
     
-    public partial class ICT4Rails {
+    public partial class Ict4Rails {
         
         /// <summary>
         /// form1 control.

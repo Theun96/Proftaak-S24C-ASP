@@ -37,6 +37,10 @@ body {
     background-color: #eee;
 }
 
-.tableStyle{
+.tableStyle {
     width: 100%;
+}
+
+.sectorlabel {
+    font-size: 26px;
 }
