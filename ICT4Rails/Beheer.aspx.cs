@@ -46,11 +46,11 @@ namespace ICT4Rails
         public void UpdateGrid()
         {
             foreach (Sector s in Sectors)
-            {/*
-                Label l = s.AddSectorLabel(this);
+            {
+                Label l = s.AddSectorLabel();
 
-                string columnString = l.Tag.ToString();
-                string rowString = l.Tag.ToString();
+                string columnString = l.ID;
+                string rowString = l.ID;
 
                 int spaceIndex = columnString.IndexOf(" ");
 
@@ -59,8 +59,9 @@ namespace ICT4Rails
 
                 int column = Convert.ToInt32(columnString);
                 int row = Convert.ToInt32(rowString);
-                */
+                
                 //tlpGrid.Controls.Add(l, column, row);
+                
             }
 
             foreach (Rail r in Rails)
@@ -78,8 +79,8 @@ namespace ICT4Rails
 
                 int column = Convert.ToInt32(columnString);
                 int row = Convert.ToInt32(rowString);
-
-                tlpGrid.Controls.Add(l, column, row);*/
+                */
+                //tlpGrid.Controls.Add(l, column, row);
             }
             
             //tlpGrid.Visible = true;
