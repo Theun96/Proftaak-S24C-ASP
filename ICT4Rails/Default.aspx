@@ -6,7 +6,7 @@
         <h1>Welkom!</h1>
 
         <p class="lead">
-            Dit is de home pagina voor alle Homo's van ICT4Rails
+            Dit is de home pagina van ICT4Rails.
         </p>
 
         <p><a href="Login.aspx" class="btn btn-primary btn-lg">Login &raquo;</a></p>

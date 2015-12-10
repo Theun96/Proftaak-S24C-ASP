@@ -31,28 +31,29 @@
 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a id="navBeheer" runat="server" Visible="False" href="/Beheer.aspx">Beheer</a></li>
-                        <li><a id="navSchoonmaak" runat="server" Visible="false" href="/Schoonmaak.aspx">Schoonmaak</a></li>
-                        <li><a id="navTechniek" runat="server" Visible="false" href="/Techniek.aspx">Techniek</a></li>
-                        <li><a id="navInUitRij" runat="server" Visible="false" href="/InUitRij.aspx">in/uit rij</a></li>
-                        <li><a id="navAdmin" runat="server" Visible="false" href="/Admin.aspx">Admin</a></li>
+                        <li><a id="navBeheer" runat="server"  Visible="False" href="/Beheer.aspx">Beheer</a></li>
+                        <li><a id="navSchoonmaak" runat="server" Visible="False" href="/Schoonmaak.aspx">Schoonmaak</a></li>
+                        <li><a id="navTechniek" runat="server" Visible="False" href="/Techniek.aspx">Techniek</a></li>
+                        <li><a id="navInUitRij" runat="server" Visible="False" href="/InUitRij.aspx">in/uit rij</a></li>
+                        <li><a id="navAdmin" runat="server" Visible="False" href="/Admin.aspx">Admin</a></li>
                     </ul>
 
-                    <asp:PlaceHolder ID="LoggedInPH" Visible="False" runat="server">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a runat="server" href="/" title="Manage your account">Hello, %> !</a></li>
-                            <li>
-                                <asp:Button runat="server" />
-                            </li>
-                        </ul>
-                    </asp:PlaceHolder>
-                    <asp:PlaceHolder ID="AnonymousPH" runat="server">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a runat="server" href="/Login.aspx">Log in</a></li>
-                        </ul>
-                    </asp:PlaceHolder>
+                    
+-                    <asp:PlaceHolder ID="LoggedInPH" Visible="False" runat="server">
+-                        <ul class="nav navbar-nav navbar-right">
+-                            <li><a runat="server" href="/" title="Manage your account">Hello, %> !</a></li>
+-                            <li>
+-                                <asp:Button runat="server" />
+-                            </li>
+-                        </ul>
+-                    </asp:PlaceHolder>
+-                    <asp:PlaceHolder ID="AnonymousPH" runat="server">
+-                        <ul class="nav navbar-nav navbar-right">
+-                            <li><a runat="server" href="/Login.aspx">Log in</a></li>
+-                        </ul>
+-                    </asp:PlaceHolder>
                 </div>
-                <!--/.navbar-collapse -->
+            <!--/.navbar-collapse -->
             </div>
         </nav>
         <div class="container body-content">
