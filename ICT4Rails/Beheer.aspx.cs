@@ -20,8 +20,8 @@ namespace ICT4Rails
             tblBeheer.Width = new Unit("100%");
             tblBeheer.Height = new Unit("400px");
 
-            int numrows = 19;
-            int numcells = 29;
+            const int numrows = 19;
+            const int numcells = 29;
 
             string widthPercent = (100 / numcells).ToString() + "%";
             string heightPercent = (100 / numrows).ToString() + "%";
@@ -31,9 +31,11 @@ namespace ICT4Rails
                 TableRow r = new TableRow();
                 for (int i = 0; i < numcells; i++)
                 {
-                    TableCell c = new TableCell();
-                    c.Width = new Unit(widthPercent);
-                    c.Height = new Unit(heightPercent);
+                    TableCell c = new TableCell
+                    {
+                        Width = new Unit(widthPercent),
+                        Height = new Unit(heightPercent)
+                    };
                     //c.Controls.Add(new Label());
                     r.Cells.Add(c);
                 }
@@ -88,14 +90,11 @@ namespace ICT4Rails
         /// </summary>
         private void GetAllRails()
         {
-            DataTable DT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.query["GetAllRails"], null);
-            
-            int railID;
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.query["GetAllRails"], null);
 
-            foreach (DataRow DR in DT.Rows)
+            foreach (int railId in from DataRow dr in dt.Rows select Convert.ToInt32(dr["RAILID"]))
             {
-                railID = Convert.ToInt32(DR["RAILID"]);
-                Rails.Add(new Rail(railID));
+                Rails.Add(new Rail(railId));
             }
         }
     }
