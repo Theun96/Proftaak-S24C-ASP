@@ -76,7 +76,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\jquery-ui.min.css" />
     <Content Include="DefaultLogin.aspx" />
+    <Content Include="js\jquery-ui.min.js" />
     <Content Include="packages.config" />
     <Content Include="ICT4Rails.Master" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
