@@ -37,10 +37,10 @@ body {
     background-color: #eee;
 }
 
-.tableStyle{
+.tableStyle {
     width: 100%;
 }
 
-#lblSector {
+.sectorlabel {
     font-size: 26px;
 }
