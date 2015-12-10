@@ -216,7 +216,7 @@ namespace ICT4Rails.Classes
                         new OracleParameter("railid", ID),
                         new OracleParameter("position", sectorsFromRail[i].Position)
                     };
-                    DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.query["UpdateSectorInformation"], parameters1);
+                    DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["UpdateSectorInformation"], parameters1);
                 }
 
                 if (sectorsFromRail[i].Position == totalPostitions)
@@ -228,7 +228,7 @@ namespace ICT4Rails.Classes
                         new OracleParameter("railid", ID),
                         new OracleParameter("position", sectorsFromRail[i].Position)
                     };
-                    DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.query["UpdateLastSectorInformation"], parameters1);
+                    DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["UpdateLastSectorInformation"], parameters1);
                 }
             }
 
