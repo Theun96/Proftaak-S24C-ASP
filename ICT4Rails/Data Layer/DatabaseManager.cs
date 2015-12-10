@@ -10,16 +10,16 @@ namespace ICT4Rails.Data_Layer
 {
     public class DatabaseManager
     {
-        private static OracleConnection connection;
+        private static OracleConnection _connection;
         public static OracleConnection Connection
         {
             get
             {
                 try
                 {
-                    connection = new OracleConnection(ConfigurationManager.ConnectionStrings["DBC"].ConnectionString);
-                    connection.Open();
-                    return connection;
+                    _connection = new OracleConnection(ConfigurationManager.ConnectionStrings["DBC"].ConnectionString);
+                    _connection.Open();
+                    return _connection;
                 }
                 catch (Exception ex)
                 {
@@ -32,13 +32,13 @@ namespace ICT4Rails.Data_Layer
         public static DataTable ExecuteReadQuery(string sqlquery, OracleParameter[] parameters)
         {
             using (Connection)
-            using (OracleCommand command = new OracleCommand(sqlquery, Connection))
+            using (var command = new OracleCommand(sqlquery, Connection))
             {
                 if (parameters != null)
                 {
                     command.Parameters.AddRange(parameters);
                 }
-                DataTable DT = new DataTable();
+                var DT = new DataTable();
                 using (OracleDataReader reader = command.ExecuteReader())
                 {
                     DT.Load(reader);
@@ -63,9 +63,9 @@ namespace ICT4Rails.Data_Layer
                 command.ExecuteNonQuery();
                 transaction.Commit();
             }
-            catch (OracleException OE)
+            catch (OracleException oe)
             {
-                Console.WriteLine(OE.Message);
+                Console.WriteLine(oe.Message);
             }
             connection.Close();
         }
@@ -75,7 +75,7 @@ namespace ICT4Rails.Data_Layer
             using (Connection)
             using (OracleTransaction OT = Connection.BeginTransaction())
             {
-                OracleCommand command = new OracleCommand(sqlquery, connection);
+                OracleCommand command = new OracleCommand(sqlquery, _connection);
                 if (parameters != null)
                 {
                     command.Parameters.AddRange(parameters);
@@ -86,9 +86,9 @@ namespace ICT4Rails.Data_Layer
                     command.ExecuteNonQuery();
                     OT.Commit();
                 }
-                catch (OracleException OE)
+                catch (OracleException oe)
                 {
-                    Console.WriteLine(OE.Message);
+                    Console.WriteLine(oe.Message);
                 }
             }
         }

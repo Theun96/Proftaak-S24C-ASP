@@ -211,20 +211,7 @@ namespace ICT4Rails.Classes
             //DataTable DT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.query["GetTramStatus"], parameters1);
             
             string tramID = "";
-            int type = 3;/*
-            //verandering
-            foreach (DataRow DR in DT.Rows)
-            {
-                tramID = DR["TRAMID"].ToString();
-                type = Convert.ToInt32((DR["TYPE"]));
-
-                if (DT.Rows.Count > 1)
-                {
-                    SectorLabel.BackColor = Color.Red;
-                    type = 3;
-                }
-            }
-            */
+            const int type = 3;
             if (type == 0)
             {
                 SectorLabel.BackColor = Color.Yellow;
