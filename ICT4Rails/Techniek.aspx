@@ -49,14 +49,13 @@
             <asp:Button ID="ButtonRepaired" runat="server" Text="Gerepareerd" cssclass="form-control" />
         </div>
         <div class="col-md-3  col-md-offset-4">
-            <input type="text" value="9/23/2009" style="width: 100px;" readonly="readonly" name="Date" id="Date" class="hasDatepicker"/>
+            <input type="text" value="9/23/2009" style="width: 100px;" readonly="readonly" name="datepicker" id="datepicker" class="datepicker"/>
             <asp:Button ID="ButtonSaveEndDate" runat="server" Text="Einddatum opslaan" cssclass="form-control" />
         </div>
     </div>
-   
     <script>
         $(document).ready(function () {
-            $("#Date").datepicker();
+            $(".datepicker").datepicker();
         });
     </script>
 </asp:Content>
