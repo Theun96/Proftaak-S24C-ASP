@@ -41,6 +41,9 @@ namespace ICT4Rails
                 }
                 tblBeheer.Rows.Add(r);
             }
+
+            //data uit database halen
+            GetAllRails();
         }
 
         public void UpdateGrid()
@@ -93,9 +96,9 @@ namespace ICT4Rails
         {
             DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.query["GetAllRails"], null);
 
-            foreach (int railId in from DataRow dr in dt.Rows select Convert.ToInt32(dr["RAILID"]))
+            foreach (int nummer in from DataRow dr in dt.Rows select Convert.ToInt32(dr["NUMMER"]))
             {
-                Rails.Add(new Rail(railId));
+                Rails.Add(new Rail(nummer));
             }
         }
     }
