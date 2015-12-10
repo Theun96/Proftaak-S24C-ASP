@@ -205,7 +205,7 @@ namespace ICT4Rails.Classes
                 new OracleParameter("tramid", parameterint)
             };
 
-            //DataTable DT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.query["GetTramStatus"], parameters1);
+            //DataTable DT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetTramStatus"], parameters1);
             
             string tramID = "";
             const int type = 3;

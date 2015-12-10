@@ -94,7 +94,7 @@ namespace ICT4Rails
         /// </summary>
         private void GetAllRails()
         {
-            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.query["GetAllRails"], null);
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllRails"], null);
 
             foreach (int nummer in from DataRow dr in dt.Rows select Convert.ToInt32(dr["NUMMER"]))
             {
