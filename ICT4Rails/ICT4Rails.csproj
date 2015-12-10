@@ -158,6 +158,7 @@
     <Compile Include="InUitRij.aspx.designer.cs">
       <DependentUpon>InUitRij.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Logic\LoginLogic.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
