@@ -27,7 +27,7 @@ namespace ICT4Rails.Data_Layer
             //Query["GetAllEngineers"] = "SELECT NAME FROM EMPLOYEE WHERE EMPLOYEETYPE = 'technicus'";
             //Query["maintenancefinished"] = "UPDATE MAINTENANCE SET DATEFINISHED = TO_DATE(:datefinished,'dd/mm/yyyy hh24:mi:ss'), FINISHEDBY = :employeeid WHERE TRAMID = :tramid AND TYPE = :type";
 
-            Query["GetAllRails"] = "SELECT nummer FROM SPOOR";
+            Query["GetAllRails"] = "SELECT \"Nummer\" FROM SPOOR";
 
             //Query["addtramtoincoming"] = "INSERT INTO INCOMING (TRAMID, MOMENT, MAINTENANCE) VALUES (:tramid, sysdate, :maintenance)";
             //Query["traincheckin"] = "UPDATE SECTOR SET ISRESERVED = 0 WHERE TRAMID = :tramid";
@@ -36,7 +36,7 @@ namespace ICT4Rails.Data_Layer
             //Query["UpdateLastSectorInformation"] = "UPDATE SECTOR SET TRAMID = NULL WHERE RAILID =: railid AND POSITION =: position";
             //Query["GetTramStatus"] = "SELECT TRAMID, TYPE FROM MAINTENANCE WHERE TRAMID =: tramid AND DATEFINISHED IS NULL";
             //Query["GetAllTramsNotOnSectors"] = "SELECT  tt.NAME, tt.SPECIFICATIONS, t.STATUS,t.TRAMID FROM TRAMTYPE tt LEFT JOIN TRAM t ON t.TRAMTYPEID = tt.TRAMTYPESID"
-                //+ " WHERE t.TRAMID NOT IN(SELECT TRAMID FROM SECTOR WHERE TRAMID IS NOT NULL)";
+            //+ " WHERE t.TRAMID NOT IN(SELECT TRAMID FROM SECTOR WHERE TRAMID IS NOT NULL)";
 
             //Query["UpdateTramSector"] = "UPDATE SECTOR SET TRAMID =: tramid WHERE RAILID =: railid AND POSITION =: position";
             //Query["UpdateReservedTramSector"] = "UPDATE SECTOR SET TRAMID =: tramid,ISRESERVED = 1 WHERE RAILID =: railid AND POSITION =: position";

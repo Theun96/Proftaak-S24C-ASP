@@ -1,6 +1,7 @@
 ﻿using ICT4Rails.Classes;
 using ICT4Rails.Data_Layer;
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -15,16 +16,22 @@ namespace ICT4Rails
         public List<Rail> Rails { get; private set; }
         public List<Sector> Sectors { get; private set; }
 
+        public List<TableCell> TableCells { get; private set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            tblBeheer.Width = new Unit("100%");
-            tblBeheer.Height = new Unit("400px");
+            Rails = new List<Rail>();
+            Sectors = new List<Sector>();
+            TableCells = new List<TableCell>();
 
-            const int numrows = 19;
-            const int numcells = 29;
+            tblBeheer.Width = new Unit("100%");
+            tblBeheer.Height = new Unit("100%");
+            
+            const int numrows = 29;
+            const int numcells = 19;
 
             string widthPercent = (100 / numcells).ToString() + "%";
-            string heightPercent = (100 / numrows).ToString() + "%";
+            const string heightPercent = "30px";
 
             for (int j = 0; j < numrows; j++)
             {
@@ -36,18 +43,26 @@ namespace ICT4Rails
                         Width = new Unit(widthPercent),
                         Height = new Unit(heightPercent)
                     };
-                    //c.Controls.Add(new Label());
+
+                    c.ID = i.ToString() + "_" + j.ToString();
+
+                    TableCells.Add(c);
+
                     r.Cells.Add(c);
+                    
                 }
                 tblBeheer.Rows.Add(r);
             }
 
             //data uit database halen
             GetAllRails();
+            UpdateGrid();
+
+            Debug.WriteLine(Environment.NewLine + "Aantalrails: " + Rails.Count.ToString() + Environment.NewLine);
         }
 
         public void UpdateGrid()
-        {
+        {/*
             foreach (Sector s in Sectors)
             {
                 Label l = s.AddSectorLabel();
@@ -66,24 +81,30 @@ namespace ICT4Rails
                 //tlpGrid.Controls.Add(l, column, row);
                 
             }
-
+        */
             foreach (Rail r in Rails)
             {
-                /*
+                if (r.GridLocation == null) continue;
                 Label l = r.AddRailLabel();
 
-                string columnString = l.Tag.ToString();
-                string rowString = l.Tag.ToString();
+                string columnString = l.ID;
+                string rowString = l.ID;
 
-                int spaceIndex = columnString.IndexOf(" ");
+                int spaceIndex = columnString.IndexOf("_");
 
                 columnString = columnString.Substring(0, spaceIndex);
-                rowString = rowString.Substring(spaceIndex);
+                rowString = rowString.Substring(spaceIndex + 1);
 
                 int column = Convert.ToInt32(columnString);
                 int row = Convert.ToInt32(rowString);
-                */
-                //tlpGrid.Controls.Add(l, column, row);
+                
+                foreach (var tc in TableCells)
+                {
+                    if (tc.ID == r.GridLocation)
+                    {
+                        tc.Controls.Add(l);
+                    }
+                }
             }
             
             //tlpGrid.Visible = true;
@@ -96,9 +117,10 @@ namespace ICT4Rails
         {
             DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllRails"], null);
 
-            foreach (int nummer in from DataRow dr in dt.Rows select Convert.ToInt32(dr["NUMMER"]))
+            foreach (int nummer in from DataRow dr in dt.Rows select Convert.ToInt32(dr["Nummer"]))
             {
-                Rails.Add(new Rail(nummer));
+                var newRail = new Rail(nummer);
+                Rails.Add(newRail);
             }
         }
     }

@@ -34,7 +34,7 @@ namespace ICT4Rails.Classes
 
         private void GridLocationMethod()
         {
-            switch (Rail.ID)
+            switch (Rail.Nummer)
             {
                 case 38:
                     GridLocation = $"0 {(Position + 1).ToString()}";
@@ -235,7 +235,7 @@ namespace ICT4Rails.Classes
         /*
         private void Sector_Click(object sender, EventArgs e)
         {
-            SectorPropertiesForm spf = new SectorPropertiesForm(Available, Position, Rail.ID, SectorInformation, Reserved);
+            SectorPropertiesForm spf = new SectorPropertiesForm(Available, Position, Rail.Id, SectorInformation, Reserved);
             spf.ShowDialog();
 
             if (sender is Label)

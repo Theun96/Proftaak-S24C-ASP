@@ -5,6 +5,7 @@ using System.Web;
 using Oracle.ManagedDataAccess.Client;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 
 namespace ICT4Rails.Data_Layer
 {
@@ -23,7 +24,7 @@ namespace ICT4Rails.Data_Layer
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Debug.WriteLine(Environment.NewLine + ex.Message + Environment.NewLine);
                 }
                 return null;
             }
@@ -32,7 +33,7 @@ namespace ICT4Rails.Data_Layer
         public static DataTable ExecuteReadQuery(string sqlquery, OracleParameter[] parameters)
         {
             using (Connection)
-            using (var command = new OracleCommand(sqlquery, Connection))
+            using (var command = new OracleCommand(sqlquery, _connection))
             {
                 if (parameters != null)
                 {
@@ -43,6 +44,7 @@ namespace ICT4Rails.Data_Layer
                 {
                     DT.Load(reader);
                 }
+
                 return DT;
             }
         }
@@ -65,7 +67,7 @@ namespace ICT4Rails.Data_Layer
             }
             catch (OracleException oe)
             {
-                Console.WriteLine(oe.Message);
+                Debug.WriteLine(Environment.NewLine + oe.Message + Environment.NewLine);
             }
             connection.Close();
         }
@@ -88,7 +90,7 @@ namespace ICT4Rails.Data_Layer
                 }
                 catch (OracleException oe)
                 {
-                    Console.WriteLine(oe.Message);
+                    Debug.WriteLine(Environment.NewLine + oe.Message + Environment.NewLine);
                 }
             }
         }
