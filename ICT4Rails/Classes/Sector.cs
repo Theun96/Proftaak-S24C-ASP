@@ -249,9 +249,9 @@ namespace ICT4Rails.Classes
             }
         }
         */
-        private void CheckSectorInformation(string tramID)
+        private void CheckSectorInformation(string tramId)
         {
-            SectorInformation = !Available ? "X" : tramID;
+            SectorInformation = !Available ? "X" : tramId;
         }
     }
 }

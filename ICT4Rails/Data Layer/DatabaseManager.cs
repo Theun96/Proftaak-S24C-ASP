@@ -23,7 +23,7 @@ namespace ICT4Rails.Data_Layer
                 }
                 catch (Exception ex)
                 {
-                    //redirect
+                    Console.WriteLine(ex.Message);
                 }
                 return null;
             }
