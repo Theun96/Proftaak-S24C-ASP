@@ -40,3 +40,7 @@ body {
 .tableStyle{
     width: 100%;
 }
+
+#lblSector {
+    font-size: 26px;
+}
