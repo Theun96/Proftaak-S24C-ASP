@@ -12,8 +12,8 @@ namespace ICT4Rails.Data_Layer
 
         public bool Authenticate (string username, string password)
         {
-            bool isvalid = false;
-            using(PrincipalContext pc = new PrincipalContext(ContextType.Domain, "PTS18.local"))
+            var isvalid = false;
+            using(var pc = new PrincipalContext(ContextType.Domain, "PTS18.local"))
             {
                 isvalid = pc.ValidateCredentials(username, password);
             }

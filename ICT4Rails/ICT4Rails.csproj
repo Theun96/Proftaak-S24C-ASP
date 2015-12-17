@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -72,12 +76,18 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\jquery-ui.min.css" />
+    <Content Include="DefaultLogin.aspx" />
+    <Content Include="js\jquery-2.1.4.min.js" />
+    <Content Include="js\jquery-ui.min.js" />
     <Content Include="packages.config" />
     <Content Include="ICT4Rails.Master" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Properties\PublishProfiles\Server.pubxml" />
+    <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -89,7 +99,6 @@
     <Content Include="Admin.aspx" />
     <Content Include="Beheer.aspx" />
     <Content Include="css\bootstrap.min.css" />
-    <Content Include="css\signin.css" />
     <Content Include="css\style.css" />
     <Content Include="DatabaseError.aspx" />
     <Content Include="Default.aspx" />
@@ -100,6 +109,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Schoonmaak.aspx" />
     <Content Include="Techniek.aspx" />
+    <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +120,7 @@
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Beheer.aspx.cs">
       <DependentUpon>Beheer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -117,7 +128,10 @@
     <Compile Include="Beheer.aspx.designer.cs">
       <DependentUpon>Beheer.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Rail.cs" />
+    <Compile Include="Classes\Sector.cs" />
     <Compile Include="Data Layer\Active Directory.cs" />
+    <Compile Include="Data Layer\DatabaseQuerys.cs" />
     <Compile Include="DatabaseError.aspx.cs">
       <DependentUpon>DatabaseError.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -125,13 +139,20 @@
     <Compile Include="DatabaseError.aspx.designer.cs">
       <DependentUpon>DatabaseError.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Data Layer\Database.cs" />
+    <Compile Include="Data Layer\DatabaseManager.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultLogin.aspx.cs">
+      <DependentUpon>DefaultLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DefaultLogin.aspx.designer.cs">
+      <DependentUpon>DefaultLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="ICT4Rails.Master.cs">
       <DependentUpon>ICT4Rails.Master</DependentUpon>
@@ -147,6 +168,7 @@
     <Compile Include="InUitRij.aspx.designer.cs">
       <DependentUpon>InUitRij.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Logic\LoginLogic.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -162,6 +184,13 @@
     <Compile Include="Schoonmaak.aspx.designer.cs">
       <DependentUpon>Schoonmaak.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Site.Mobile.Master.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.designer.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
     <Compile Include="Techniek.aspx.cs">
       <DependentUpon>Techniek.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -169,6 +198,16 @@
     <Compile Include="Techniek.aspx.designer.cs">
       <DependentUpon>Techniek.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSwitcher.ascx.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.designer.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="css\images\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
