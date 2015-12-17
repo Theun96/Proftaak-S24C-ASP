@@ -12,7 +12,7 @@ namespace ICT4Rails.Classes
 {
     public class Sector
     {
-        Label SectorLabel;
+        System.Web.UI.WebControls.Label SectorLabel;
 
         public Rail Rail { get; private set; }
         public int Position { get; private set; }
@@ -174,7 +174,7 @@ namespace ICT4Rails.Classes
             return Position == s.Position ? 0 : 1;
         }
 
-        public Label AddSectorLabel()
+        public System.Web.UI.WebControls.Label AddSectorLabel()
         {/*
             SectorLabel = new Label();
             SectorLabel.Dock = DockStyle.Fill;
