@@ -15,11 +15,7 @@ namespace ICT4Rails
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "pts18"))
-            {
-                // validate the credentials
-                bool isValid = pc.ValidateCredentials("l.vankeulen", "test");
-            }
+
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)

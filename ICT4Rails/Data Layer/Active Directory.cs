@@ -9,11 +9,10 @@ namespace ICT4Rails.Data_Layer
 {
     public class ActiveDirectory
     {
-
         public bool Authenticate (string username, string password)
         {
-            var isvalid = false;
-            using(var pc = new PrincipalContext(ContextType.Domain, "PTS18.local"))
+            bool isvalid = false;
+            using(var pc = new PrincipalContext(ContextType.Domain, "pts18"))
             {
                 isvalid = pc.ValidateCredentials(username, password);
             }
