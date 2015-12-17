@@ -13,7 +13,8 @@ namespace ICT4Rails
         {
             if (Session["User"] != null)
             {
-                
+                LoggedInPH.Visible = true;
+                AnonymousPH.Visible = false;
             }
         }
     }

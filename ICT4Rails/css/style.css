@@ -20,9 +20,9 @@ body {
 }
 
 .form-control {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    margin-bottom: 0px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .btn-width{

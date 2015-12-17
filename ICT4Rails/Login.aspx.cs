@@ -15,9 +15,7 @@ namespace ICT4Rails
         private ActiveDirectory _activedirectory = new ActiveDirectory();
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
+        {}
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
