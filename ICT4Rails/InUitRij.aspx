@@ -1,9 +1,31 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ICT4Rails.Master" AutoEventWireup="true" CodeBehind="InUitRij.aspx.cs" Inherits="ICT4Rails.InUitRij" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
-    <div class="row">
-        <div class="col-md-4"></div>
-        <asp:Label ID="lblSector" runat="server" Text="Geef een tramnummer in." CssClass="col-md-4 sectorlabel" />
-        <div class="col-md-4"></div>
+    <div class="col-md-4 col-md-offset-4">
+        <asp:Label ID="lblTramNumber" runat="server" Text="Geef een tramnummer in." CssClass="sectorlabel bg-primary" />
+    </div>
+    <div class="col-md-4 col-md-offset-4">
+        <table class="table">
+            <tr>
+                <td><asp:Button runat="server" ID="number1" Text=" 1 " CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+                <td><asp:Button runat="server" ID="number2" Text=" 2 " CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+                <td><asp:Button runat="server" ID="number3" Text=" 3 " CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+            </tr>
+            <tr>
+                <td><asp:Button runat="server" ID="number4" Text="4" CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+                <td><asp:Button runat="server" ID="number5" Text="5" CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+                <td><asp:Button runat="server" ID="number6" Text="6" CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+            </tr>
+            <tr>
+                <td><asp:Button runat="server" ID="number7" Text="7" CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+                <td><asp:Button runat="server" ID="number8" Text="8" CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+                <td><asp:Button runat="server" ID="number9" Text="9" CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+            </tr>
+            <tr>
+                <td><asp:Button runat="server" ID="numberClear" Text="Clr" CssClass="btn btn-default touchpadbtn" OnClick="TouchpadClear_Click"/></td>
+                <td><asp:Button runat="server" ID="number0" Text=" 0 " CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+                <td><asp:Button runat="server" ID="numberEnter" Text="Ent" CssClass="btn btn-default touchpadbtn" OnClick="TouchpadEnter_Click"/></td>
+            </tr>
+        </table>
     </div>
 </asp:Content>

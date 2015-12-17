@@ -47,6 +47,28 @@ body {
 
 .sectorlabel {
     font-size: 26px;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    display: block;
+    height: 75px;
+    padding-top: 20px;
+    letter-spacing: -4px;
+}
+
+.touchpadbtn {
+    width: 100%;
+    height: 75px;
+}
+
+
+.table th, .table td { 
+     border-top: none !important; 
+ }
+
+.table td {
+    height: 100%;
+    width: 30%;
 }
 
 .railDefault {

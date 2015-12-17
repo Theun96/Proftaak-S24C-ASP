@@ -20,14 +20,16 @@ namespace ICT4Rails.Data_Layer
             //Query["GetClean"] = "SELECT m.TRAMID,m.DATEADDED,m.DATEFINISHED,m.FINISHEDBY, m.OPMERKING FROM MAINTENANCE m WHERE m.TYPE = 0";
             //Query["GetCleanUser"] = "SELECT e.NAME FROM EMPLOYEE e WHERE e.USERID =:USERID";
             //Query["RemoveUser"] = "DELETE FROM LOGIN WHERE USERNAME=:username";
-            //Query["GetAllSectors"] = "SELECT * FROM SECTOR";
+            
             //Query["GetReservedSector"] = "SELECT RAILID, POSITION FROM SECTOR WHERE TRAMID = :tramid AND ISRESERVED = 1";
             //Query["UpdateEndDate"] = "UPDATE MAINTENANCE SET DATEFINISHED = TO_DATE(:datefinished,'dd/mm/yyyy hh24:mi:ss') WHERE TRAMID = :tramid";
             //Query["GetAllCleaners"] = "SELECT NAME FROM EMPLOYEE WHERE EMPLOYEETYPE = 'schoonmaker'";
             //Query["GetAllEngineers"] = "SELECT NAME FROM EMPLOYEE WHERE EMPLOYEETYPE = 'technicus'";
             //Query["maintenancefinished"] = "UPDATE MAINTENANCE SET DATEFINISHED = TO_DATE(:datefinished,'dd/mm/yyyy hh24:mi:ss'), FINISHEDBY = :employeeid WHERE TRAMID = :tramid AND TYPE = :type";
 
-            Query["GetAllRails"] = "SELECT \"Nummer\" FROM SPOOR";
+            //Beheer systeem querys
+            Query["GetAllRails"] = "SELECT \"ID\", \"Nummer\" FROM SPOOR";
+            Query["GetAllSectors"] = "SELECT * FROM SECTOR";
 
             //Query["addtramtoincoming"] = "INSERT INTO INCOMING (TRAMID, MOMENT, MAINTENANCE) VALUES (:tramid, sysdate, :maintenance)";
             //Query["traincheckin"] = "UPDATE SECTOR SET ISRESERVED = 0 WHERE TRAMID = :tramid";

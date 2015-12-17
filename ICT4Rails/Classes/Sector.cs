@@ -1,4 +1,5 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using ICT4Rails.Data_Layer;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,23 +12,28 @@ namespace ICT4Rails.Classes
 {
     public class Sector
     {
-        Label SectorLabel;
+        Label _sectorLabel = new Label();
 
+        public int ID { get; private set; }
         public Rail Rail { get; private set; }
-        public int Position { get; private set; }
+        public string Tram_ID { get; private set; }
+        public int Nummer { get; private set; }
+        public bool Beschikbaar { get; private set; }
+        public bool Blokkade { get; private set; }
+
+        public string SectorInformation { get; private set; }
         public string GridLocation { get; private set; }
-        public string SectorInformation { get; set; }
-        public bool Available { get; set; }
-        public bool Reserved { get; set; }
 
-        public Sector(Rail rail, int position, bool available, string tramID, bool reserved)
+        public Sector(int id, Rail rail, string tram_id, int nummer, bool beschikbaar, bool blokkade)
         {
+            ID = id;
             Rail = rail;
-            Position = position;
-            Available = available;
-            Reserved = reserved;
+            Tram_ID = tram_id;
+            Nummer = nummer;
+            Beschikbaar = beschikbaar;
+            Blokkade = blokkade;
 
-            CheckSectorInformation(tramID);
+            CheckSectorInformation(Tram_ID);
 
             GridLocationMethod();
         }
@@ -37,127 +43,127 @@ namespace ICT4Rails.Classes
             switch (Rail.Nummer)
             {
                 case 38:
-                    GridLocation = $"0 {(Position + 1).ToString()}";
+                    GridLocation = $"0_{(Nummer + 1).ToString()}";
                     break;
                 case 37:
-                    GridLocation = $"1 {(Position + 1).ToString()}";
+                    GridLocation = $"1_{(Nummer + 1).ToString()}";
                     break;
                 case 36:
-                    GridLocation = $"2 {(Position + 1).ToString()}";
+                    GridLocation = $"2_{(Nummer + 1).ToString()}";
                     break;
                 case 35:
-                    GridLocation = $"3 {(Position + 1).ToString()}";
+                    GridLocation = $"3_{(Nummer + 1).ToString()}";
                     break;
                 case 34:
-                    GridLocation = $"4 {(Position + 1).ToString()}";
+                    GridLocation = $"4_{(Nummer + 1).ToString()}";
                     break;
                 case 33:
-                    GridLocation = $"5 {(Position + 1).ToString()}";
+                    GridLocation = $"5_{(Nummer + 1).ToString()}";
                     break;
                 case 32:
-                    GridLocation = $"6 {(Position + 1).ToString()}";
+                    GridLocation = $"6_{(Nummer + 1).ToString()}";
                     break;
                 case 31:
-                    GridLocation = $"7 {(Position + 1).ToString()}";
+                    GridLocation = $"7_{(Nummer + 1).ToString()}";
                     break;
                 case 30:
-                    GridLocation = $"8 {(Position + 1).ToString()}";
+                    GridLocation = $"8_{(Nummer + 1).ToString()}";
                     break;
                 case 40:
-                    GridLocation = $"10 {(Position + 1).ToString()}";
+                    GridLocation = $"10_{(Nummer + 1).ToString()}";
                     break;
                 case 41:
-                    GridLocation = $"11 {(Position + 1).ToString()}";
+                    GridLocation = $"11_{(Nummer + 1).ToString()}";
                     break;
                 case 42:
-                    GridLocation = $"12 {(Position + 1).ToString()}";
+                    GridLocation = $"12_{(Nummer + 1).ToString()}";
                     break;
                 case 43:
-                    GridLocation = $"13 {(Position + 1).ToString()}";
+                    GridLocation = $"13_{(Nummer + 1).ToString()}";
                     break;
                 case 44:
-                    GridLocation = $"14 {(Position + 1).ToString()}";
+                    GridLocation = $"14_{(Nummer + 1).ToString()}";
                     break;
                 case 45:
-                    GridLocation = $"16 {(Position + 1).ToString()}";
+                    GridLocation = $"16_{(Nummer + 1).ToString()}";
                     break;
                 case 58:
-                    GridLocation = $"18 {(Position + 1).ToString()}";
+                    GridLocation = $"18_{(Nummer + 1).ToString()}";
                     break;
                 case 57:
-                    GridLocation = $"0 {(Position + 14).ToString()}";
+                    GridLocation = $"0_{(Nummer + 14).ToString()}";
                     break;
                 case 56:
-                    GridLocation = $"1 {(Position + 14).ToString()}";
+                    GridLocation = $"1_{(Nummer + 14).ToString()}";
                     break;
                 case 55:
-                    GridLocation = $"2 {(Position + 14).ToString()}";
+                    GridLocation = $"2_{(Nummer + 14).ToString()}";
                     break;
                 case 54:
-                    GridLocation = $"3 {(Position + 14).ToString()}";
+                    GridLocation = $"3_{(Nummer + 14).ToString()}";
                     break;
                 case 53:
-                    GridLocation = $"4 {(Position + 14).ToString()}";
+                    GridLocation = $"4_{(Nummer + 14).ToString()}";
                     break;
                 case 52:
-                    GridLocation = $"5 {(Position + 14).ToString()}";
+                    GridLocation = $"5_{(Nummer + 14).ToString()}";
                     break;
                 case 51:
-                    GridLocation = $"6 {(Position + 14).ToString()}";
+                    GridLocation = $"6_{(Nummer + 14).ToString()}";
                     break;
                 case 64:
-                    GridLocation = $"7 {(Position + 14).ToString()}";
+                    GridLocation = $"7_{(Nummer + 14).ToString()}";
                     break;
                 case 63:
-                    GridLocation = $"8 {(Position + 14).ToString()}";
+                    GridLocation = $"8_{(Nummer + 14).ToString()}";
                     break;
                 case 62:
-                    GridLocation = $"9 {(Position + 14).ToString()}";
+                    GridLocation = $"9_{(Nummer + 14).ToString()}";
                     break;
                 case 61:
-                    GridLocation = $"10 {(Position + 14).ToString()}";
+                    GridLocation = $"10_{(Nummer + 14).ToString()}";
                     break;
                 case 74:
-                    GridLocation = $"12 {(Position + 13).ToString()}";
+                    GridLocation = $"12_{(Nummer + 13).ToString()}";
                     break;
                 case 75:
-                    GridLocation = $"13 {(Position + 13).ToString()}";
+                    GridLocation = $"13_{(Nummer + 13).ToString()}";
                     break;
                 case 76:
-                    GridLocation = $"14 {(Position + 13).ToString()}";
+                    GridLocation = $"14_{(Nummer + 13).ToString()}";
                     break;
                 case 77:
-                    GridLocation = $"15 {(Position + 13).ToString()}";
+                    GridLocation = $"15_{(Nummer + 13).ToString()}";
                     break;
                 case 12:
-                    GridLocation = $"18 {(Position + 12).ToString()}";
+                    GridLocation = $"18_{(Nummer + 12).ToString()}";
                     break;
                 case 13:
-                    GridLocation = $"18 {(Position + 13).ToString()}";
+                    GridLocation = $"18_{(Nummer + 13).ToString()}";
                     break;
                 case 14:
-                    GridLocation = $"18 {(Position + 14).ToString()}";
+                    GridLocation = $"18_{(Nummer + 14).ToString()}";
                     break;
                 case 15:
-                    GridLocation = $"18 {(Position + 15).ToString()}";
+                    GridLocation = $"18_{(Nummer + 15).ToString()}";
                     break;
                 case 16:
-                    GridLocation = $"18 {(Position + 16).ToString()}";
+                    GridLocation = $"18_{(Nummer + 16).ToString()}";
                     break;
                 case 17:
-                    GridLocation = $"18 {(Position + 17).ToString()}";
+                    GridLocation = $"18_{(Nummer + 17).ToString()}";
                     break;
                 case 18:
-                    GridLocation = $"18 {(Position + 18).ToString()}";
+                    GridLocation = $"18_{(Nummer + 18).ToString()}";
                     break;
                 case 19:
-                    GridLocation = $"18 {(Position + 19).ToString()}";
+                    GridLocation = $"18_{(Nummer + 19).ToString()}";
                     break;
                 case 20:
-                    GridLocation = $"18 {(Position + 20).ToString()}";
+                    GridLocation = $"18_{(Nummer + 20).ToString()}";
                     break;
                 case 21:
-                    GridLocation = $"18 {(Position + 21).ToString()}";
+                    GridLocation = $"18_{(Nummer + 21).ToString()}";
                     break;
                 default:
                     return;
@@ -166,28 +172,23 @@ namespace ICT4Rails.Classes
 
         public int CompareTo(Sector s)
         {
-            if (Position < s.Position)
+            if (Nummer < s.Nummer)
             {
                 return -1;
             }
-            return Position == s.Position ? 0 : 1;
+            return Nummer == s.Nummer ? 0 : 1;
         }
 
         public Label AddSectorLabel()
-        {/*
-            SectorLabel = new Label();
-            SectorLabel.Dock = DockStyle.Fill;
-            SectorLabel.Margin = new Padding(1);
+        {
+            //_sectorLabel = new Label();
 
-            SectorLabel.Text = SectorInformation;
+            _sectorLabel.Text = SectorInformation;
+            _sectorLabel.ID = GridLocation;
+            _sectorLabel.CssClass = "sectorDefault";
 
-            SectorLabel.ForeColor = Color.Black;
-            SectorLabel.TextAlign = ContentAlignment.MiddleCenter;
-            SectorLabel.Tag = GridLocation;
-            SectorLabel.BackColor = Color.LightGray;
-            */
             //SectorLabel.Click += new EventHandler(Sector_Click);
-
+            /*
             int parameterint = 3;
 
             if (SectorInformation == "" || SectorInformation == "X")
@@ -205,32 +206,32 @@ namespace ICT4Rails.Classes
                 new OracleParameter("tramid", parameterint)
             };
 
-            //DataTable DT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetTramStatus"], parameters1);
+            DataTable DT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetTramStatus"], parameters1);
             
             string tramID = "";
             const int type = 3;
             if (type == 0)
             {
-                SectorLabel.BackColor = Color.Yellow;
+                _sectorLabel.BackColor = Color.Yellow;
             }
 
             if (type == 1)
             {
-                SectorLabel.BackColor = Color.Orange;
+                _sectorLabel.BackColor = Color.Orange;
             }
 
             if (Reserved)
             {
-                SectorLabel.ForeColor = Color.Green;
+                _sectorLabel.ForeColor = Color.Green;
             }
 
-            if (!Available)
+            if (!Beschikbaar)
             {
-                SectorLabel.ForeColor = Color.White;
-                SectorLabel.BackColor = Color.Black;
+                _sectorLabel.ForeColor = Color.White;
+                _sectorLabel.BackColor = Color.Black;
             }
-
-            return SectorLabel;
+            */
+            return _sectorLabel;
         }
         /*
         private void Sector_Click(object sender, EventArgs e)
@@ -249,9 +250,9 @@ namespace ICT4Rails.Classes
             }
         }
         */
-        private void CheckSectorInformation(string tramId)
+        private void CheckSectorInformation(string tram_Id)
         {
-            SectorInformation = !Available ? "X" : tramId;
+            SectorInformation = !Beschikbaar ? "X" : tram_Id;
         }
     }
 }

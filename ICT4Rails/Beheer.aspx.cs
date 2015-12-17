@@ -56,32 +56,46 @@ namespace ICT4Rails
 
             //data uit database halen
             GetAllRails();
+
+            GetAllSectors();
             UpdateGrid();
 
             Debug.WriteLine(Environment.NewLine + "Aantalrails: " + Rails.Count.ToString() + Environment.NewLine);
+            Debug.WriteLine("Aantalsectors: " + Sectors.Count.ToString() + Environment.NewLine);
         }
 
         public void UpdateGrid()
-        {/*
+        {
+            foreach (TableCell tc in TableCells)
+            {
+                tc.Controls.Clear();
+            }
+
             foreach (Sector s in Sectors)
             {
+                if(s.GridLocation == null) continue;
                 Label l = s.AddSectorLabel();
 
                 string columnString = l.ID;
                 string rowString = l.ID;
 
-                int spaceIndex = columnString.IndexOf(" ");
+                int spaceIndex = columnString.IndexOf("_");
 
                 columnString = columnString.Substring(0, spaceIndex);
-                rowString = rowString.Substring(spaceIndex);
+                rowString = rowString.Substring(spaceIndex + 1);
 
                 int column = Convert.ToInt32(columnString);
                 int row = Convert.ToInt32(rowString);
-                
-                //tlpGrid.Controls.Add(l, column, row);
-                
+
+                foreach (var tc in TableCells)
+                {
+                    if (tc.ID == s.GridLocation)
+                    {
+                        tc.Controls.Add(l);
+                    }
+                }
             }
-        */
+        
             foreach (Rail r in Rails)
             {
                 if (r.GridLocation == null) continue;
@@ -106,8 +120,6 @@ namespace ICT4Rails
                     }
                 }
             }
-            
-            //tlpGrid.Visible = true;
         }
 
         /// <summary>
@@ -117,11 +129,71 @@ namespace ICT4Rails
         {
             DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllRails"], null);
 
-            foreach (int nummer in from DataRow dr in dt.Rows select Convert.ToInt32(dr["Nummer"]))
+            int Id;
+            int nummer;
+
+            foreach (DataRow DR in dt.Rows)
             {
-                var newRail = new Rail(nummer);
+                Id = Convert.ToInt32(DR["ID"]);
+                nummer = Convert.ToInt32(DR["Nummer"]);
+
+                var newRail = new Rail(Id, nummer);
                 Rails.Add(newRail);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void GetAllSectors()
+        {
+            DataTable DT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllSectors"], null);
+
+            int Id;
+            int Spoor_ID;
+            string Tram_ID;
+            int Nummer;
+            int available;
+            bool Beschikbaar;
+            int geblokkeerd;
+            bool Blokkade;
+
+            Sectors.Clear();
+
+            foreach (DataRow DR in DT.Rows)
+            {
+                Id = Convert.ToInt32(DR["ID"]);
+                Spoor_ID = Convert.ToInt32(DR["Spoor_ID"]);
+
+                if ((DR["Tram_ID"]).ToString() != "")
+                {
+                    Tram_ID = (DR["Tram_ID"]).ToString();
+                }
+                else
+                {
+                    Tram_ID = "";
+                }
+
+                Nummer = Convert.ToInt32(DR["Nummer"]);
+                available = Convert.ToInt32(DR["Beschikbaar"]);
+                geblokkeerd = Convert.ToInt32(DR["Blokkade"]);
+
+                if (available == 1) { Beschikbaar = true; }
+                else { Beschikbaar = false; }
+                
+                if (geblokkeerd == 1) { Blokkade = true; }
+                else { Blokkade = false; }
+
+                foreach (Rail r in Rails)
+                {
+                    if (r.ID == Spoor_ID)
+                    {
+                        Sectors.Add(new Sector(Id, r, Tram_ID, Nummer, Beschikbaar, Blokkade));
+                    }
+                }
+            }
+
+            UpdateGrid();
         }
     }
 }

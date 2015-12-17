@@ -78,6 +78,7 @@
   <ItemGroup>
     <Content Include="css\jquery-ui.min.css" />
     <Content Include="DefaultLogin.aspx" />
+    <Content Include="js\jquery-2.1.4.min.js" />
     <Content Include="js\jquery-ui.min.js" />
     <Content Include="packages.config" />
     <Content Include="ICT4Rails.Master" />
@@ -204,6 +205,9 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="css\images\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

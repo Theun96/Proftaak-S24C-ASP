@@ -13,11 +13,13 @@ namespace ICT4Rails.Classes
     {
         Label RailLabel = new Label();
 
+        public int ID { get; private set; }
         public int Nummer { get; private set; }
         public string GridLocation { get; private set; }
 
-        public Rail(int nummer)
+        public Rail(int rail_id, int nummer)
         {
+            ID = rail_id;
             Nummer = nummer;
             GridLocationMethod();
             //RailLabel.Click += new EventHandler(Rail_Click);
@@ -155,9 +157,6 @@ namespace ICT4Rails.Classes
         
         public Label AddRailLabel()
         {
-            //RailLabel.Dock = DockStyle.Fill;
-            //RailLabel.Margin = new Padding(1);
-
             RailLabel.Text = Nummer.ToString();
             RailLabel.ID = GridLocation;
             RailLabel.CssClass = "railDefault"; 
