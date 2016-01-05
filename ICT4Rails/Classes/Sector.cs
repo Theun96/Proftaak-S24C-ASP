@@ -202,7 +202,6 @@ namespace ICT4Rails.Classes
 
             OracleParameter[] parameters1 = new OracleParameter[]
             {
-
                 new OracleParameter("tramid", parameterint)
             };
 
