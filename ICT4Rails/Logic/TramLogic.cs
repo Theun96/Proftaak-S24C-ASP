@@ -45,4 +45,7 @@ namespace ICT4Rails.Logic
             DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["addtramtoincoming"], parameters);
         }
     }
+
+
+
 }
