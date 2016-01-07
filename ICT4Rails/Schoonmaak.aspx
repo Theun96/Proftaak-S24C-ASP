@@ -16,10 +16,11 @@
         <div class="col-md-3  col-md-offset-1">
             <asp:DropDownList ID="DropDownTrams" runat="server" cssclass="form-control dropdown"></asp:DropDownList>
             <asp:DropDownList ID="DropDownUsers" runat="server" cssclass="form-control dropdown"></asp:DropDownList>
-            <asp:Button ID="ButtonCleaned" runat="server" Text="Schoongemaakt" cssclass="form-control" />
+            <asp:Button ID="ButtonCleaned" runat="server" Text="Schoongemaakt" cssclass="form-control" OnClick="ButtonCleaned_Click" />
         </div>
         <div class="col-md-3  col-md-offset-4">
-            <input type="text" value="1/1/2016" readonly="readonly" name="datepicker" id="datepicker" class="datepicker form-control"/>
+            <asp:DropDownList ID="DropDownTrams2" runat="server" cssclass="form-control dropdown"></asp:DropDownList>
+            <input type="text" value="1/1/2016" readonly="readonly" name="datepicker" id="datepicker" class="datepicker form-control" runat="server"/>
             <asp:Button ID="ButtonSaveEndDate" runat="server" Text="Einddatum opslaan" cssclass="form-control" />
         </div>
     </div>
