@@ -12,11 +12,11 @@ namespace ICT4Rails.Classes
 {
     public class Sector
     {
-        Label _sectorLabel = new Label();
+        private readonly LinkButton _sectorLabel = new LinkButton();
 
-        public int ID { get; private set; }
+        public int Id { get; private set; }
         public Rail Rail { get; private set; }
-        public string Tram_ID { get; private set; }
+        public string TramId { get; private set; }
         public int Nummer { get; private set; }
         public bool Beschikbaar { get; private set; }
         public bool Blokkade { get; private set; }
@@ -26,14 +26,14 @@ namespace ICT4Rails.Classes
 
         public Sector(int id, Rail rail, string tram_id, int nummer, bool beschikbaar, bool blokkade)
         {
-            ID = id;
+            Id = id;
             Rail = rail;
-            Tram_ID = tram_id;
+            TramId = tram_id;
             Nummer = nummer;
             Beschikbaar = beschikbaar;
             Blokkade = blokkade;
 
-            CheckSectorInformation(Tram_ID);
+            CheckSectorInformation(TramId);
 
             GridLocationMethod();
         }
@@ -179,15 +179,13 @@ namespace ICT4Rails.Classes
             return Nummer == s.Nummer ? 0 : 1;
         }
 
-        public Label AddSectorLabel()
+        public LinkButton AddSectorLabel()
         {
-            //_sectorLabel = new Label();
-
             _sectorLabel.Text = SectorInformation;
             _sectorLabel.ID = GridLocation;
             _sectorLabel.CssClass = "sectorDefault";
-
-            //SectorLabel.Click += new EventHandler(Sector_Click);
+            
+            _sectorLabel.Click += Sector_Click;
             /*
             int parameterint = 3;
 
@@ -249,9 +247,14 @@ namespace ICT4Rails.Classes
             }
         }
         */
-        private void CheckSectorInformation(string tram_Id)
+        private void CheckSectorInformation(string tramId)
         {
-            SectorInformation = !Beschikbaar ? "X" : tram_Id;
+            SectorInformation = !Beschikbaar ? "X" : tramId;
+        }
+
+        private void Sector_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

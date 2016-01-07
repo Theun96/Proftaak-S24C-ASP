@@ -44,7 +44,7 @@ namespace ICT4Rails
                         Height = new Unit(heightPercent)
                     };
 
-                    c.ID = i.ToString() + "_" + j.ToString();
+                    c.ID = "c" + i.ToString() + "_" + j.ToString();
 
                     TableCells.Add(c);
 
@@ -74,7 +74,7 @@ namespace ICT4Rails
             foreach (Sector s in Sectors)
             {
                 if(s.GridLocation == null) continue;
-                Label l = s.AddSectorLabel();
+                LinkButton l = s.AddSectorLabel();
 
                 string columnString = l.ID;
                 string rowString = l.ID;
@@ -89,7 +89,7 @@ namespace ICT4Rails
 
                 foreach (var tc in TableCells)
                 {
-                    if (tc.ID == s.GridLocation)
+                    if (tc.ID.Substring(1) == s.GridLocation)
                     {
                         tc.Controls.Add(l);
                     }
@@ -114,7 +114,7 @@ namespace ICT4Rails
                 
                 foreach (var tc in TableCells)
                 {
-                    if (tc.ID == r.GridLocation)
+                    if (tc.ID.Substring(1) == r.GridLocation)
                     {
                         tc.Controls.Add(l);
                     }
@@ -134,7 +134,7 @@ namespace ICT4Rails
 
             foreach (DataRow DR in dt.Rows)
             {
-                Id = Convert.ToInt32(DR["ID"]);
+                Id = Convert.ToInt32(DR["Id"]);
                 nummer = Convert.ToInt32(DR["Nummer"]);
 
                 var newRail = new Rail(Id, nummer);
@@ -162,12 +162,12 @@ namespace ICT4Rails
 
             foreach (DataRow DR in DT.Rows)
             {
-                Id = Convert.ToInt32(DR["ID"]);
+                Id = Convert.ToInt32(DR["Id"]);
                 Spoor_ID = Convert.ToInt32(DR["Spoor_ID"]);
 
-                if ((DR["Tram_ID"]).ToString() != "")
+                if ((DR["TramId"]).ToString() != "")
                 {
-                    Tram_ID = (DR["Tram_ID"]).ToString();
+                    Tram_ID = (DR["TramId"]).ToString();
                 }
                 else
                 {
@@ -186,7 +186,7 @@ namespace ICT4Rails
 
                 foreach (Rail r in Rails)
                 {
-                    if (r.ID == Spoor_ID)
+                    if (r.Id == Spoor_ID)
                     {
                         Sectors.Add(new Sector(Id, r, Tram_ID, Nummer, Beschikbaar, Blokkade));
                     }
