@@ -247,9 +247,9 @@ namespace ICT4Rails.Classes
             }
         }
         */
-        private void CheckSectorInformation(string tram_Id)
+        private void CheckSectorInformation(string tramId)
         {
-            SectorInformation = !Beschikbaar ? "X" : tram_Id;
+            SectorInformation = !Beschikbaar ? "X" : tramId;
         }
 
         private void Sector_Click(object sender, EventArgs e)
