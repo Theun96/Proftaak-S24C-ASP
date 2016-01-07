@@ -7,6 +7,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ICT4Rails.Classes;
 using ICT4Rails.Data_Layer;
+using ICT4Rails.Plugins;
+using Oracle.ManagedDataAccess.Client;
 
 namespace ICT4Rails
 {
@@ -64,7 +66,13 @@ namespace ICT4Rails
 
         protected void ButtonRepaired_Click(object sender, EventArgs e)
         {
-
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("id", DropDownTrams.SelectedValue),
+                new OracleParameter("naam", DropDownUsers.SelectedValue)
+            };
+            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["SetTech"], parameters);
+            Response.Redirect(Request.Url.AbsoluteUri);
         }
 
         protected void ButtonSaveEndDate_Click(object sender, EventArgs e)
