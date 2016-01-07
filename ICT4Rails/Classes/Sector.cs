@@ -251,7 +251,7 @@ namespace ICT4Rails.Classes
         {
             OracleParameter[] parameters1 =
             {
-                new OracleParameter("id", tram_Id)
+                new OracleParameter("id", tramId)
             };
 
             DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetTramNummer"], parameters1);
