@@ -165,31 +165,19 @@ namespace ICT4Rails
                 Id = Convert.ToInt32(DR["Id"]);
                 Spoor_ID = Convert.ToInt32(DR["Spoor_ID"]);
 
-                if ((DR["TramId"]).ToString() != "")
-                {
-                    Tram_ID = (DR["TramId"]).ToString();
-                }
-                else
-                {
-                    Tram_ID = "";
-                }
+                Tram_ID = (DR["Tram_ID"]).ToString() != "" ? (DR["Tram_ID"]).ToString() : "";
 
                 Nummer = Convert.ToInt32(DR["Nummer"]);
                 available = Convert.ToInt32(DR["Beschikbaar"]);
                 geblokkeerd = Convert.ToInt32(DR["Blokkade"]);
 
-                if (available == 1) { Beschikbaar = true; }
-                else { Beschikbaar = false; }
+                Beschikbaar = available == 1;
                 
-                if (geblokkeerd == 1) { Blokkade = true; }
-                else { Blokkade = false; }
+                Blokkade = geblokkeerd == 1;
 
-                foreach (Rail r in Rails)
+                foreach (Rail r in Rails.Where(r => r.Id == Spoor_ID))
                 {
-                    if (r.Id == Spoor_ID)
-                    {
-                        Sectors.Add(new Sector(Id, r, Tram_ID, Nummer, Beschikbaar, Blokkade));
-                    }
+                    Sectors.Add(new Sector(Id, r, Tram_ID, Nummer, Beschikbaar, Blokkade));
                 }
             }
 

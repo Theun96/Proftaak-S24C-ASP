@@ -249,12 +249,28 @@ namespace ICT4Rails.Classes
         */
         private void CheckSectorInformation(string tramId)
         {
-            SectorInformation = !Beschikbaar ? "X" : tramId;
+            OracleParameter[] parameters1 =
+            {
+                new OracleParameter("id", tram_Id)
+            };
+
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetTramNummer"], parameters1);
+            
+            foreach (DataRow dr in dt.Rows)
+            {
+                int nummer = Convert.ToInt32(dr["Nummer"]);
+
+                if (nummer != 0)
+                {
+                    SectorInformation = !Beschikbaar ? "X" : nummer.ToString();
+                }
+
+            }
         }
 
-        private void Sector_Click(object sender, EventArgs e)
+        private static void Sector_Click(object sender, EventArgs e)
         {
-            
+            System.Web.HttpContext.Current.Response.Redirect("/");
         }
     }
 }
