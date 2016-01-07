@@ -230,27 +230,10 @@ namespace ICT4Rails.Classes
             */
             return _sectorLabel;
         }
-        /*
-        private void Sector_Click(object sender, EventArgs e)
-        {
-            SectorPropertiesForm spf = new SectorPropertiesForm(Available, Position, Rail.Id, SectorInformation, Reserved);
-            spf.ShowDialog();
 
-            if (sender is Label)
-            {
-                Label label = (Label)sender;
-                if (label.Parent.Parent is BeheerSysteemForm)
-                {
-                    BeheerSysteemForm form = (BeheerSysteemForm)label.Parent.Parent;
-                    form.GetAllSectors();
-                }
-            }
-        }
-        */
         private void CheckSectorInformation(string tramNummer)
         {
             SectorInformation = Blokkade ? "X" : tramNummer;
-
         }
 
         private static void Sector_Click(object sender, EventArgs e)
