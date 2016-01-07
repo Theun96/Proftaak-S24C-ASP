@@ -27,6 +27,7 @@ namespace ICT4Rails
                 if (dr["Naam"].ToString() == "")
                 {
                     DropDownTrams.Items.Add(dr["nummer"].ToString());
+                    DropDownTrams2.Items.Add(dr["nummer"].ToString());
                 }
 
                 TableRow r = new TableRow();
@@ -56,6 +57,11 @@ namespace ICT4Rails
                 }
                 table.Rows.Add(r);
             }
+        }
+
+        protected void ButtonCleaned_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

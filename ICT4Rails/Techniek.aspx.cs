@@ -30,6 +30,7 @@ namespace ICT4Rails
                 if (dr["Naam"].ToString() == "")
                 {
                     DropDownTrams.Items.Add(dr["nummer"].ToString());
+                    DropDownTrams2.Items.Add(dr["nummer"].ToString());
                 }
 
                 TableRow r = new TableRow();
@@ -68,6 +69,7 @@ namespace ICT4Rails
 
         protected void ButtonSaveEndDate_Click(object sender, EventArgs e)
         {
+            DateTime date = DateTime.Parse(datepicker.Text);
 
         }
     }
