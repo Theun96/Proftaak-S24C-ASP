@@ -24,11 +24,11 @@ namespace ICT4Rails.Classes
         public string SectorInformation { get; private set; }
         public string GridLocation { get; private set; }
 
-        public Sector(int id, Rail rail, string tram_id, int nummer, bool beschikbaar, bool blokkade)
+        public Sector(int id, Rail rail, string tramId, int nummer, bool beschikbaar, bool blokkade)
         {
             Id = id;
             Rail = rail;
-            TramId = tram_id;
+            TramId = tramId;
             Nummer = nummer;
             Beschikbaar = beschikbaar;
             Blokkade = blokkade;
@@ -256,21 +256,15 @@ namespace ICT4Rails.Classes
 
             DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetTramNummer"], parameters1);
             
-            foreach (DataRow dr in dt.Rows)
+            foreach (int nummer in dt.Rows.Cast<DataRow>().Select(dr => Convert.ToInt32(dr["Nummer"])).Where(nummer => nummer != 0))
             {
-                int nummer = Convert.ToInt32(dr["Nummer"]);
-
-                if (nummer != 0)
-                {
-                    SectorInformation = !Beschikbaar ? "X" : nummer.ToString();
-                }
-
+                SectorInformation = !Beschikbaar ? "X" : nummer.ToString();
             }
         }
 
         private static void Sector_Click(object sender, EventArgs e)
         {
-            System.Web.HttpContext.Current.Response.Redirect("/");
+            HttpContext.Current.Response.Redirect("/SectorInformation.aspx");
         }
     }
 }
