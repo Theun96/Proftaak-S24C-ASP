@@ -11,11 +11,10 @@ using System.Web.UI.WebControls;
 
 namespace ICT4Rails
 {
-    public partial class Beheer : System.Web.UI.Page
+    public partial class Beheer : Page
     {
         public List<Rail> Rails { get; private set; }
         public List<Sector> Sectors { get; private set; }
-
         public List<TableCell> TableCells { get; private set; }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -30,7 +29,7 @@ namespace ICT4Rails
             const int numrows = 29;
             const int numcells = 19;
 
-            string widthPercent = (100 / numcells).ToString() + "%";
+            string widthPercent = (100 / numcells) + "%";
             const string heightPercent = "30px";
 
             for (int j = 0; j < numrows; j++)
@@ -42,14 +41,12 @@ namespace ICT4Rails
                     {
                         Width = new Unit(widthPercent),
                         Height = new Unit(heightPercent),
-                        ID = "c" + i.ToString() + "_" + j.ToString()
+                        ID = "c" + i + "_" + j
                     };
-
-
+                    
                     TableCells.Add(c);
 
                     r.Cells.Add(c);
-                    
                 }
                 tblBeheer.Rows.Add(r);
             }
@@ -60,8 +57,8 @@ namespace ICT4Rails
             GetAllSectors();
             UpdateGrid();
 
-            Debug.WriteLine(Environment.NewLine + "Aantalrails: " + Rails.Count.ToString() + Environment.NewLine);
-            Debug.WriteLine("Aantalsectors: " + Sectors.Count.ToString() + Environment.NewLine);
+            Debug.WriteLine(Environment.NewLine + "Aantalrails: " + Rails.Count + Environment.NewLine);
+            Debug.WriteLine("Aantalsectors: " + Sectors.Count + Environment.NewLine);
         }
 
         public void UpdateGrid()
@@ -76,17 +73,6 @@ namespace ICT4Rails
                 if(s.GridLocation == null) continue;
                 LinkButton l = s.AddSectorLabel();
 
-                string columnString = l.ID;
-                string rowString = l.ID;
-
-                int spaceIndex = columnString.IndexOf("_", StringComparison.Ordinal);
-
-                columnString = columnString.Substring(0, spaceIndex);
-                rowString = rowString.Substring(spaceIndex + 1);
-
-                int column = Convert.ToInt32(columnString);
-                int row = Convert.ToInt32(rowString);
-
                 foreach (var tc in TableCells.Where(tc => tc.ID.Substring(1) == s.GridLocation))
                 {
                     tc.Controls.Add(l);
@@ -97,17 +83,6 @@ namespace ICT4Rails
             {
                 if (r.GridLocation == null) continue;
                 Label l = r.AddRailLabel();
-
-                string columnString = l.ID;
-                string rowString = l.ID;
-
-                int spaceIndex = columnString.IndexOf("_", StringComparison.Ordinal);
-
-                columnString = columnString.Substring(0, spaceIndex);
-                rowString = rowString.Substring(spaceIndex + 1);
-
-                int column = Convert.ToInt32(columnString);
-                int row = Convert.ToInt32(rowString);
                 
                 foreach (var tc in TableCells.Where(tc => tc.ID.Substring(1) == r.GridLocation))
                 {
