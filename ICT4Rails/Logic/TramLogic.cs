@@ -13,12 +13,12 @@ namespace ICT4Rails.Logic
 
         public void AddingTram()
         {
-            OracleParameter[] parameters = new OracleParameter[]
+            OracleParameter[] parameters =
             {
                 new OracleParameter("tramID", ParameterInt)
             };
 
-            DataTable DT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllAvailableTrams"], parameters);
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllAvailableTrams"], parameters);
         }
 
         public int[] GetReservedSector(int tramnumber)
@@ -37,7 +37,7 @@ namespace ICT4Rails.Logic
 
         public void AddIncoming(string tramid, int maintenance)
         {
-            OracleParameter[] parameters = new OracleParameter[]
+            OracleParameter[] parameters =
             {
                 new OracleParameter("tramid", tramid),
                 new OracleParameter("maintenance", maintenance)

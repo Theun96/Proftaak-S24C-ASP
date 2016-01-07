@@ -12,11 +12,11 @@ namespace ICT4Rails.Classes
 {
     public class Sector
     {
-        LinkButton _sectorLabel = new LinkButton();
+        private readonly LinkButton _sectorLabel = new LinkButton();
 
-        public int ID { get; private set; }
+        public int Id { get; private set; }
         public Rail Rail { get; private set; }
-        public string Tram_ID { get; private set; }
+        public string TramId { get; private set; }
         public int Nummer { get; private set; }
         public bool Beschikbaar { get; private set; }
         public bool Blokkade { get; private set; }
@@ -26,14 +26,14 @@ namespace ICT4Rails.Classes
 
         public Sector(int id, Rail rail, string tram_id, int nummer, bool beschikbaar, bool blokkade)
         {
-            ID = id;
+            Id = id;
             Rail = rail;
-            Tram_ID = tram_id;
+            TramId = tram_id;
             Nummer = nummer;
             Beschikbaar = beschikbaar;
             Blokkade = blokkade;
 
-            CheckSectorInformation(Tram_ID);
+            CheckSectorInformation(TramId);
 
             GridLocationMethod();
         }
@@ -185,7 +185,7 @@ namespace ICT4Rails.Classes
             _sectorLabel.ID = GridLocation;
             _sectorLabel.CssClass = "sectorDefault";
             
-            _sectorLabel.Click += new EventHandler(Sector_Click);
+            _sectorLabel.Click += Sector_Click;
             /*
             int parameterint = 3;
 

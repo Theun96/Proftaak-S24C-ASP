@@ -134,7 +134,7 @@ namespace ICT4Rails
 
             foreach (DataRow DR in dt.Rows)
             {
-                Id = Convert.ToInt32(DR["ID"]);
+                Id = Convert.ToInt32(DR["Id"]);
                 nummer = Convert.ToInt32(DR["Nummer"]);
 
                 var newRail = new Rail(Id, nummer);
@@ -162,12 +162,12 @@ namespace ICT4Rails
 
             foreach (DataRow DR in DT.Rows)
             {
-                Id = Convert.ToInt32(DR["ID"]);
+                Id = Convert.ToInt32(DR["Id"]);
                 Spoor_ID = Convert.ToInt32(DR["Spoor_ID"]);
 
-                if ((DR["Tram_ID"]).ToString() != "")
+                if ((DR["TramId"]).ToString() != "")
                 {
-                    Tram_ID = (DR["Tram_ID"]).ToString();
+                    Tram_ID = (DR["TramId"]).ToString();
                 }
                 else
                 {
@@ -186,7 +186,7 @@ namespace ICT4Rails
 
                 foreach (Rail r in Rails)
                 {
-                    if (r.ID == Spoor_ID)
+                    if (r.Id == Spoor_ID)
                     {
                         Sectors.Add(new Sector(Id, r, Tram_ID, Nummer, Beschikbaar, Blokkade));
                     }
