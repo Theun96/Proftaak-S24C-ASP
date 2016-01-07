@@ -78,7 +78,13 @@ namespace ICT4Rails
         protected void ButtonSaveEndDate_Click(object sender, EventArgs e)
         {
             DateTime date = DateTime.Parse(datepicker.Text);
-
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("id", DropDownTrams2.SelectedValue),
+                new OracleParameter("datum", date)
+            };
+            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["SetTechDate"], parameters);
+            Response.Redirect(Request.Url.AbsoluteUri);
         }
     }
 }
