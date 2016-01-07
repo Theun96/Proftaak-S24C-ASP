@@ -7,9 +7,9 @@
     <div class="col-md-4 col-md-offset-4">
         <table class="table">
             <tr>
-                <td><asp:Button runat="server" ID="number1" Text=" 1 " CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
-                <td><asp:Button runat="server" ID="number2" Text=" 2 " CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
-                <td><asp:Button runat="server" ID="number3" Text=" 3 " CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+                <td><asp:Button runat="server" ID="number1" Text="1" CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+                <td><asp:Button runat="server" ID="number2" Text="2" CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+                <td><asp:Button runat="server" ID="number3" Text="3" CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
             </tr>
             <tr>
                 <td><asp:Button runat="server" ID="number4" Text="4" CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>

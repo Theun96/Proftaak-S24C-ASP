@@ -18,8 +18,9 @@ namespace ICT4Rails
         {
             Button button = sender as Button;
             //Checks
-            if (button == null || lblTramNumber.Text.Length > 5) return;
+            if (button == null) return;
             if (lblTramNumber.Text == "Geef een tramnummer in.") { lblTramNumber.Text = ""; }
+            if (lblTramNumber.Text.Length > 5) return;
 
             lblTramNumber.Text += button.Text;
         }
