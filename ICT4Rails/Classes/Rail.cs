@@ -11,18 +11,18 @@ namespace ICT4Rails.Classes
 {
     public class Rail
     {
-        Label RailLabel = new Label();
+        readonly Label _railLabel = new Label();
 
-        public int ID { get; private set; }
+        public int Id { get; private set; }
         public int Nummer { get; private set; }
         public string GridLocation { get; private set; }
 
-        public Rail(int rail_id, int nummer)
+        public Rail(int railId, int nummer)
         {
-            ID = rail_id;
+            Id = railId;
             Nummer = nummer;
             GridLocationMethod();
-            //RailLabel.Click += new EventHandler(Rail_Click);
+            //_railLabel.Click += new EventHandler(Rail_Click);
         }
 
         private void GridLocationMethod()
@@ -152,16 +152,18 @@ namespace ICT4Rails.Classes
                 case 21:
                     GridLocation = "17_22";
                     break;
+                default:
+                    break;
             }
         }
-        
+
         public Label AddRailLabel()
         {
-            RailLabel.Text = Nummer.ToString();
-            RailLabel.ID = GridLocation;
-            RailLabel.CssClass = "railDefault"; 
+            _railLabel.Text = Nummer.ToString();
+            _railLabel.ID = GridLocation;
+            _railLabel.CssClass = "railDefault"; 
 
-            return RailLabel;
+            return _railLabel;
         }
         
         /*

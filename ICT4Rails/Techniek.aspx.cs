@@ -20,6 +20,45 @@ namespace ICT4Rails
             {
                 DropDownUsers.Items.Add(dr["NAAM"].ToString());
             }
+
+
+            DataTable dt2 = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetTech"], null);
+            string[] columns = new string[] {"nummer", "DatumTijdstip", "BeschikbaarDatum", "Naam", "nummer", "TypeOnderhoud"};
+
+            foreach (DataRow dr in dt2.Rows)
+            {
+                if (dr["Naam"].ToString() == "")
+                {
+                    DropDownTrams.Items.Add(dr["nummer"].ToString());
+                }
+
+                TableRow r = new TableRow();
+                for (int i = 0; i < 6; i++)
+                {
+                    if (i != 4)
+                    {
+                        TableCell c = new TableCell
+                        {
+                            Text = dr[columns[i]].ToString()
+                        };
+                        r.Cells.Add(c);
+                    }
+                    else
+                    {
+                        string done = "Ja";
+                        if (dr["Naam"].ToString() == "")
+                        {
+                            done = "Nee";
+                        }
+                        TableCell c = new TableCell
+                        {
+                            Text = done
+                        };
+                        r.Cells.Add(c);
+                    }
+                }
+                table.Rows.Add(r);
+            }
         }
 
         protected void ButtonRepaired_Click(object sender, EventArgs e)

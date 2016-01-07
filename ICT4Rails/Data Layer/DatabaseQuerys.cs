@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace ICT4Rails.Data_Layer
 {
@@ -32,8 +29,12 @@ namespace ICT4Rails.Data_Layer
             Query["GetAllSectors"] = "SELECT * FROM SECTOR";
             Query["GetTramNummer"] = "SELECT \"Nummer\" FROM \"TRAM\" WHERE ID = :id";
 
+            //tech en clean
             Query["GetAllEngineers"] = "SELECT m.\"Naam\", m.id FROM medewerker m, functie f WHERE f.ID = 4 AND f.id = m.\"Functie_ID\"";
             Query["GetAllCleaners"] = "SELECT m.\"Naam\", m.id FROM medewerker m, functie f WHERE f.ID = 5 AND f.id = m.\"Functie_ID\"";
+
+            Query["GetTech"] = "SELECT m.\"Naam\",tod.\"BeschikbaarDatum\",tod.\"DatumTijdstip\",tod.\"TypeOnderhoud\",t.\"Nummer\" FROM Tram t, Tram_onderhoud tod LEFT JOIN medewerker m ON m.id = tod.\"Medewerker_ID\" WHERE t.id = tod.\"Tram_ID\" AND tod.type = 'Techniek'";
+            Query["GetClean"] = "SELECT m.\"Naam\",tod.\"BeschikbaarDatum\",tod.\"DatumTijdstip\",tod.\"TypeOnderhoud\",t.\"Nummer\" FROM Tram t, Tram_onderhoud tod LEFT JOIN medewerker m ON m.id = tod.\"Medewerker_ID\" WHERE t.id = tod.\"Tram_ID\" AND tod.type = 'Schoonmaak'";
 
             //Query["addtramtoincoming"] = "INSERT INTO INCOMING (TRAMID, MOMENT, MAINTENANCE) VALUES (:tramid, sysdate, :maintenance)";
             //Query["traincheckin"] = "UPDATE SECTOR SET ISRESERVED = 0 WHERE TRAMID = :tramid";
@@ -57,7 +58,10 @@ namespace ICT4Rails.Data_Layer
 
             //Query["GetImpossibleSectors"] = "SELECT s.RAILID, MAX(s.POSITION) as POSITION FROM SECTOR s WHERE s.AVAILABLE = 0 OR s.TRAMID IS NOT NULL GROUP BY s.RAILID";
             //Query["UpdateMaintenances"] = "INSERT INTO MAINTENANCE(dateadded , datefinished , finishedby , maintenanceid , opmerking , tramid , type) VALUES(sysdate, null, null, MAINTENANCE_SEQ.nextval,:opmerking,:tramid,:type)";
+            Query["GetAllReservedSectors"] =
+                "SELECT ID,\"Tram_ID\", \"Spoor_ID\", \"Nummer\", \"Blokkade\", \"Beschikbaar\" FROM SECTOR WHERE \"Beschikbaar\" = 0 AND \"Tram_ID\" IS NOT NULL";
             Query["GetAllAvailableTrams"] = "SELECT t.\"Nummer\" FROM Tram t,Sector s WHERE t.id = s.\"Tram_ID\"";
+            Query["GetReservedSector"] = "SELECT \"Spoor_ID\", \"Nummer\" FROM SECTOR WHERE \"Beschikbaar\" = 0 AND \"Tram_ID\" =:tramid";
         }
     }
 }

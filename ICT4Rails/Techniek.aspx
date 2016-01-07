@@ -3,23 +3,19 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <table class="table table-striped" style="width: 100%;">
-            <thead>
-                <tr>
-                    <th>Tram</th>
-                    <th>Begin datum</th>
-                    <th>Eind datum</th>
-                    <th>Technicus</th>
-                    <th>Klaar</th>
-                    <th>Opmerking</th>
-                </tr>
-            </thead>
-            <tbody>
-            
-            </tbody>
-        </table>
+            <asp:Table ID="table" runat="server" class="table table-striped" style="width: 100%;">
+                <asp:TableHeaderRow>
+                    <asp:TableHeaderCell ID="Tram" runat="server">Tram</asp:TableHeaderCell>
+                    <asp:TableHeaderCell ID="DatumTijdstip" runat="server">Begin datum</asp:TableHeaderCell>
+                    <asp:TableHeaderCell ID="BeschikbaarDatum" runat="server">Eind datum</asp:TableHeaderCell>
+                    <asp:TableHeaderCell ID="Naam" runat="server">Technicus</asp:TableHeaderCell>
+                    <asp:TableHeaderCell ID="Klaar" runat="server">Klaar</asp:TableHeaderCell>
+                    <asp:TableHeaderCell ID="Opmerking" runat="server">Opmerking</asp:TableHeaderCell>
+                </asp:TableHeaderRow>
+            </asp:Table>
         </div>
-        <div class="col-md-3  col-md-offset-1">
+        <div class="col-md-3  col-md-offset-1">   
+            <asp:DropDownList ID="DropDownTrams" runat="server" cssclass="form-control dropdown"></asp:DropDownList>
             <asp:DropDownList ID="DropDownUsers" runat="server" cssclass="form-control dropdown"></asp:DropDownList>
             <asp:Button ID="ButtonRepaired" runat="server" Text="Gerepareerd" cssclass="form-control" />
         </div>
