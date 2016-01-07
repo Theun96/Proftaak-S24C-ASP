@@ -35,6 +35,8 @@ namespace ICT4Rails.Data_Layer
             Query["GetTech"] = "SELECT m.\"Naam\",tod.\"BeschikbaarDatum\",tod.\"DatumTijdstip\",tod.\"TypeOnderhoud\",t.\"Nummer\" FROM Tram t, Tram_onderhoud tod LEFT JOIN medewerker m ON m.id = tod.\"Medewerker_ID\" WHERE t.id = tod.\"Tram_ID\" AND tod.type = 'Techniek'";
             Query["GetClean"] = "SELECT m.\"Naam\",tod.\"BeschikbaarDatum\",tod.\"DatumTijdstip\",tod.\"TypeOnderhoud\",t.\"Nummer\" FROM Tram t, Tram_onderhoud tod LEFT JOIN medewerker m ON m.id = tod.\"Medewerker_ID\" WHERE t.id = tod.\"Tram_ID\" AND tod.type = 'Schoonmaak'";
 
+            Query["SetTech"] = "UPDATE TRAM_ONDERHOUD SET \"BeschikbaarDatum\" = SYSDATE WHERE \"Tram_ID\" = (SELECT t.ID FROM TRAM t WHERE t.\"Nummer\" = :id) AND type = 'Techniek'";
+            Query["SetClean"] = "UPDATE TRAM_ONDERHOUD SET \"BeschikbaarDatum\" = SYSDATE WHERE \"Tram_ID\" = (SELECT t.ID FROM TRAM t WHERE t.\"Nummer\" = :id) AND type = 'Schoonmaak'";
             //Query["addtramtoincoming"] = "INSERT INTO INCOMING (TRAMID, MOMENT, MAINTENANCE) VALUES (:tramid, sysdate, :maintenance)";
             //Query["traincheckin"] = "UPDATE SECTOR SET ISRESERVED = 0 WHERE TRAMID = :tramid";
             //Query["IncomingTrams"] = "SELECT TRAMID, MOMENT, MAINTENANCE FROM INCOMING ORDER BY MOMENT DESC";
