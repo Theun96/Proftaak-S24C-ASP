@@ -177,6 +177,7 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\Messagebox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schoonmaak.aspx.cs">
       <DependentUpon>Schoonmaak.aspx</DependentUpon>

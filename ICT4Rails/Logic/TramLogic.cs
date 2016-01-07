@@ -24,8 +24,30 @@ namespace ICT4Rails.Logic
             };
 
             DataTable DT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllAvailableTrams"], parameters);
+        }
 
+        public int[] GetReservedSector(int tramnumber)
+        {
+            OracleParameter[] op = { new OracleParameter("tramid", tramnumber) };
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetReservedSector"], op);
+            int[] info = new int[2];
+            foreach (DataRow dr in dt.Rows)
+            {
+                info[0] = Convert.ToInt32(dr[0]);
+                info[1] = Convert.ToInt32(dr[1]);
+            }
 
+            return info;
+        }
+
+        public void AddIncoming(string tramid, int maintenance)
+        {
+            OracleParameter[] parameters = new OracleParameter[]
+            {
+                new OracleParameter("tramid", tramid),
+                new OracleParameter("maintenance", maintenance)
+            };
+            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["addtramtoincoming"], parameters);
         }
     }
 }

@@ -5,7 +5,7 @@
         <asp:Label ID="lblTramNumber" runat="server" Text="Geef een tramnummer in." CssClass="sectorlabel bg-primary" />
     </div>
     <div class="col-md-4 col-md-offset-4">
-        <table class="table">
+        <table class="touchpadtable table">
             <tr>
                 <td><asp:Button runat="server" ID="number1" Text="1" CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
                 <td><asp:Button runat="server" ID="number2" Text="2" CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
@@ -27,5 +27,10 @@
                 <td><asp:Button runat="server" ID="numberEnter" Text="Ent" CssClass="btn btn-default touchpadbtn" OnClick="TouchpadEnter_Click"/></td>
             </tr>
         </table>
+        <div class="container">
+            <asp:CheckBox ID="CheckDamaged" runat="server" Text="Reparatie nodig" />
+            <br/>
+            <asp:CheckBox ID="CheckDirty" runat="server" Text="Schoonmaak nodig" />
+        </div>
     </div>
 </asp:Content>
