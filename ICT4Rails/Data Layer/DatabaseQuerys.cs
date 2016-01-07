@@ -26,7 +26,7 @@ namespace ICT4Rails.Data_Layer
 
             //Beheer systeem querys
             Query["GetAllRails"] = "SELECT \"ID\", \"Nummer\" FROM SPOOR";
-            Query["GetAllSectors"] = "SELECT * FROM SECTOR";
+            Query["GetAllSectors"] = "SELECT * FROM SectorOverzicht";
             Query["GetTramNummer"] = "SELECT \"Nummer\" FROM \"TRAM\" WHERE ID = :id";
 
             //tech en clean

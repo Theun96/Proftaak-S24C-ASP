@@ -135,7 +135,7 @@ namespace ICT4Rails
         public void GetAllSectors()
         {
             DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllSectors"], null);
-
+            
             Sectors.Clear();
 
             foreach (DataRow dr in dt.Rows)
@@ -143,7 +143,7 @@ namespace ICT4Rails
                 var id = Convert.ToInt32(dr["Id"]);
                 var spoorId = Convert.ToInt32(dr["Spoor_ID"]);
 
-                var tramId = (dr["Tram_ID"]).ToString() != "" ? (dr["Tram_ID"]).ToString() : "";
+                var tramNummer = (dr["Tram_Nummer"]).ToString() != "" ? (dr["Tram_Nummer"]).ToString() : "";
 
                 var nummer = Convert.ToInt32(dr["Nummer"]);
                 var available = Convert.ToInt32(dr["Beschikbaar"]);
@@ -156,7 +156,7 @@ namespace ICT4Rails
                 var id1 = spoorId;
                 foreach (Rail r in Rails.Where(r => r.Id == id1))
                 {
-                    Sectors.Add(new Sector(id, r, tramId, nummer, beschikbaar, blokkade));
+                    Sectors.Add(new Sector(id, r, tramNummer, nummer, beschikbaar, blokkade));
                 }
             }
 
