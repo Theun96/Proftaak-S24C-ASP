@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ICT4Rails.Data_Layer;
+using Oracle.ManagedDataAccess.Client;
 
 namespace ICT4Rails
 {
@@ -61,6 +62,18 @@ namespace ICT4Rails
 
         protected void ButtonCleaned_Click(object sender, EventArgs e)
         {
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("naam", DropDownUsers.SelectedValue),
+                new OracleParameter("id", DropDownTrams.SelectedValue)
+            };
+            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["SetClean"], parameters);
+            Response.Redirect(Request.Url.AbsoluteUri);
+        }
+
+        protected void ButtonSaveEndDate_Click(object sender, EventArgs e)
+        {
+            DateTime date = DateTime.Parse(datepicker.Text);
 
         }
     }

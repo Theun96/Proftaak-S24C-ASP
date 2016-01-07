@@ -118,7 +118,7 @@ namespace ICT4Rails {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText datepicker;
+        protected global::System.Web.UI.WebControls.TextBox datepicker;
         
         /// <summary>
         /// ButtonSaveEndDate control.

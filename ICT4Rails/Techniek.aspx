@@ -17,7 +17,7 @@
         <div class="col-md-3  col-md-offset-1">   
             <asp:DropDownList ID="DropDownTrams" runat="server" cssclass="form-control dropdown"></asp:DropDownList>
             <asp:DropDownList ID="DropDownUsers" runat="server" cssclass="form-control dropdown"></asp:DropDownList>
-            <asp:Button ID="ButtonRepaired" runat="server" Text="Gerepareerd" cssclass="form-control" />
+            <asp:Button ID="ButtonRepaired" runat="server" Text="Gerepareerd" cssclass="form-control" OnClick="ButtonRepaired_Click" />
         </div>
         <div class="col-md-3  col-md-offset-4">
             <asp:DropDownList ID="DropDownTrams2" runat="server" cssclass="form-control dropdown"></asp:DropDownList>
