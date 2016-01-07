@@ -34,7 +34,6 @@ namespace ICT4Rails
             //Checks
             if (lblTramNumber.Text == "Geef een tramnummer in." || lblTramNumber.Text.Length < 1) return;
             int tramNumber = Convert.ToInt32(Regex.Replace(lblTramNumber.Text, @"\s+", ""));
-            MessageBox.Show(tramNumber.ToString());
             int[] info = _tramLogic.GetReservedSector(tramNumber);
             if (info[0] == 0 || info[1] == 0)
             {
@@ -52,6 +51,7 @@ namespace ICT4Rails
                     maintenance = 1;
                 }
 
+                MessageBox.Show("Rail: " + info[0] + ", Sector: " + info[1]);
                 //_tramLogic.AddIncoming(tramNumber.ToString(), maintenance);
                 ////MessageBox.Show("Er is nog geen reservering voor uw tram. Er is een bericht naar de trambeheerder gestuurd.");
             }

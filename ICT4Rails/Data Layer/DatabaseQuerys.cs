@@ -56,7 +56,7 @@ namespace ICT4Rails.Data_Layer
             Query["GetAllReservedSectors"] =
                 "SELECT ID,\"Tram_ID\", \"Spoor_ID\", \"Nummer\", \"Blokkade\", \"Beschikbaar\" FROM SECTOR WHERE \"Beschikbaar\" = 0 AND \"Tram_ID\" IS NOT NULL";
             Query["GetAllAvailableTrams"] = "SELECT t.\"Nummer\" FROM Tram t,Sector s WHERE t.id = s.\"Tram_ID\"";
-            Query["GetReservedSector"] = "SELECT \"Spoor_ID\", \"Nummer\" FROM SECTOR WHERE \"Beschikbaar\" = 0 AND \"Tram_ID\" =:id";
+            Query["GetReservedSector"] = "SELECT \"Spoor_ID\", \"Nummer\" FROM SECTOR WHERE \"Beschikbaar\" = 0 AND \"Tram_ID\" =:tramid";
         }
     }
 }
