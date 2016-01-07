@@ -87,6 +87,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\Server.pubxml" />
+    <Content Include="SectorInformation.aspx" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -185,6 +186,13 @@
     </Compile>
     <Compile Include="Schoonmaak.aspx.designer.cs">
       <DependentUpon>Schoonmaak.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SectorInformation.aspx.cs">
+      <DependentUpon>SectorInformation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SectorInformation.aspx.designer.cs">
+      <DependentUpon>SectorInformation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
