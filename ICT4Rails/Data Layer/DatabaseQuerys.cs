@@ -32,7 +32,8 @@ namespace ICT4Rails.Data_Layer
             Query["GetAllEngineers"] = "SELECT m.\"Naam\", m.id FROM medewerker m, functie f WHERE f.ID = 4 AND f.id = m.\"Functie_ID\"";
             Query["GetAllCleaners"] = "SELECT m.\"Naam\", m.id FROM medewerker m, functie f WHERE f.ID = 5 AND f.id = m.\"Functie_ID\"";
 
-            Query["GetTech"] = "SELECT m.\"Naam\",tod.\"BeschikbaarDatum\",tod.\"DatumTijdstip\",tod.\"TypeOnderhoud\",t.\"Nummer\",tod.type FROM Tram t, Tram_onderhoud tod LEFT JOIN medewerker m ON m.id = tod.\"Medewerker_ID\" WHERE t.id = tod.\"Tram_ID\"; ";
+            Query["GetTech"] = "SELECT m.\"Naam\",tod.\"BeschikbaarDatum\",tod.\"DatumTijdstip\",tod.\"TypeOnderhoud\",t.\"Nummer\" FROM Tram t, Tram_onderhoud tod LEFT JOIN medewerker m ON m.id = tod.\"Medewerker_ID\" WHERE t.id = tod.\"Tram_ID\" AND tod.type = 'Techniek'";
+            Query["GetClean"] = "SELECT m.\"Naam\",tod.\"BeschikbaarDatum\",tod.\"DatumTijdstip\",tod.\"TypeOnderhoud\",t.\"Nummer\" FROM Tram t, Tram_onderhoud tod LEFT JOIN medewerker m ON m.id = tod.\"Medewerker_ID\" WHERE t.id = tod.\"Tram_ID\" AND tod.type = 'Schoonmaak'";
 
             //Query["addtramtoincoming"] = "INSERT INTO INCOMING (TRAMID, MOMENT, MAINTENANCE) VALUES (:tramid, sysdate, :maintenance)";
             //Query["traincheckin"] = "UPDATE SECTOR SET ISRESERVED = 0 WHERE TRAMID = :tramid";

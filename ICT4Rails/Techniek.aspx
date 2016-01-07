@@ -14,7 +14,8 @@
                 </asp:TableHeaderRow>
             </asp:Table>
         </div>
-        <div class="col-md-3  col-md-offset-1">
+        <div class="col-md-3  col-md-offset-1">   
+            <asp:DropDownList ID="DropDownTrams" runat="server" cssclass="form-control dropdown"></asp:DropDownList>
             <asp:DropDownList ID="DropDownUsers" runat="server" cssclass="form-control dropdown"></asp:DropDownList>
             <asp:Button ID="ButtonRepaired" runat="server" Text="Gerepareerd" cssclass="form-control" />
         </div>

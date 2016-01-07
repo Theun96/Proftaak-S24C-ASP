@@ -27,6 +27,11 @@ namespace ICT4Rails
 
             foreach (DataRow dr in dt2.Rows)
             {
+                if (dr["Naam"].ToString() == "")
+                {
+                    DropDownTrams.Items.Add(dr["nummer"].ToString());
+                }
+
                 TableRow r = new TableRow();
                 for (int i = 0; i < 6; i++)
                 {
@@ -41,7 +46,7 @@ namespace ICT4Rails
                     else
                     {
                         string done = "Ja";
-                        if (dr["Naam"] == null)
+                        if (dr["Naam"].ToString() == "")
                         {
                             done = "Nee";
                         }
