@@ -13,5 +13,15 @@ namespace ICT4Rails
         {
 
         }
+
+        protected void ButtonRepaired_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ButtonSaveEndDate_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -31,6 +31,9 @@ namespace ICT4Rails.Data_Layer
             Query["GetAllRails"] = "SELECT \"ID\", \"Nummer\" FROM SPOOR";
             Query["GetAllSectors"] = "SELECT * FROM SECTOR";
 
+            Query["GetAllEngineers"] = "SELECT m.\"Naam\", m.id FROM medewerker m, functie f WHERE f.ID = 4 AND f.id = m.\"Functie_ID\"";
+            Query["GetAllCleaners"] = "SELECT m.\"Naam\", m.id FROM medewerker m, functie f WHERE f.ID = 5 AND f.id = m.\"Functie_ID\"";
+
             //Query["addtramtoincoming"] = "INSERT INTO INCOMING (TRAMID, MOMENT, MAINTENANCE) VALUES (:tramid, sysdate, :maintenance)";
             //Query["traincheckin"] = "UPDATE SECTOR SET ISRESERVED = 0 WHERE TRAMID = :tramid";
             //Query["IncomingTrams"] = "SELECT TRAMID, MOMENT, MAINTENANCE FROM INCOMING ORDER BY MOMENT DESC";
