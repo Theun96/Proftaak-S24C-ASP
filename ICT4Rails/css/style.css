@@ -54,7 +54,6 @@ body {
     display: block;
     height: 75px;
     padding-top: 20px;
-    letter-spacing: -4px;
 }
 
 .touchpadbtn {
@@ -94,4 +93,8 @@ body {
     border: 1px solid black;
     margin-top: 0;
     margin-bottom: 0;
+}
+
+.touchpadtable {
+    margin-bottom: 0px;
 }

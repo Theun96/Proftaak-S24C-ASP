@@ -169,6 +169,7 @@
       <DependentUpon>InUitRij.aspx</DependentUpon>
     </Compile>
     <Compile Include="Logic\LoginLogic.cs" />
+    <Compile Include="Logic\TramLogic.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -176,6 +177,7 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\Messagebox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schoonmaak.aspx.cs">
       <DependentUpon>Schoonmaak.aspx</DependentUpon>
