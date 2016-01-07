@@ -68,8 +68,8 @@ namespace ICT4Rails
         {
             OracleParameter[] parameters =
             {
-                new OracleParameter("id", DropDownTrams.SelectedValue),
-                new OracleParameter("naam", DropDownUsers.SelectedValue)
+                new OracleParameter("naam", DropDownUsers.SelectedValue),
+                new OracleParameter("id", DropDownTrams.SelectedValue)
             };
             DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["SetTech"], parameters);
             Response.Redirect(Request.Url.AbsoluteUri);

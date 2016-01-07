@@ -20,8 +20,8 @@
         </div>
         <div class="col-md-3  col-md-offset-4">
             <asp:DropDownList ID="DropDownTrams2" runat="server" cssclass="form-control dropdown"></asp:DropDownList>
-            <input type="text" value="1/1/2016" readonly="readonly" name="datepicker" id="datepicker" class="datepicker form-control" runat="server"/>
-            <asp:Button ID="ButtonSaveEndDate" runat="server" Text="Einddatum opslaan" cssclass="form-control" />
+            <asp:TextBox runat="server" value="1/1/2016" id="datepicker" CssClass="datepicker form-control"></asp:TextBox>
+            <asp:Button ID="ButtonSaveEndDate" runat="server" Text="Einddatum opslaan" cssclass="form-control" OnClick="ButtonSaveEndDate_Click" />
         </div>
     </div>
     <script>
