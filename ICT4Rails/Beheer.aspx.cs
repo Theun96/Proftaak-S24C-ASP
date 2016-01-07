@@ -41,10 +41,10 @@ namespace ICT4Rails
                     TableCell c = new TableCell
                     {
                         Width = new Unit(widthPercent),
-                        Height = new Unit(heightPercent)
+                        Height = new Unit(heightPercent),
+                        ID = "c" + i.ToString() + "_" + j.ToString()
                     };
 
-                    c.ID = "c" + i.ToString() + "_" + j.ToString();
 
                     TableCells.Add(c);
 
@@ -79,7 +79,7 @@ namespace ICT4Rails
                 string columnString = l.ID;
                 string rowString = l.ID;
 
-                int spaceIndex = columnString.IndexOf("_");
+                int spaceIndex = columnString.IndexOf("_", StringComparison.Ordinal);
 
                 columnString = columnString.Substring(0, spaceIndex);
                 rowString = rowString.Substring(spaceIndex + 1);
@@ -87,12 +87,9 @@ namespace ICT4Rails
                 int column = Convert.ToInt32(columnString);
                 int row = Convert.ToInt32(rowString);
 
-                foreach (var tc in TableCells)
+                foreach (var tc in TableCells.Where(tc => tc.ID.Substring(1) == s.GridLocation))
                 {
-                    if (tc.ID.Substring(1) == s.GridLocation)
-                    {
-                        tc.Controls.Add(l);
-                    }
+                    tc.Controls.Add(l);
                 }
             }
         
@@ -104,7 +101,7 @@ namespace ICT4Rails
                 string columnString = l.ID;
                 string rowString = l.ID;
 
-                int spaceIndex = columnString.IndexOf("_");
+                int spaceIndex = columnString.IndexOf("_", StringComparison.Ordinal);
 
                 columnString = columnString.Substring(0, spaceIndex);
                 rowString = rowString.Substring(spaceIndex + 1);
@@ -112,12 +109,9 @@ namespace ICT4Rails
                 int column = Convert.ToInt32(columnString);
                 int row = Convert.ToInt32(rowString);
                 
-                foreach (var tc in TableCells)
+                foreach (var tc in TableCells.Where(tc => tc.ID.Substring(1) == r.GridLocation))
                 {
-                    if (tc.ID.Substring(1) == r.GridLocation)
-                    {
-                        tc.Controls.Add(l);
-                    }
+                    tc.Controls.Add(l);
                 }
             }
         }
@@ -129,15 +123,8 @@ namespace ICT4Rails
         {
             DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllRails"], null);
 
-            int Id;
-            int nummer;
-
-            foreach (DataRow DR in dt.Rows)
+            foreach (var newRail in from DataRow dr in dt.Rows let id = Convert.ToInt32(dr["Id"]) let nummer = Convert.ToInt32(dr["Nummer"]) select new Rail(id, nummer))
             {
-                Id = Convert.ToInt32(DR["Id"]);
-                nummer = Convert.ToInt32(DR["Nummer"]);
-
-                var newRail = new Rail(Id, nummer);
                 Rails.Add(newRail);
             }
         }
@@ -147,37 +134,29 @@ namespace ICT4Rails
         /// </summary>
         public void GetAllSectors()
         {
-            DataTable DT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllSectors"], null);
-
-            int Id;
-            int Spoor_ID;
-            string Tram_ID;
-            int Nummer;
-            int available;
-            bool Beschikbaar;
-            int geblokkeerd;
-            bool Blokkade;
-
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllSectors"], null);
+            
             Sectors.Clear();
 
-            foreach (DataRow DR in DT.Rows)
+            foreach (DataRow dr in dt.Rows)
             {
-                Id = Convert.ToInt32(DR["Id"]);
-                Spoor_ID = Convert.ToInt32(DR["Spoor_ID"]);
+                var id = Convert.ToInt32(dr["Id"]);
+                var spoorId = Convert.ToInt32(dr["Spoor_ID"]);
 
-                Tram_ID = (DR["Tram_ID"]).ToString() != "" ? (DR["Tram_ID"]).ToString() : "";
+                var tramNummer = (dr["Tram_Nummer"]).ToString() != "" ? (dr["Tram_Nummer"]).ToString() : "";
 
-                Nummer = Convert.ToInt32(DR["Nummer"]);
-                available = Convert.ToInt32(DR["Beschikbaar"]);
-                geblokkeerd = Convert.ToInt32(DR["Blokkade"]);
+                var nummer = Convert.ToInt32(dr["Nummer"]);
+                var available = Convert.ToInt32(dr["Beschikbaar"]);
+                var geblokkeerd = Convert.ToInt32(dr["Blokkade"]);
 
-                Beschikbaar = available == 1;
+                var beschikbaar = available == 1;
                 
-                Blokkade = geblokkeerd == 1;
+                var blokkade = geblokkeerd == 1;
 
-                foreach (Rail r in Rails.Where(r => r.Id == Spoor_ID))
+                var id1 = spoorId;
+                foreach (Rail r in Rails.Where(r => r.Id == id1))
                 {
-                    Sectors.Add(new Sector(Id, r, Tram_ID, Nummer, Beschikbaar, Blokkade));
+                    Sectors.Add(new Sector(id, r, tramNummer, nummer, beschikbaar, blokkade));
                 }
             }
 

@@ -16,7 +16,7 @@ namespace ICT4Rails.Classes
 
         public int Id { get; private set; }
         public Rail Rail { get; private set; }
-        public string TramId { get; private set; }
+        public string TramNummer { get; private set; }
         public int Nummer { get; private set; }
         public bool Beschikbaar { get; private set; }
         public bool Blokkade { get; private set; }
@@ -24,16 +24,16 @@ namespace ICT4Rails.Classes
         public string SectorInformation { get; private set; }
         public string GridLocation { get; private set; }
 
-        public Sector(int id, Rail rail, string tram_id, int nummer, bool beschikbaar, bool blokkade)
+        public Sector(int id, Rail rail, string tramNummer, int nummer, bool beschikbaar, bool blokkade)
         {
             Id = id;
             Rail = rail;
-            TramId = tram_id;
+            TramNummer = tramNummer;
             Nummer = nummer;
             Beschikbaar = beschikbaar;
             Blokkade = blokkade;
 
-            CheckSectorInformation(TramId);
+            CheckSectorInformation(TramNummer);
 
             GridLocationMethod();
         }
@@ -184,7 +184,7 @@ namespace ICT4Rails.Classes
             _sectorLabel.Text = SectorInformation;
             _sectorLabel.ID = GridLocation;
             _sectorLabel.CssClass = "sectorDefault";
-            
+
             _sectorLabel.Click += Sector_Click;
             /*
             int parameterint = 3;
@@ -247,30 +247,15 @@ namespace ICT4Rails.Classes
             }
         }
         */
-        private void CheckSectorInformation(string tramId)
+        private void CheckSectorInformation(string tramNummer)
         {
-            OracleParameter[] parameters1 =
-            {
-                new OracleParameter("id", tramId)
-            };
+            SectorInformation = Blokkade ? "X" : tramNummer;
 
-            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetTramNummer"], parameters1);
-            
-            foreach (DataRow dr in dt.Rows)
-            {
-                int nummer = Convert.ToInt32(dr["Nummer"]);
-
-                if (nummer != 0)
-                {
-                    SectorInformation = !Beschikbaar ? "X" : nummer.ToString();
-                }
-
-            }
         }
 
         private static void Sector_Click(object sender, EventArgs e)
         {
-            System.Web.HttpContext.Current.Response.Redirect("/");
+            HttpContext.Current.Response.Redirect("/SectorInformation.aspx");
         }
     }
 }
