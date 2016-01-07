@@ -12,7 +12,7 @@ namespace ICT4Rails.Classes
 {
     public class Sector
     {
-        Label _sectorLabel = new Label();
+        LinkButton _sectorLabel = new LinkButton();
 
         public int ID { get; private set; }
         public Rail Rail { get; private set; }
@@ -179,15 +179,13 @@ namespace ICT4Rails.Classes
             return Nummer == s.Nummer ? 0 : 1;
         }
 
-        public Label AddSectorLabel()
+        public LinkButton AddSectorLabel()
         {
-            //_sectorLabel = new Label();
-
             _sectorLabel.Text = SectorInformation;
             _sectorLabel.ID = GridLocation;
             _sectorLabel.CssClass = "sectorDefault";
-
-            //SectorLabel.Click += new EventHandler(Sector_Click);
+            
+            _sectorLabel.Click += new EventHandler(Sector_Click);
             /*
             int parameterint = 3;
 
@@ -252,6 +250,11 @@ namespace ICT4Rails.Classes
         private void CheckSectorInformation(string tram_Id)
         {
             SectorInformation = !Beschikbaar ? "X" : tram_Id;
+        }
+
+        private void Sector_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

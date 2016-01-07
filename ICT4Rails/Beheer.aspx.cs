@@ -44,7 +44,7 @@ namespace ICT4Rails
                         Height = new Unit(heightPercent)
                     };
 
-                    c.ID = i.ToString() + "_" + j.ToString();
+                    c.ID = "c" + i.ToString() + "_" + j.ToString();
 
                     TableCells.Add(c);
 
@@ -74,7 +74,7 @@ namespace ICT4Rails
             foreach (Sector s in Sectors)
             {
                 if(s.GridLocation == null) continue;
-                Label l = s.AddSectorLabel();
+                LinkButton l = s.AddSectorLabel();
 
                 string columnString = l.ID;
                 string rowString = l.ID;
@@ -89,7 +89,7 @@ namespace ICT4Rails
 
                 foreach (var tc in TableCells)
                 {
-                    if (tc.ID == s.GridLocation)
+                    if (tc.ID.Substring(1) == s.GridLocation)
                     {
                         tc.Controls.Add(l);
                     }
@@ -114,7 +114,7 @@ namespace ICT4Rails
                 
                 foreach (var tc in TableCells)
                 {
-                    if (tc.ID == r.GridLocation)
+                    if (tc.ID.Substring(1) == r.GridLocation)
                     {
                         tc.Controls.Add(l);
                     }
