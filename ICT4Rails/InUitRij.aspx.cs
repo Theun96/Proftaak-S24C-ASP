@@ -35,7 +35,7 @@ namespace ICT4Rails
             if (lblTramNumber.Text == "Geef een tramnummer in." || lblTramNumber.Text.Length < 1) return;
             int tramNumber = Convert.ToInt32(Regex.Replace(lblTramNumber.Text, @"\s+", ""));
             MessageBox.Show(tramNumber.ToString());
-            /*int[] info = _tramLogic.GetReservedSector(tramNumber);
+            int[] info = _tramLogic.GetReservedSector(tramNumber);
             if (info[0] == 0 || info[1] == 0)
             {
                 int maintenance = 0;
@@ -52,7 +52,7 @@ namespace ICT4Rails
                     maintenance = 1;
                 }
 
-                _tramLogic.AddIncoming(tramNumber.ToString(), maintenance);
+                //_tramLogic.AddIncoming(tramNumber.ToString(), maintenance);
                 ////MessageBox.Show("Er is nog geen reservering voor uw tram. Er is een bericht naar de trambeheerder gestuurd.");
             }
             else
@@ -60,7 +60,7 @@ namespace ICT4Rails
                 //txtDesiredRail.Text = info[0].ToString();
                 //txtDesiredSector.Text = info[1].ToString();
                 //trammanager.CheckInTrain(txtTramNumber.Text);
-            }*/
+            }
         }
 
         protected void TouchpadClear_Click(object sender, EventArgs e)
