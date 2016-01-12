@@ -32,20 +32,28 @@ namespace ICT4Rails.Data_Layer
 
         public static DataTable ExecuteReadQuery(string sqlquery, OracleParameter[] parameters)
         {
-            using (Connection)
-            using (var command = new OracleCommand(sqlquery, _connection))
+            try
             {
-                if (parameters != null)
+                using (Connection)
+                using (var command = new OracleCommand(sqlquery, _connection))
                 {
-                    command.Parameters.AddRange(parameters);
-                }
-                var DT = new DataTable();
-                using (OracleDataReader reader = command.ExecuteReader())
-                {
-                    DT.Load(reader);
-                }
+                    if (parameters != null)
+                    {
+                        command.Parameters.AddRange(parameters);
+                    }
+                    var dt = new DataTable();
+                    using (OracleDataReader reader = command.ExecuteReader())
+                    {
+                        dt.Load(reader);
+                    }
 
-                return DT;
+                    return dt;
+                }
+            }
+            catch (OracleException oe)
+            {
+                Debug.WriteLine(oe.Message);
+                return null;
             }
         }
 
