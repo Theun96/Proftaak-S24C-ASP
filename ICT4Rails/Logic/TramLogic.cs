@@ -22,6 +22,18 @@ namespace ICT4Rails.Logic
             DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllAvailableTrams"], parameters);
         }
 
+        public static void AddTrainToSector(int tramid, int spoor, int sector)
+        {
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("tramid", tramid),
+                new OracleParameter("spoor", spoor), 
+                new OracleParameter("sector", sector)
+            };
+
+            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["AddTramToSector"], parameters);
+        }
+
         public int[] GetReservedSector(int tramnumber)
         {
             OracleParameter[] op = { new OracleParameter("tramid", tramnumber) };
@@ -36,7 +48,7 @@ namespace ICT4Rails.Logic
             return info;
         }
 
-        public int CheckReserved(string tramid)
+        public static int CheckReserved(int tramid)
         {
             int spoor = 0;
             OracleParameter[] parameters =
@@ -51,7 +63,28 @@ namespace ICT4Rails.Logic
             return spoor;
         }
 
-        public static IEnumerable<int> FindFreePlace(int spoor, string type)
+        public static int GetNumberFromRail(int id)
+        {
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("id", id)
+            };
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetNumberFromRail"], parameters);
+            return dt.Rows.Count > 0 ? Convert.ToInt32(dt.Rows[0][0]) : 0;
+        }
+
+        public static int GetIdFromTram(int number)
+        {
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("tramnumber", number)
+            };
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetIdFromTram"], parameters);
+            return dt.Rows.Count > 0 ? Convert.ToInt32(dt.Rows[0][0]) : 0;
+            
+        }
+
+        public static int[] FindFreePlace(int spoor, string type)
         {
             DataTable freeRailsDt;
             if (spoor == 0)

@@ -23,7 +23,7 @@
             </tr>
             <tr>
                 <td><asp:Button runat="server" ID="numberClear" Text="Clr" CssClass="btn btn-default touchpadbtn" OnClick="TouchpadClear_Click"/></td>
-                <td><asp:Button runat="server" ID="number0" Text=" 0 " CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
+                <td><asp:Button runat="server" ID="number0" Text="0" CssClass="btn btn-default touchpadbtn" OnClick="Touchpad_Click"/></td>
                 <td><asp:Button runat="server" ID="numberEnter" Text="Ent" CssClass="btn btn-default touchpadbtn" OnClick="TouchpadEnter_Click"/></td>
             </tr>
         </table>

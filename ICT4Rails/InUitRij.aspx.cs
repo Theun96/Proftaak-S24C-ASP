@@ -33,32 +33,34 @@ namespace ICT4Rails
         {
             //Checks
             if (lblTramNumber.Text == "Geef een tramnummer in." || lblTramNumber.Text.Length < 1) return;
-            int tramNumber = Convert.ToInt32(Regex.Replace(lblTramNumber.Text, @"\s+", ""));
-            int[] info = _tramLogic.GetReservedSector(tramNumber);
-            if (info[0] == 0 || info[1] == 0)
+            int tramnumber = Convert.ToInt32(Regex.Replace(lblTramNumber.Text, @"\s+", ""));
+            int tramid = TramLogic.GetIdFromTram(tramnumber);
+            if (tramid == 0)
             {
-                string maintenance = "";
-                if (CheckDamaged.Checked && CheckDirty.Checked)
-                {
-                    maintenance = "Beide";
-                }
-                else if (CheckDirty.Checked)
-                {
-                    maintenance = "Schoonmaak";
-                }
-                else if (CheckDamaged.Checked)
-                {
-                    maintenance = "Techniek";
-                }
+                MessageBox.Show("Tramnummer niet gevonden");
+                lblTramNumber.Text = "Geef een tramnummer in.";
+                return;
+            }
 
-                int spoor = _tramLogic.CheckReserved(tramNumber.ToString());
-                IEnumerable<int> position = TramLogic.FindFreePlace(spoor, maintenance);
-            }
-            else
+            string maintenance = "";
+            if (CheckDamaged.Checked && CheckDirty.Checked)
             {
-                //trammanager.CheckInTrain(txtTramNumber.Text);
-                MessageBox.Show($"Rail: {info[0]}, Sector: {info[1]}");
+                maintenance = "Beide";
             }
+            else if (CheckDirty.Checked)
+            {
+                maintenance = "Schoonmaak";
+            }
+            else if (CheckDamaged.Checked)
+            {
+                maintenance = "Techniek";
+            }
+
+            int spoor = TramLogic.CheckReserved(tramid);
+            int[] position = TramLogic.FindFreePlace(spoor, maintenance);
+            int railNumber = TramLogic.GetNumberFromRail(position[0]);
+            TramLogic.AddTrainToSector(tramid, position[0], position[1]);
+            MessageBox.Show($"Spoor: {railNumber}, Sector: {position[1]}");
         }
 
         protected void TouchpadClear_Click(object sender, EventArgs e)

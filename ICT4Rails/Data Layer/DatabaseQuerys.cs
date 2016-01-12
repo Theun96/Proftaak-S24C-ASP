@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.UI;
 
 namespace ICT4Rails.Data_Layer
 {
@@ -50,6 +51,9 @@ namespace ICT4Rails.Data_Layer
             Query["GetFreeRailFromId"] = "SELECT \"Spoor_ID\" FROM \"SECTOR\" WHERE \"Tram_ID\" IS NULL AND \"Blokkade\" = 0 AND \"Spoor_ID\" = :spoorid";
             Query["GetAmountOfSectors"] = "SELECT COUNT(*) FROM \"SECTOR\" WHERE \"Spoor_ID\" = :spoorid";
             Query["GetReserved"] = "SELECT * FROM \"RESERVERING\" WHERE \"Tram_ID\" = :tramid";
+            Query["GetNumberFromRail"] = "SELECT \"Nummer\" FROM \"SPOOR\" WHERE \"ID\" = :id";
+            Query["GetIdFromTram"] = "SELECT \"ID\" FROM \"TRAM\" WHERE \"Nummer\" = :tramnumber";
+            Query["AddTramToSector"] = "UPDATE SECTOR SET \"Tram_ID\" = :tramid WHERE \"Spoor_ID\" = :spoor AND \"Nummer\" = :sector";
 
             
             //Query["addtramtoincoming"] = "INSERT INTO INCOMING (TRAMID, MOMENT, MAINTENANCE) VALUES (:tramid, sysdate, :maintenance)";
