@@ -6,6 +6,7 @@ using Oracle.ManagedDataAccess.Client;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
+using ICT4Rails.Plugins;
 
 namespace ICT4Rails.Data_Layer
 {
@@ -40,10 +41,19 @@ namespace ICT4Rails.Data_Layer
                     command.Parameters.AddRange(parameters);
                 }
                 var DT = new DataTable();
-                using (OracleDataReader reader = command.ExecuteReader())
+                try
                 {
-                    DT.Load(reader);
+                    using (OracleDataReader reader = command.ExecuteReader())
+                    {
+                        DT.Load(reader);
+                    }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    throw;
+                }
+                
 
                 return DT;
             }
