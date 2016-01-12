@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -64,6 +65,9 @@ namespace ICT4Rails
             }
 
             BlokkeerInformation();
+
+            tbTramNummer.Text = TramNummer;
+            tbTramToevoegen.Text = TramNummer;
         }
 
         private void BlokkeerInformation()
@@ -74,16 +78,17 @@ namespace ICT4Rails
 
         protected void btnBlokkeren_Click(object sender, EventArgs e)
         {
+            if (TramNummer != "") return;
             Blokkade = !Blokkade;
-            
+
             OracleParameter[] parameters =
-                {
-                    new OracleParameter("blokkade", Convert.ToInt32(Blokkade)),
-                    new OracleParameter("id", Id)
-                };
+            {
+                new OracleParameter("blokkade", Convert.ToInt32(Blokkade)),
+                new OracleParameter("id", Id)
+            };
 
             DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["UpdateSectorBlokkade"], parameters);
-            
+
             BlokkeerInformation();
         }
 
