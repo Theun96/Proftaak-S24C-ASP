@@ -58,7 +58,15 @@ namespace ICT4Rails.Logic
                 DataTable freeSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"], parameters);
                 DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
                 int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
-                int latestnumber = (from DataRow dr in freeSectorsDt.Rows select Convert.ToInt32(dr[0])).Concat(new[] {0}).Max();
+                //int latestnumber = (from DataRow dr in freeSectorsDt.Rows select Convert.ToInt32(dr[3])).Concat(new[] {3}).Max();
+                int latestnumber = 0;
+                foreach (DataRow dr in freeSectorsDt.Rows)
+                {
+                    if (latestnumber < Convert.ToInt32(dr[3]))
+                    {
+                        latestnumber = Convert.ToInt32(dr[3]);
+                    }
+                }
                 if(latestnumber < amountOfSectors) continue;
                 spoorandnumber = new[] {Convert.ToInt32(freeRailDt[0]), latestnumber};
             }

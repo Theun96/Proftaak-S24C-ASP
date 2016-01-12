@@ -20,11 +20,11 @@
         <div class="col-md-4 jumbotron">
 
             <div>
-                <asp:Label ID="lblBlokkade" runat="server" Text="Blokkade"></asp:Label>
+                <asp:Label ID="lblBlokkade" runat="server" Text="Blokkeer Sector:"></asp:Label>
             </div>
 
             <div>
-                <asp:Button ID="btnBlokkeren" runat="server" Text="Blokkeren" />
+                <asp:Button ID="btnBlokkeren" runat="server" Text="Blokkeren" OnClick="btnBlokkeren_Click" />
             </div>
         </div>
 

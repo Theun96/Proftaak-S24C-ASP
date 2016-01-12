@@ -236,9 +236,9 @@ namespace ICT4Rails.Classes
             SectorInformation = Blokkade ? "X" : tramNummer;
         }
 
-        private static void Sector_Click(object sender, EventArgs e)
+        private void Sector_Click(object sender, EventArgs e)
         {
-            HttpContext.Current.Response.Redirect("/SectorInformation.aspx");
+            HttpContext.Current.Response.Redirect("/SectorInformation.aspx?id=" + Id);
         }
     }
 }

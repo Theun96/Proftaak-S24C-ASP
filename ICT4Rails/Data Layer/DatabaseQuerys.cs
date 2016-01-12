@@ -28,6 +28,8 @@ namespace ICT4Rails.Data_Layer
             Query["GetAllRails"] = "SELECT \"ID\", \"Nummer\" FROM SPOOR";
             Query["GetAllSectors"] = "SELECT * FROM SectorOverzicht";
             Query["GetTramNummer"] = "SELECT \"Nummer\" FROM \"TRAM\" WHERE ID = :id";
+            Query["GetSpecificSector"] = "SELECT * FROM SectorOverzicht WHERE ID =: id";
+            Query["UpdateSectorBlokkade"] = "";
 
             //tech en clean
             Query["GetAllEngineers"] = "SELECT m.\"Naam\", m.id FROM medewerker m, functie f WHERE f.ID = 4 AND f.id = m.\"Functie_ID\"";
@@ -39,11 +41,15 @@ namespace ICT4Rails.Data_Layer
             Query["SetTech"] = "UPDATE TRAM_ONDERHOUD SET \"BeschikbaarDatum\" = SYSDATE, \"Medewerker_ID\" = (SELECT ID FROM MEDEWERKER WHERE \"Naam\" = :naam) WHERE \"Tram_ID\" = (SELECT t.ID FROM TRAM t WHERE t.\"Nummer\" = :id) AND type = 'Techniek'";
             Query["SetClean"] = "UPDATE TRAM_ONDERHOUD SET \"BeschikbaarDatum\" = SYSDATE, \"Medewerker_ID\" = (SELECT ID FROM MEDEWERKER WHERE \"Naam\" = :naam) WHERE \"Tram_ID\" = (SELECT t.ID FROM TRAM t WHERE t.\"Nummer\" = :id) AND type = 'Schoonmaak'";
 
-            Query["SetTechDate"] = "";
-            Query["SetCleanDate"] = "";
+
+            Query["SetTechDate"] = "UPDATE TRAM_ONDERHOUD SET \"BeschikbaarDatum\" = TO_DATE(:datum, 'MM/DD/YYYY') WHERE \"Tram_ID\" = (SELECT ID FROM TRAM WHERE \"Nummer\" = :nummer) AND TYPE = 'Techniek'";
+            Query["SetCleanDate"] = "UPDATE TRAM_ONDERHOUD SET \"BeschikbaarDatum\" = TO_DATE(:datum, 'MM/DD/YYYY') WHERE \"Tram_ID\" = (SELECT ID FROM TRAM WHERE \"Nummer\" = :nummer) AND TYPE = 'Schoonmaak'";
+
             Query["GetFreeSectors"] = "SELECT * FROM \"SECTOR\" WHERE \"Tram_ID\" IS NULL AND \"Blokkade\" = 0 AND \"Spoor_ID\" = :spoorid";
             Query["GetFreeRails"] = "SELECT \"Spoor_ID\" FROM \"SECTOR\" WHERE \"Tram_ID\" IS NULL AND \"Blokkade\" = 0 GROUP BY \"Spoor_ID\" ORDER BY \"Spoor_ID\"";
             Query["GetAmountOfSectors"] = "SELECT COUNT(*) FROM \"SECTOR\" WHERE \"Spoor_ID\" = :spoorid";
+
+            
             //Query["addtramtoincoming"] = "INSERT INTO INCOMING (TRAMID, MOMENT, MAINTENANCE) VALUES (:tramid, sysdate, :maintenance)";
             //Query["traincheckin"] = "UPDATE SECTOR SET ISRESERVED = 0 WHERE TRAMID = :tramid";
             //Query["IncomingTrams"] = "SELECT TRAMID, MOMENT, MAINTENANCE FROM INCOMING ORDER BY MOMENT DESC";
