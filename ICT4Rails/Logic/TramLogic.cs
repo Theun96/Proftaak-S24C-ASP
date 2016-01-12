@@ -110,7 +110,7 @@ namespace ICT4Rails.Logic
                 freeSectors.Reverse();
                 DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
                 int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
-                if(freeSectors[0] > amountOfSectors) continue;
+                if(freeSectors[0] != amountOfSectors) continue;
                 int lastAvailable = amountOfSectors;
                 foreach (int number in freeSectors.Where(number => number != lastAvailable))
                 {
