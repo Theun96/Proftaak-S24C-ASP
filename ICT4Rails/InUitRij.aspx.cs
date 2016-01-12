@@ -51,7 +51,8 @@ namespace ICT4Rails
                     maintenance = "Techniek";
                 }
 
-                _tramLogic.AddIncoming(tramNumber.ToString(), maintenance);
+                //_tramLogic.AddIncoming(tramNumber.ToString(), maintenance);
+                _tramLogic.FindFreePlace();
                 MessageBox.Show("Er is nog geen reservering voor uw tram. Er is een bericht naar de trambeheerder gestuurd.");
             }
             else

@@ -3,6 +3,7 @@ using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace ICT4Rails.Logic
 {
@@ -45,28 +46,31 @@ namespace ICT4Rails.Logic
             DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["addtramtoincoming"], parameters);
         }
 
-        public int FindFreePlace()
+        public int[] FindFreePlace()
         {
-            DataTable freeRailsDT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeRails"], null);
+            DataTable freeRailsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeRails"], null);
+            int[] spoorandnumber = {};
 
-            foreach (DataRow freeRailDT in freeRailsDT.Rows)
+            foreach (DataRow freeRailDt in freeRailsDt.Rows)
             {
-                int railid = Convert.ToInt32(freeRailDT[0]);
+                int railid = Convert.ToInt32(freeRailDt[0]);
                 OracleParameter[] parameters = {new OracleParameter("spoorid", railid)};
-                DataTable freeSectorsDT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"], parameters);
-                DataTable amountOfSectorsDT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
-                int amountOfSectors = Convert.ToInt32(amountOfSectorsDT.Rows[0][0]);
-                int latestnumber = 1;
-                foreach (DataRow dr in freeSectorsDT.Rows)
+                DataTable freeSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"], parameters);
+                DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
+                int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
+                //int latestnumber = (from DataRow dr in freeSectorsDt.Rows select Convert.ToInt32(dr[3])).Concat(new[] {3}).Max();
+                int latestnumber = 0;
+                foreach (DataRow dr in freeSectorsDt.Rows)
                 {
-                    int currentNumber = Convert.ToInt32(dr[0]);
-                    if (latestnumber < currentNumber)
+                    if (latestnumber < Convert.ToInt32(dr[3]))
                     {
-                        
+                        latestnumber = Convert.ToInt32(dr[3]);
                     }
                 }
+                if(latestnumber < amountOfSectors) continue;
+                spoorandnumber = new[] {Convert.ToInt32(freeRailDt[0]), latestnumber};
             }
-            return 0;
+            return spoorandnumber;
         }
     }
 

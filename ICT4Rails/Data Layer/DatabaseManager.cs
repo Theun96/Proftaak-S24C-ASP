@@ -6,7 +6,6 @@ using Oracle.ManagedDataAccess.Client;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
-using ICT4Rails.Plugins;
 
 namespace ICT4Rails.Data_Layer
 {
@@ -33,29 +32,28 @@ namespace ICT4Rails.Data_Layer
 
         public static DataTable ExecuteReadQuery(string sqlquery, OracleParameter[] parameters)
         {
-            using (Connection)
-            using (var command = new OracleCommand(sqlquery, _connection))
+            try
             {
-                if (parameters != null)
+                using (Connection)
+                using (var command = new OracleCommand(sqlquery, _connection))
                 {
-                    command.Parameters.AddRange(parameters);
-                }
-                var DT = new DataTable();
-                try
-                {
+                    if (parameters != null)
+                    {
+                        command.Parameters.AddRange(parameters);
+                    }
+                    var dt = new DataTable();
                     using (OracleDataReader reader = command.ExecuteReader())
                     {
-                        DT.Load(reader);
+                        dt.Load(reader);
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    throw;
-                }
-                
 
-                return DT;
+                    return dt;
+                }
+            }
+            catch (OracleException oe)
+            {
+                Debug.WriteLine(oe.Message);
+                return null;
             }
         }
 
