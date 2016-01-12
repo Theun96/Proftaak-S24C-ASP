@@ -83,5 +83,14 @@ namespace ICT4Rails {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnTramToevoegen;
+        
+        /// <summary>
+        /// btnTerug control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTerug;
     }
 }

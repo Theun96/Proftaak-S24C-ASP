@@ -39,8 +39,10 @@
             <div>
                 <asp:Button ID="btnTramToevoegen" runat="server" Text="Toevoegen" />
             </div>
-
+            
         </div>
+        
+        <asp:Button ID="btnTerug" runat="server" Text="Terug" OnClick="btnTerug_Click" />
     </div>
 
 
