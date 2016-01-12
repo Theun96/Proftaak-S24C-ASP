@@ -39,8 +39,8 @@ namespace ICT4Rails.Data_Layer
             Query["SetTech"] = "UPDATE TRAM_ONDERHOUD SET \"BeschikbaarDatum\" = SYSDATE, \"Medewerker_ID\" = (SELECT ID FROM MEDEWERKER WHERE \"Naam\" = :naam) WHERE \"Tram_ID\" = (SELECT t.ID FROM TRAM t WHERE t.\"Nummer\" = :id) AND type = 'Techniek'";
             Query["SetClean"] = "UPDATE TRAM_ONDERHOUD SET \"BeschikbaarDatum\" = SYSDATE, \"Medewerker_ID\" = (SELECT ID FROM MEDEWERKER WHERE \"Naam\" = :naam) WHERE \"Tram_ID\" = (SELECT t.ID FROM TRAM t WHERE t.\"Nummer\" = :id) AND type = 'Schoonmaak'";
 
-            Query["SetTechDate"] = "";
-            Query["SetCleanDate"] = "";
+            Query["SetTechDate"] = "UPDATE TRAM_ONDERHOUD SET \"BeschikbaarDatum\" = TO_DATE(:datum, 'MM/DD/YYYY') WHERE \"Tram_ID\" = (SELECT ID FROM TRAM WHERE \"Nummer\" = :nummer) AND TYPE = 'Techniek'";
+            Query["SetCleanDate"] = "UPDATE TRAM_ONDERHOUD SET \"BeschikbaarDatum\" = TO_DATE(:datum, 'MM/DD/YYYY') WHERE \"Tram_ID\" = (SELECT ID FROM TRAM WHERE \"Nummer\" = :nummer) AND TYPE = 'Schoonmaak'";
             //Query["addtramtoincoming"] = "INSERT INTO INCOMING (TRAMID, MOMENT, MAINTENANCE) VALUES (:tramid, sysdate, :maintenance)";
             //Query["traincheckin"] = "UPDATE SECTOR SET ISRESERVED = 0 WHERE TRAMID = :tramid";
             //Query["IncomingTrams"] = "SELECT TRAMID, MOMENT, MAINTENANCE FROM INCOMING ORDER BY MOMENT DESC";
