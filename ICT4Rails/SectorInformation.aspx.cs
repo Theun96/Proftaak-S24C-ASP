@@ -45,7 +45,7 @@ namespace ICT4Rails
 
                 foreach (DataRow dr in dt.Rows)
                 {
-                    Id = Convert.ToInt32(dr["Spoor_ID"]);
+                    Id = Convert.ToInt32(dr["ID"]);
 
                     TramNummer = (dr["Tram_Nummer"]).ToString() != "" ? (dr["Tram_Nummer"]).ToString() : "";
 
@@ -75,18 +75,21 @@ namespace ICT4Rails
         protected void btnBlokkeren_Click(object sender, EventArgs e)
         {
             Blokkade = !Blokkade;
-
             
             OracleParameter[] parameters =
                 {
-                    new OracleParameter("blokkade", Blokkade),
+                    new OracleParameter("blokkade", Convert.ToInt32(Blokkade)),
                     new OracleParameter("id", Id)
                 };
 
-            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query[""], parameters);
+            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["UpdateSectorBlokkade"], parameters);
             
-
             BlokkeerInformation();
+        }
+
+        protected void btnTerug_Click(object sender, EventArgs e)
+        {
+            HttpContext.Current.Response.Redirect("/Beheer.aspx");
         }
     }
 }
