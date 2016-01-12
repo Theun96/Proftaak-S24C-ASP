@@ -66,25 +66,40 @@ namespace ICT4Rails
 
         protected void ButtonRepaired_Click(object sender, EventArgs e)
         {
-            OracleParameter[] parameters =
+            if (DropDownUsers.SelectedValue != null && DropDownTrams.SelectedValue != null)
             {
-                new OracleParameter("naam", DropDownUsers.SelectedValue),
-                new OracleParameter("id", DropDownTrams.SelectedValue)
-            };
-            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["SetTech"], parameters);
-            Response.Redirect(Request.Url.AbsoluteUri);
+                OracleParameter[] parameters =
+                {
+                    new OracleParameter("naam", DropDownUsers.SelectedValue),
+                    new OracleParameter("id", DropDownTrams.SelectedValue)
+                };
+                DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["SetTech"], parameters);
+                Response.Redirect(Request.Url.AbsoluteUri);
+            }
+            else
+            {
+                    MessageBox.Show("Geen tram of persoon geselecteerd.");
+            }
+           
         }
 
         protected void ButtonSaveEndDate_Click(object sender, EventArgs e)
         {
-            DateTime date = DateTime.Parse(datepicker.Text);
-            OracleParameter[] parameters =
+            if (!String.IsNullOrEmpty(datepicker.Text) && DropDownTrams2.SelectedValue != null)
             {
-                new OracleParameter("id", DropDownTrams2.SelectedValue),
-                new OracleParameter("datum", date)
-            };
-            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["SetTechDate"], parameters);
-            Response.Redirect(Request.Url.AbsoluteUri);
+                //DateTime dt = Convert.ToDateTime(datepicker.Text);
+                OracleParameter[] parameters =
+                {
+                    new OracleParameter("datum", datepicker.Text),
+                    new OracleParameter("nummer", DropDownTrams2.SelectedValue)
+                };
+                DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["SetTechDate"], parameters);
+                Response.Redirect(Request.Url.AbsoluteUri);
+            }
+            else
+            {
+                MessageBox.Show("Geen tram of datum geselecteerd.");
+            }
         }
     }
 }
