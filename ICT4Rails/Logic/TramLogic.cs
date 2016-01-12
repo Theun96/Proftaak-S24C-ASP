@@ -35,7 +35,7 @@ namespace ICT4Rails.Logic
             return info;
         }
 
-        public void AddIncoming(string tramid, int maintenance)
+        public void AddIncoming(string tramid, string maintenance)
         {
             OracleParameter[] parameters =
             {
@@ -43,6 +43,30 @@ namespace ICT4Rails.Logic
                 new OracleParameter("maintenance", maintenance)
             };
             DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["addtramtoincoming"], parameters);
+        }
+
+        public int FindFreePlace()
+        {
+            DataTable freeRailsDT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeRails"], null);
+
+            foreach (DataRow freeRailDT in freeRailsDT.Rows)
+            {
+                int railid = Convert.ToInt32(freeRailDT[0]);
+                OracleParameter[] parameters = {new OracleParameter("spoorid", railid)};
+                DataTable freeSectorsDT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"], parameters);
+                DataTable amountOfSectorsDT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
+                int amountOfSectors = Convert.ToInt32(amountOfSectorsDT.Rows[0][0]);
+                int latestnumber = 1;
+                foreach (DataRow dr in freeSectorsDT.Rows)
+                {
+                    int currentNumber = Convert.ToInt32(dr[0]);
+                    if (latestnumber < currentNumber)
+                    {
+                        
+                    }
+                }
+            }
+            return 0;
         }
     }
 

@@ -37,29 +37,27 @@ namespace ICT4Rails
             int[] info = _tramLogic.GetReservedSector(tramNumber);
             if (info[0] == 0 || info[1] == 0)
             {
-                int maintenance = 0;
+                string maintenance = "";
                 if (CheckDamaged.Checked && CheckDirty.Checked)
                 {
-                    maintenance = 3;
+                    maintenance = "Beide";
                 }
                 else if (CheckDirty.Checked)
                 {
-                    maintenance = 2;
+                    maintenance = "Schoonmaak";
                 }
                 else if (CheckDamaged.Checked)
                 {
-                    maintenance = 1;
+                    maintenance = "Techniek";
                 }
 
-                MessageBox.Show("Rail: " + info[0] + ", Sector: " + info[1]);
-                //_tramLogic.AddIncoming(tramNumber.ToString(), maintenance);
-                ////MessageBox.Show("Er is nog geen reservering voor uw tram. Er is een bericht naar de trambeheerder gestuurd.");
+                _tramLogic.AddIncoming(tramNumber.ToString(), maintenance);
+                MessageBox.Show("Er is nog geen reservering voor uw tram. Er is een bericht naar de trambeheerder gestuurd.");
             }
             else
             {
-                //txtDesiredRail.Text = info[0].ToString();
-                //txtDesiredSector.Text = info[1].ToString();
                 //trammanager.CheckInTrain(txtTramNumber.Text);
+                MessageBox.Show($"Rail: {info[0]}, Sector: {info[1]}");
             }
         }
 
