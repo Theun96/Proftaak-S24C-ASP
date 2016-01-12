@@ -36,39 +36,63 @@ namespace ICT4Rails.Logic
             return info;
         }
 
-        public void AddIncoming(string tramid, string maintenance)
+        public int CheckReserved(string tramid)
         {
+            int spoor = 0;
             OracleParameter[] parameters =
             {
-                new OracleParameter("tramid", tramid),
-                new OracleParameter("maintenance", maintenance)
+                new OracleParameter("tramid", tramid)
             };
-            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["addtramtoincoming"], parameters);
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetReserved"], parameters);
+            if (dt.Rows.Count > 0)
+            {
+                spoor = Convert.ToInt32(dt.Rows[0][2]);
+            }
+            return spoor;
         }
 
-        public int[] FindFreePlace()
+        public static IEnumerable<int> FindFreePlace(int spoor, string type)
         {
-            DataTable freeRailsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeRails"], null);
-            int[] spoorandnumber = {};
+            DataTable freeRailsDt;
+            if (spoor == 0)
+            {
+                freeRailsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeRails"], null);
+            }
+            else
+            {
+                OracleParameter[] parameters = {new OracleParameter("spoorid", spoor)};
+                freeRailsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeRailFromId"], parameters);
+            }
+            
+            int[] spoorandnumber = null;
 
             foreach (DataRow freeRailDt in freeRailsDt.Rows)
             {
                 int railid = Convert.ToInt32(freeRailDt[0]);
                 OracleParameter[] parameters = {new OracleParameter("spoorid", railid)};
                 DataTable freeSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"], parameters);
+                //List<int> freeSectors = (from DataRow dr in freeSectorsDt.Rows select Convert.ToInt32(dr[4])).ToList();
+                List<int> freeSectors = (from DataRow freeSector in freeSectorsDt.Rows select Convert.ToInt32(freeSector[3])).ToList();
+                freeSectors.Sort();
+                freeSectors.Reverse();
                 DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
                 int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
-                //int latestnumber = (from DataRow dr in freeSectorsDt.Rows select Convert.ToInt32(dr[3])).Concat(new[] {3}).Max();
-                int latestnumber = 0;
-                foreach (DataRow dr in freeSectorsDt.Rows)
+                if(freeSectors[0] > amountOfSectors) continue;
+                int lastAvailable = amountOfSectors;
+                foreach (int number in freeSectors.Where(number => number != lastAvailable))
                 {
-                    if (latestnumber < Convert.ToInt32(dr[3]))
+                    if (number == lastAvailable - 1)
                     {
-                        latestnumber = Convert.ToInt32(dr[3]);
+                        lastAvailable = number;
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
-                if(latestnumber < amountOfSectors) continue;
-                spoorandnumber = new[] {Convert.ToInt32(freeRailDt[0]), latestnumber};
+
+                spoorandnumber = new[] {Convert.ToInt32(freeRailDt[0]), lastAvailable};
+                break;
             }
             return spoorandnumber;
         }

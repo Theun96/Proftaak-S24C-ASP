@@ -47,7 +47,9 @@ namespace ICT4Rails.Data_Layer
 
             Query["GetFreeSectors"] = "SELECT * FROM \"SECTOR\" WHERE \"Tram_ID\" IS NULL AND \"Blokkade\" = 0 AND \"Spoor_ID\" = :spoorid";
             Query["GetFreeRails"] = "SELECT \"Spoor_ID\" FROM \"SECTOR\" WHERE \"Tram_ID\" IS NULL AND \"Blokkade\" = 0 GROUP BY \"Spoor_ID\" ORDER BY \"Spoor_ID\"";
+            Query["GetFreeRailFromId"] = "SELECT \"Spoor_ID\" FROM \"SECTOR\" WHERE \"Tram_ID\" IS NULL AND \"Blokkade\" = 0 AND \"Spoor_ID\" = :spoorid";
             Query["GetAmountOfSectors"] = "SELECT COUNT(*) FROM \"SECTOR\" WHERE \"Spoor_ID\" = :spoorid";
+            Query["GetReserved"] = "SELECT * FROM \"RESERVERING\" WHERE \"Tram_ID\" = :tramid";
 
             
             //Query["addtramtoincoming"] = "INSERT INTO INCOMING (TRAMID, MOMENT, MAINTENANCE) VALUES (:tramid, sysdate, :maintenance)";
