@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ICT4Rails.Logic;
 using ICT4Rails.Plugins;
 
 namespace ICT4Rails
@@ -117,7 +118,8 @@ namespace ICT4Rails
 
         protected void btnTramReserveren_Click(object sender, EventArgs e)
         {
-
+            int tramid = TramLogic.GetIdFromTram(Convert.ToInt32(tbTramReserveren.Text));
+            if (tramid == 0) MessageBox.Show("Tram niet gevonden");
         }
     }
 }
