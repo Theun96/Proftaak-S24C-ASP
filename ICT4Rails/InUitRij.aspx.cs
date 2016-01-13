@@ -66,8 +66,15 @@ namespace ICT4Rails
 
             int spoor = TramLogic.CheckReserved(tramid);
             int[] position = TramLogic.FindFreePlace(spoor, maintenance);
+            if (position == null)
+            {
+                MessageBox.Show("Er is op dit moment geen plek beschikbaar");
+                lblTramNumber.Text = "Geef een tramnummer in.";
+                return;
+            }
             int railNumber = TramLogic.GetNumberFromRail(position[0]);
             TramLogic.AddTrainToSector(tramid, position[0], position[1]);
+            TramLogic.AddTramToMaintenance(tramid, maintenance);
             MessageBox.Show($"Spoor: {railNumber}, Sector: {position[1]}");
             TouchpadClear_Click(null, null);
         }

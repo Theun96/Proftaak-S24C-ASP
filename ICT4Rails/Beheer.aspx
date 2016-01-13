@@ -8,4 +8,5 @@
         </asp:Table>
     </div>
 
+    <asp:Button ID="btnSimulation" runat="server" Text="Simulatie" CssClass="btn btn-primary" OnClick="btnSimulation_Click"/>
 </asp:Content>

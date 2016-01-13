@@ -22,6 +22,15 @@ namespace ICT4Rails {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// LoggedInPH control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder LoggedInPH;
+        
+        /// <summary>
         /// navBeheer control.
         /// </summary>
         /// <remarks>
@@ -58,22 +67,13 @@ namespace ICT4Rails {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor navInUitRij;
         
         /// <summary>
-        /// navAdmin control.
+        /// btnLogout control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor navAdmin;
-        
-        /// <summary>
-        /// LoggedInPH control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder LoggedInPH;
+        protected global::System.Web.UI.WebControls.Button btnLogout;
         
         /// <summary>
         /// AnonymousPH control.

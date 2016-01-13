@@ -11,11 +11,15 @@ namespace ICT4Rails
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["User"] != null)
-            {
-                LoggedInPH.Visible = true;
-                AnonymousPH.Visible = false;
-            }
+            if (Session["User"] == null) return;
+            LoggedInPH.Visible = true;
+            AnonymousPH.Visible = false;
+        }
+
+        protected void btnLogout_OnClick(object sender, EventArgs e)
+        {
+            Session["User"] = null;
+            Response.Redirect("/");
         }
     }
 }

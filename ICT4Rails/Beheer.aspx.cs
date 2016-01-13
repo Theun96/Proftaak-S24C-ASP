@@ -8,14 +8,17 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ICT4Rails.Logic;
 
 namespace ICT4Rails
 {
     public partial class Beheer : Page
     {
-        public List<Rail> Rails { get; private set; }
-        public List<Sector> Sectors { get; private set; }
-        public List<TableCell> TableCells { get; private set; }
+        private List<Rail> Rails { get; set; }
+        private List<Sector> Sectors { get; set; }
+        private List<TableCell> TableCells { get; set; }
+
+        private TramLogic _tramLogic = new TramLogic();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -136,6 +139,15 @@ namespace ICT4Rails
             }
 
             UpdateGrid();
+        }
+
+        protected void btnSimulation_Click(object sender, EventArgs e)
+        {
+            for (int i = 1; i <= 15; i++)
+            {
+                TramLogic.Simulatie();
+            }
+            Response.Redirect(Request.RawUrl);
         }
     }
 }
