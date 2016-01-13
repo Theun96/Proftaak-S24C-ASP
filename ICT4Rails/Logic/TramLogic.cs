@@ -22,6 +22,18 @@ namespace ICT4Rails.Logic
             DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllAvailableTrams"], parameters);
         }
 
+        public static void AddTrainToSector(int tramid, int spoor, int sector)
+        {
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("tramid", tramid),
+                new OracleParameter("spoor", spoor), 
+                new OracleParameter("sector", sector)
+            };
+
+            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["AddTramToSector"], parameters);
+        }
+
         public int[] GetReservedSector(int tramnumber)
         {
             OracleParameter[] op = { new OracleParameter("tramid", tramnumber) };
@@ -36,41 +48,99 @@ namespace ICT4Rails.Logic
             return info;
         }
 
-        public void AddIncoming(string tramid, string maintenance)
+        public static int CheckReserved(int tramid)
+        {
+            int spoor = 0;
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("tramid", tramid)
+            };
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetReserved"], parameters);
+            if (dt.Rows.Count > 0)
+            {
+                spoor = Convert.ToInt32(dt.Rows[0][2]);
+            }
+            return spoor;
+        }
+
+        public static int GetNumberFromRail(int id)
         {
             OracleParameter[] parameters =
             {
-                new OracleParameter("tramid", tramid),
-                new OracleParameter("maintenance", maintenance)
+                new OracleParameter("id", id)
             };
-            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["addtramtoincoming"], parameters);
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetNumberFromRail"], parameters);
+            return dt.Rows.Count > 0 ? Convert.ToInt32(dt.Rows[0][0]) : 0;
         }
 
-        public int[] FindFreePlace()
+        public static int GetIdFromTram(int number)
         {
-            DataTable freeRailsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeRails"], null);
-            int[] spoorandnumber = {};
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("tramnumber", number)
+            };
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetIdFromTram"], parameters);
+            return dt.Rows.Count > 0 ? Convert.ToInt32(dt.Rows[0][0]) : 0;
+            
+        }
+
+        public static int[] FindFreePlace(int spoor, string type)
+        {
+            bool maintenance = (type != "");
+            DataTable freeRailsDt;
+            if (spoor == 0)
+            {
+                freeRailsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeRails"], null);
+            }
+            else
+            {
+                OracleParameter[] parameters = {new OracleParameter("spoorid", spoor)};
+                freeRailsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeRailFromId"], parameters);
+            }
+            
+            int[] spoorandnumber = null;
 
             foreach (DataRow freeRailDt in freeRailsDt.Rows)
             {
                 int railid = Convert.ToInt32(freeRailDt[0]);
                 OracleParameter[] parameters = {new OracleParameter("spoorid", railid)};
                 DataTable freeSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"], parameters);
+                //List<int> freeSectors = (from DataRow dr in freeSectorsDt.Rows select Convert.ToInt32(dr[4])).ToList();
+                List<int> freeSectors = (from DataRow freeSector in freeSectorsDt.Rows select Convert.ToInt32(freeSector[3])).ToList();
+                freeSectors.Sort();
+                freeSectors.Reverse();
                 DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
                 int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
-                //int latestnumber = (from DataRow dr in freeSectorsDt.Rows select Convert.ToInt32(dr[3])).Concat(new[] {3}).Max();
-                int latestnumber = 0;
-                foreach (DataRow dr in freeSectorsDt.Rows)
+                if(!maintenance && amountOfSectors <= 1) continue;
+                if(maintenance && amountOfSectors > 1) continue;
+                if(freeSectors[0] != amountOfSectors) continue;
+                int lastAvailable = amountOfSectors;
+                foreach (int number in freeSectors.Where(number => number != lastAvailable))
                 {
-                    if (latestnumber < Convert.ToInt32(dr[3]))
+                    if (number == lastAvailable - 1)
                     {
-                        latestnumber = Convert.ToInt32(dr[3]);
+                        lastAvailable = number;
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
-                if(latestnumber < amountOfSectors) continue;
-                spoorandnumber = new[] {Convert.ToInt32(freeRailDt[0]), latestnumber};
+
+                spoorandnumber = new[] {Convert.ToInt32(freeRailDt[0]), lastAvailable};
+                break;
             }
             return spoorandnumber;
+        }
+
+        public bool CheckIfExists(int tramid)
+        {
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("tramnumber", tramid)
+            };
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["CheckIfTramExists"], parameters);
+            return (Convert.ToInt32(dt.Rows[0][0]) == 1);
         }
     }
 

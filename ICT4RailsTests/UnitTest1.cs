@@ -11,7 +11,7 @@ namespace ICT4RailsTests
         public void TestMethod1()
         {
             TramLogic tramLogic = new TramLogic();
-            tramLogic.FindFreePlace();
+            //tramLogic.FindFreePlace();
         }
     }
 }

@@ -83,7 +83,7 @@ namespace ICT4Rails.Data_Layer
         public static void ExecuteDeleteQuery(string sqlquery, OracleParameter[] parameters)
         {
             using (Connection)
-            using (OracleTransaction OT = Connection.BeginTransaction())
+            using (OracleTransaction ot = Connection.BeginTransaction())
             {
                 OracleCommand command = new OracleCommand(sqlquery, _connection);
                 if (parameters != null)
@@ -94,7 +94,7 @@ namespace ICT4Rails.Data_Layer
                 try
                 {
                     command.ExecuteNonQuery();
-                    OT.Commit();
+                    ot.Commit();
                 }
                 catch (OracleException oe)
                 {
