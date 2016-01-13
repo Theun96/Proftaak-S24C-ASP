@@ -20,6 +20,7 @@ namespace ICT4Rails
         {
             Session["User"] = null;
             Response.Redirect("/");
+            //Test
         }
     }
 }
