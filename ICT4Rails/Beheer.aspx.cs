@@ -301,18 +301,13 @@ namespace ICT4Rails
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         protected void btnSimulation_Click(object sender, EventArgs e)
         {
             btnSimulation.Enabled = false;
 
             for (int i = 1; i <= 15; i++)
             {
-                TramLogic.Simulatie();
+                _tramLogic.Simulatie();
             }
             Response.Redirect(Request.RawUrl);
 
