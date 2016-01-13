@@ -29,7 +29,7 @@ namespace ICT4Rails
             bool valid = int.TryParse(idstring, out id);
             if (!valid) Response.Redirect("/");
             Id = id;
-            
+
             try
             {
                 OracleParameter[] parameters =
@@ -44,6 +44,21 @@ namespace ICT4Rails
                     Id = Convert.ToInt32(dr["ID"]);
                     Nummer = Convert.ToInt32(dr["Nummer"]);
                 }
+
+                OracleParameter[] parameter =
+                {
+                    new OracleParameter("spoorid", Id)
+                };
+
+                DataTable getAmountOfSectorDataTable =
+                DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameter);
+                DataTable checkBlockedDataTable =
+                    DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["CheckRailBlocked"], parameter);
+
+                foreach (DataRow dr in getAmountOfSectorDataTable.Rows)
+                {
+                    Blokkade = Convert.ToInt32(dr[0]) == checkBlockedDataTable.Rows.Count;
+                }
             }
             catch (Exception ex)
             {
@@ -52,16 +67,12 @@ namespace ICT4Rails
             }
             
             BlokkeerInformation();
-            if (!IsPostBack)
-            {
-                //TramToevoegInformation();
-            }
         }
 
         private void BlokkeerInformation()
         {
             btnRailBlokkeren.Text = Blokkade ? "Deblokkeren" : "Blokkeren";
-            lblRailBlokkade.Text = !Blokkade ? "Blokkeer Spoor: " + Nummer : "Spoor: " + Nummer + " is Geblokkeerd!";
+            lblRailBlokkade.Text = !Blokkade ? "Blokkeer Spoor" : "Spoor is Geblokkeerd!";
 
             if (Blokkade)
             {
