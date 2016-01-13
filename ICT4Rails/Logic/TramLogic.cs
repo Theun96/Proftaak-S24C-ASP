@@ -86,6 +86,7 @@ namespace ICT4Rails.Logic
 
         public static int[] FindFreePlace(int spoor, string type)
         {
+            bool maintenance = (type != "");
             DataTable freeRailsDt;
             if (spoor == 0)
             {
@@ -110,6 +111,8 @@ namespace ICT4Rails.Logic
                 freeSectors.Reverse();
                 DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
                 int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
+                if(!maintenance && amountOfSectors <= 1) continue;
+                if(maintenance && amountOfSectors > 1) continue;
                 if(freeSectors[0] != amountOfSectors) continue;
                 int lastAvailable = amountOfSectors;
                 foreach (int number in freeSectors.Where(number => number != lastAvailable))
@@ -128,6 +131,16 @@ namespace ICT4Rails.Logic
                 break;
             }
             return spoorandnumber;
+        }
+
+        public bool CheckIfExists(int tramid)
+        {
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("tramnumber", tramid)
+            };
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["CheckIfTramExists"], parameters);
+            return (Convert.ToInt32(dt.Rows[0][0]) == 1);
         }
     }
 

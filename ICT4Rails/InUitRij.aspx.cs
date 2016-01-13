@@ -42,6 +42,14 @@ namespace ICT4Rails
                 return;
             }
 
+            bool alreadyExists = _tramLogic.CheckIfExists(tramid);
+            if (alreadyExists)
+            {
+                MessageBox.Show("Tram staat al op een sector");
+                lblTramNumber.Text = "Geef een tramnummer in.";
+                return;
+            }
+
             string maintenance = "";
             if (CheckDamaged.Checked && CheckDirty.Checked)
             {
