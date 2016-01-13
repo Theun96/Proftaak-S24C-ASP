@@ -18,7 +18,7 @@ namespace ICT4Rails
         private List<Sector> Sectors { get; set; }
         private List<TableCell> TableCells { get; set; }
 
-        private TramLogic _tramLogic = new TramLogic();
+        private readonly TramLogic _tramLogic = new TramLogic();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -73,7 +73,7 @@ namespace ICT4Rails
         /// <summary>
         /// 
         /// </summary>
-        public void UpdateGrid()
+        private void UpdateGrid()
         {
             foreach (TableCell tc in TableCells)
             {
@@ -130,7 +130,7 @@ namespace ICT4Rails
         /// <summary>
         /// 
         /// </summary>
-        public void GetAllSectors()
+        private void GetAllSectors()
         {
             DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllSectors"], null);
             

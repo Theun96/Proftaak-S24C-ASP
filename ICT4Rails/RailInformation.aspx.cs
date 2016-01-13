@@ -65,6 +65,7 @@ namespace ICT4Rails
                 MessageBox.Show(ex.Message);
                 throw;
             }
+            FillReservations();
             
             BlokkeerInformation();
         }
@@ -84,6 +85,16 @@ namespace ICT4Rails
                 tbTramReserveren.Enabled = true;
                 btnTramReserveren.Enabled = true;
             }
+        }
+
+        private void FillReservations()
+        {
+            DropDownListReservations.Items.Clear();
+            OracleParameter[] parameters = {new OracleParameter("spoorid", Id)};
+            DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetReservations"], parameters);
+            List<int> reservations = (from DataRow dr in dt.Rows select Convert.ToInt32(dr[0])).ToList();
+            DropDownListReservations.DataSource = reservations;
+            DropDownListReservations.DataBind();
         }
 
         protected void btnRailBlokkeren_Click(object sender, EventArgs e)
@@ -136,6 +147,18 @@ namespace ICT4Rails
             TramLogic.MakeReservation(Id, tramid);
             MessageBox.Show("Reservering is gemaakt");
             tbTramReserveren.Text = "";
+        }
+
+        protected void btnDeleteReservation_Click(object sender, EventArgs e)
+        {
+            if(DropDownListReservations.SelectedValue == "") return;
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("spoorid", Id),
+                new OracleParameter("tramid", DropDownListReservations.SelectedValue)
+            };
+            DatabaseManager.ExecuteDeleteQuery(DatabaseQuerys.Query["DeleteReservation"], parameters);
+            FillReservations();
         }
     }
 }
