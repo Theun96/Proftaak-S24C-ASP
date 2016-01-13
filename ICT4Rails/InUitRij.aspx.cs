@@ -65,7 +65,7 @@ namespace ICT4Rails
             }
 
             int spoor = TramLogic.CheckReserved(tramid);
-            int[] position = TramLogic.FindFreePlace(spoor, maintenance);
+            int[] position = _tramLogic.FindFreePlace(spoor, maintenance, tramid);
             if (position == null)
             {
                 MessageBox.Show("Er is op dit moment geen plek beschikbaar");
