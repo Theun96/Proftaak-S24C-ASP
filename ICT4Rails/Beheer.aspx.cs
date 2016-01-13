@@ -22,6 +22,8 @@ namespace ICT4Rails
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            btnSimulation.Enabled = false;
+
             Rails = new List<Rail>();
             Sectors = new List<Sector>();
             TableCells = new List<TableCell>();
@@ -54,6 +56,8 @@ namespace ICT4Rails
                 tblBeheer.Rows.Add(r);
             }
 
+            GetLijnen();
+
             //data uit database halen
             GetAllRails();
 
@@ -62,8 +66,13 @@ namespace ICT4Rails
 
             Debug.WriteLine(Environment.NewLine + "Aantalrails: " + Rails.Count + Environment.NewLine);
             Debug.WriteLine("Aantalsectors: " + Sectors.Count + Environment.NewLine);
+
+            btnSimulation.Enabled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void UpdateGrid()
         {
             foreach (TableCell tc in TableCells)
@@ -141,13 +150,30 @@ namespace ICT4Rails
             UpdateGrid();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GetLijnen()
+        {
+            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnSimulation_Click(object sender, EventArgs e)
         {
+            btnSimulation.Enabled = false;
+
             for (int i = 1; i <= 15; i++)
             {
                 TramLogic.Simulatie();
             }
             Response.Redirect(Request.RawUrl);
+
+            btnSimulation.Enabled = true;
         }
     }
 }
