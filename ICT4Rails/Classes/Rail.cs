@@ -2,6 +2,7 @@
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -11,18 +12,18 @@ namespace ICT4Rails.Classes
 {
     public class Rail
     {
-        readonly Label _railLabel = new Label();
+        readonly LinkButton _railLabel = new LinkButton();
 
         public int Id { get; private set; }
         public int Nummer { get; private set; }
         public string GridLocation { get; private set; }
+
 
         public Rail(int railId, int nummer)
         {
             Id = railId;
             Nummer = nummer;
             GridLocationMethod();
-            //_railLabel.Click += new EventHandler(Rail_Click);
         }
 
         private void GridLocationMethod()
@@ -157,86 +158,52 @@ namespace ICT4Rails.Classes
             }
         }
 
-        public Label AddRailLabel()
+        public LinkButton AddRailLabel()
         {
             _railLabel.Text = Nummer.ToString();
             _railLabel.ID = GridLocation;
-            _railLabel.CssClass = "railDefault"; 
+            _railLabel.CssClass = "railDefault";
+
+            _railLabel.Click += Rail_Click;
 
             return _railLabel;
         }
-        
-        /*
+
+
         private void Rail_Click(object sender, EventArgs e)
         {
-            List<Sector> allSectors = new List<Sector>();
-            List<Sector> sectorsFromRail = new List<Sector>();
-            BeheerSysteemForm form = new BeheerSysteemForm();
-
-            //list van alle sectoren
-            if (sender is Label)
+            OracleParameter[] parameter =
             {
-                Label label = (Label)sender;
-                if (label.Parent.Parent is BeheerSysteemForm)
+                new OracleParameter("spoorid", Id)
+            };
+
+            DataTable tramsOnRailDataTable =
+                DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetRailTrams"], parameter);
+
+            DataTable getAmountOfSectorDataTable =
+                DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameter);
+            DataTable checkBlockedDataTable =
+                DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["CheckRailBlocked"], parameter);
+
+            if (tramsOnRailDataTable.Rows.Count != 0) return;
+
+            foreach (DataRow dr in getAmountOfSectorDataTable.Rows)
+            {
+                if (Convert.ToInt32(dr[0]) == checkBlockedDataTable.Rows.Count)
                 {
-                    form = (BeheerSysteemForm)label.Parent.Parent;
-                    allSectors = form.Sectors;
+                    DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["BlokkeerRail"], parameter);
+
+                    HttpContext.Current.Response.Redirect("/Beheer.aspx");
+                }
+                else
+                {
+                    DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["DeBlokkeerRail"], parameter);
+
+                    HttpContext.Current.Response.Redirect("/Beheer.aspx");
                 }
             }
 
-            //list van alle sectoren van huidige rail
-            foreach (Sector s in allSectors)
-            {
-                if (s.Rail.Id.ToString() == Id.ToString() && !string.IsNullOrEmpty(s.SectorInformation))
-                {
-                    sectorsFromRail.Add(s);
-                }
-            }
 
-            sectorsFromRail.Sort();
-
-            //tellen hoeveel sectoren er zijn
-            int totalPostitions = sectorsFromRail.Count;
-
-            for (int i = 0; i < totalPostitions; i++)
-            {
-                if (!sectorsFromRail[i].Available)
-                {
-                    break;
-                }
-
-                if (sectorsFromRail[i].Position < totalPostitions)
-                {
-                    sectorsFromRail[i].SectorInformation = sectorsFromRail[i + 1].SectorInformation;
-
-                    OracleParameter[] parameters1 = new OracleParameter[]
-                    {
-                        new OracleParameter("sectorinformation", sectorsFromRail[i + 1].SectorInformation),
-                        new OracleParameter("railid", Id),
-                        new OracleParameter("position", sectorsFromRail[i].Position)
-                    };
-                    DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["UpdateSectorInformation"], parameters1);
-                }
-
-                if (sectorsFromRail[i].Position == totalPostitions)
-                {
-                    sectorsFromRail[i].SectorInformation = "";
-
-                    OracleParameter[] parameters1 = new OracleParameter[]
-                    {
-                        new OracleParameter("railid", Id),
-                        new OracleParameter("position", sectorsFromRail[i].Position)
-                    };
-                    DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["UpdateLastSectorInformation"], parameters1);
-                }
-            }
-
-            form.GetAllSectors();
-            /*
-            //messagebox for sectorfromrail
-            foreach (Sector s in sectorsFromRail)
-            {
-                MessageBox.Show(s.Rail.Id.ToString() + " - " + s.Position.ToString() + " - " + s.SectorInformation);
-            }*/
+        }
     }
 }
