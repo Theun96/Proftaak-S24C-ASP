@@ -13,33 +13,6 @@ namespace ICT4Rails {
     public partial class SectorInformation {
         
         /// <summary>
-        /// lblTramNummer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTramNummer;
-        
-        /// <summary>
-        /// tbTramNummer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbTramNummer;
-        
-        /// <summary>
-        /// btnReserveer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnReserveer;
-        
-        /// <summary>
         /// lblBlokkade control.
         /// </summary>
         /// <remarks>
@@ -83,6 +56,15 @@ namespace ICT4Rails {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnTramToevoegen;
+        
+        /// <summary>
+        /// btnTramVerwijderen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTramVerwijderen;
         
         /// <summary>
         /// btnTerug control.

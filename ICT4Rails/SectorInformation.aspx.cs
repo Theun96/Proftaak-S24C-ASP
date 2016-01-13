@@ -15,14 +15,14 @@ namespace ICT4Rails
 {
     public partial class SectorInformation : System.Web.UI.Page
     {
-        private int Id {get; set; }
+        private int Id { get; set; }
         private string TramNummer { get; set; }
         private int Nummer { get; set; }
         private bool Beschikbaar { get; set; }
 
         private bool Blokkade
         {
-            get { return (bool) ViewState["Blokkade"]; }
+            get { return (bool)ViewState["Blokkade"]; }
             set { ViewState["Blokkade"] = value; }
         }
 
@@ -30,9 +30,9 @@ namespace ICT4Rails
         {
             string idstring = Request.QueryString["id"];
             int id;
-            if(idstring == null) Response.Redirect("/");
+            if (idstring == null) Response.Redirect("/");
             bool valid = int.TryParse(idstring, out id);
-            if(!valid) Response.Redirect("/");
+            if (!valid) Response.Redirect("/");
             Id = id;
 
             try
@@ -65,15 +65,36 @@ namespace ICT4Rails
             }
 
             BlokkeerInformation();
-
-            tbTramNummer.Text = TramNummer;
-            tbTramToevoegen.Text = TramNummer;
+            if (!IsPostBack)
+            {
+                TramToevoegInformation();
+            }
         }
 
         private void BlokkeerInformation()
         {
             btnBlokkeren.Text = Blokkade ? "Deblokkeren" : "Blokkeren";
             lblBlokkade.Text = !Blokkade ? "Blokkeer Sector: " + Nummer : "Sector: " + Nummer + " is Geblokkeerd!";
+
+            if (Blokkade)
+            {
+                tbTramToevoegen.Enabled = false;
+                btnTramToevoegen.Enabled = false;
+                btnTramVerwijderen.Enabled = false;
+            }
+            else
+            {
+                tbTramToevoegen.Enabled = true;
+                btnTramToevoegen.Enabled = true;
+                btnTramVerwijderen.Enabled = true;
+            }
+        }
+
+        private void TramToevoegInformation()
+        {
+            tbTramToevoegen.Text = TramNummer;
+
+            btnBlokkeren.Enabled = TramNummer == "";
         }
 
         protected void btnBlokkeren_Click(object sender, EventArgs e)
@@ -95,6 +116,63 @@ namespace ICT4Rails
         protected void btnTerug_Click(object sender, EventArgs e)
         {
             HttpContext.Current.Response.Redirect("/Beheer.aspx");
+        }
+
+        protected void btnTramToevoegen_Click(object sender, EventArgs e)
+        {
+            if (TramNummer != "") return;
+            TramNummer = Server.HtmlEncode(tbTramToevoegen.Text);
+
+            try
+            {
+                OracleParameter[] parameter =
+                {
+                    new OracleParameter("tramNummer", TramNummer)
+                };
+
+                DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetTramID"], parameter);
+
+                foreach (var tramId in from DataRow dr in dt.Rows select Convert.ToInt32(dr["ID"]))
+                {
+                    OracleParameter[] parameters =
+                    {
+                        new OracleParameter("tramID", tramId),
+                        new OracleParameter("id", Id)
+                    };
+
+                    DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["UpdateTramSector"], parameters);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+
+        }
+
+        protected void btnTramVerwijderen_Click(object sender, EventArgs e)
+        {
+            if(TramNummer == "") return;
+
+            TramNummer = "";
+
+            try
+            {
+                OracleParameter[] parameter =
+                {
+                    new OracleParameter("id", Id)
+                };
+
+                DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["DeleteTramSector"], parameter);
+
+                TramToevoegInformation();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
         }
     }
 }
