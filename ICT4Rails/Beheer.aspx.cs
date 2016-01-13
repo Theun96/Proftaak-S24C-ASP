@@ -29,7 +29,7 @@ namespace ICT4Rails
             tblBeheer.Width = new Unit("100%");
             tblBeheer.Height = new Unit("100%");
             
-            const int numrows = 29;
+            const int numrows = 25;
             const int numcells = 19;
 
             string widthPercent = (100 / numcells) + "%";
