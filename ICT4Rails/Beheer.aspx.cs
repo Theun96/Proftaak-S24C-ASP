@@ -301,11 +301,6 @@ namespace ICT4Rails
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         protected void btnSimulation_Click(object sender, EventArgs e)
         {
             btnSimulation.Enabled = false;
