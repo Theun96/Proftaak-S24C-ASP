@@ -57,7 +57,7 @@ namespace ICT4Rails
 
                 foreach (DataRow dr in getAmountOfSectorDataTable.Rows)
                 {
-                    Blokkade = Convert.ToInt32(dr[0]) == checkBlockedDataTable.Rows.Count;
+                    Blokkade = Convert.ToInt32(dr[0]) != checkBlockedDataTable.Rows.Count;
                 }
             }
             catch (Exception ex)
