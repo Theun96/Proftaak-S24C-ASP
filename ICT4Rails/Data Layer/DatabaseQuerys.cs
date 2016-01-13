@@ -15,8 +15,12 @@ namespace ICT4Rails.Data_Layer
             Query["GetTramNummer"] = "SELECT \"Nummer\" FROM \"TRAM\" WHERE ID = :id";
             Query["GetTramID"] = "SELECT ID FROM \"TRAM\" WHERE \"Nummer\" = :nummer";
             Query["GetSpecificSector"] = "SELECT * FROM SectorOverzicht WHERE ID = :id";
+            Query["GetRailTrams"] = "SELECT * FROM SECTOR WHERE \"Spoor_ID\" = :railId AND \"Tram_ID\" IS NOT NULL";
+            Query["CheckRailBlocked"] = "SELECT * FROM SECTOR WHERE \"Spoor_ID\" = :spoorid AND \"Blokkade\" = 0";
 
             Query["UpdateSectorBlokkade"] = "UPDATE SECTOR SET \"Blokkade\" = :blokkade WHERE ID = :id";
+            Query["BlokkeerRail"] = "UPDATE SECTOR SET \"Blokkade\" = 1 WHERE \"Spoor_ID\" = :spoorid";
+            Query["DeBlokkeerRail"] = "UPDATE SECTOR SET \"Blokkade\" = 0 WHERE \"Spoor_ID\" = :spoorid";
             Query["UpdateTramSector"] = "UPDATE SECTOR SET \"Tram_ID\" = :tramid WHERE ID = :id";
             Query["DeleteTramSector"] = "UPDATE SECTOR SET \"Tram_ID\" = null WHERE ID = :id";
 

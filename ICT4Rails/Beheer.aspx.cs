@@ -85,7 +85,7 @@ namespace ICT4Rails
             foreach (Rail r in Rails)
             {
                 if (r.GridLocation == null) continue;
-                Label l = r.AddRailLabel();
+                LinkButton l = r.AddRailLabel();
                 
                 foreach (var tc in TableCells.Where(tc => tc.ID.Substring(1) == r.GridLocation))
                 {
