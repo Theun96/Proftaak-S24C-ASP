@@ -77,6 +77,11 @@ namespace ICT4Rails
             TramLogic.AddTramToMaintenance(tramid, maintenance);
             MessageBox.Show($"Spoor: {railNumber}, Sector: {position[1]}");
             TouchpadClear_Click(null, null);
+            if (maintenance != "")
+            {
+                Mailing mail = new Mailing();
+                mail.mail("pts18werknemer1@gmail.com","er is een trein die een "+maintenance+" beurt nodig heeft.",maintenance);
+            }
         }
 
         protected void TouchpadClear_Click(object sender, EventArgs e)
