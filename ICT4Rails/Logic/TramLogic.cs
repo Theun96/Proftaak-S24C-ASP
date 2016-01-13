@@ -19,7 +19,7 @@ namespace ICT4Rails.Logic
         private readonly int[] _line16 = {16, 14, 11, 33}; //Done
         private readonly int[] _line24 = {16, 14, 11, 33}; //Done
         private readonly int[] _line17 = {25, 28}; //Done
-        private readonly int[] _reserve = {12, 20, 34, 27, 39, 37, 36, 40, 41, 42, 43};
+        private readonly int[] _reserve = {1,2,3,4,5,6,7,8,9,10,12, 20, 34, 27, 39, 37, 36, 40, 41, 42, 43};
 
         public void AddingTram()
         {
@@ -97,17 +97,51 @@ namespace ICT4Rails.Logic
         {
             bool maintenance = (type != "");
 
-            if (spoor == 0)
+            if (maintenance)
             {
-                OracleParameter[] parameters = {new OracleParameter("spoorid", spoor)};
-                DataTable freeRailsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeRailFromId"], parameters);
-                return null;
+                return FindReserveRail(true);
+            }
+            else if (spoor != 0)
+            {
+                OracleParameter[] parameters1 = {new OracleParameter("spoorid", spoor)};
+                DataTable freeRailsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeRailFromId"], parameters1);
+                List<int> freeRails = (from DataRow dr in freeRailsDt.Rows select Convert.ToInt32(dr[0])).ToList();
+                int[] spoorandnumber = null;
+                foreach (int rail in freeRails)
+                {
+                    OracleParameter[] parameters = { new OracleParameter("spoorid", rail) };
+                    DataTable freeSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"], parameters);
+                    List<int> freeSectors = (from DataRow freeSector in freeSectorsDt.Rows select Convert.ToInt32(freeSector[3])).ToList();
+                    freeSectors.Sort();
+                    freeSectors.Reverse();
+
+                    DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
+                    int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
+                    if (freeSectors[0] != amountOfSectors) continue;
+
+                    int lastAvailable = amountOfSectors;
+                    foreach (int number in freeSectors.Where(number => number != lastAvailable))
+                    {
+                        if (number == lastAvailable - 1)
+                        {
+                            lastAvailable = number;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    spoorandnumber = new[] { rail, lastAvailable };
+                    break;
+                }
+                return spoorandnumber;
             }
             else
             {
                 OracleParameter[] parameters1 = {new OracleParameter("tramid", tramid)};
                 DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetTramLine"], parameters1);
-                if (dt.Rows.Count <= 0) return FindReserveRail();
+                if (dt.Rows.Count <= 0) return FindReserveRail(maintenance);
                 int linenumber = Convert.ToInt32(dt.Rows[0][0]);
 
                 int[] sporen = FindRailFromLine(linenumber);
@@ -125,9 +159,6 @@ namespace ICT4Rails.Logic
 
                     DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
                     int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
-
-                    if (!maintenance && amountOfSectors <= 1) continue;
-                    if (maintenance && amountOfSectors > 1) continue;
                     if (freeSectors[0] != amountOfSectors) continue;
 
                     int lastAvailable = amountOfSectors;
@@ -147,11 +178,11 @@ namespace ICT4Rails.Logic
                     break;
                 }
 
-                return spoorandnumber ?? FindReserveRail();
+                return spoorandnumber ?? FindReserveRail(maintenance);
             }  
         }
 
-        private int[] FindReserveRail()
+        private int[] FindReserveRail(bool maintenance)
         {
             int[] spoorandnumber = null;
             foreach (int rail in _reserve)
@@ -161,10 +192,13 @@ namespace ICT4Rails.Logic
                 List<int> freeSectors = (from DataRow freeSector in freeSectorsDt.Rows select Convert.ToInt32(freeSector[3])).ToList();
                 freeSectors.Sort();
                 freeSectors.Reverse();
+                if(!freeSectors.Any()) continue;
 
                 DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
                 int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
                 if (freeSectors[0] != amountOfSectors) continue;
+                if (!maintenance && amountOfSectors <= 1) continue;
+                if (maintenance && amountOfSectors > 1) continue;
 
                 int lastAvailable = amountOfSectors;
                 foreach (int number in freeSectors.Where(number => number != lastAvailable))
@@ -208,52 +242,16 @@ namespace ICT4Rails.Logic
             DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["AddTramToMaintenance"], parameters);
         }
 
-        public static void Simulatie()
+        public void Simulatie()
         {
-            int[] simulatiesporen = { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39};
-            Shuffle(simulatiesporen);
             DataTable freeTramsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeTramIds"], null);
             List<int> freeTrams = (from DataRow dr in freeTramsDt.Rows select Convert.ToInt32(dr[0])).ToList();
             Random rnd = new Random();
             int randomindex = rnd.Next(freeTrams.Count);
             int tramid = freeTrams[randomindex];
-
-            int randomsectorid = 0;
-            int randomspoorid = 0;
-            foreach (int spoor in simulatiesporen)
-            {
-                OracleParameter[] parameters =
-                {
-                    new OracleParameter("spoorid", spoor)
-                };
-                DataTable freeSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"], parameters);
-                List<int> freeSectors = (from DataRow dr in freeSectorsDt.Rows select Convert.ToInt32(dr[3])).ToList();
-                if(!freeSectors.Any()) continue;
-                freeSectors.Sort();
-                freeSectors.Reverse();
-                DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
-                int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
-                if (freeSectors[0] != amountOfSectors) continue;
-                int lastAvailable = amountOfSectors;
-                foreach (int number in freeSectors.Where(number => number != lastAvailable))
-                {
-                    if (number == lastAvailable - 1)
-                    {
-                        lastAvailable = number;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                randomsectorid = lastAvailable;
-                randomspoorid = spoor;
-                break;
-            }
-
-            if (randomspoorid == 0 || randomsectorid == 0) return;
-            AddTrainToSector(tramid, randomspoorid, randomsectorid);
+            int[] spoorandnumber = FindFreePlace(0, "", tramid);
+            if (spoorandnumber == null) return;
+            AddTrainToSector(tramid, spoorandnumber[0], spoorandnumber[1]);
         }
 
         private int[] FindRailFromLine(int linenumber)

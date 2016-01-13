@@ -312,7 +312,7 @@ namespace ICT4Rails
 
             for (int i = 1; i <= 15; i++)
             {
-                TramLogic.Simulatie();
+                _tramLogic.Simulatie();
             }
             Response.Redirect(Request.RawUrl);
 
