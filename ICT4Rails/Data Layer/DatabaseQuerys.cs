@@ -13,7 +13,6 @@ namespace ICT4Rails.Data_Layer
             Query["GetAllRails"] = "SELECT \"ID\", \"Nummer\" FROM SPOOR";
             Query["GetAllSectors"] = "SELECT * FROM SectorOverzicht";
             Query["GetTramNummer"] = "SELECT \"Nummer\" FROM \"TRAM\" WHERE ID = :id";
-            Query["GetTramID"] = "SELECT ID FROM \"TRAM\" WHERE \"Nummer\" = :nummer";
             Query["GetSpecificSector"] = "SELECT * FROM SectorOverzicht WHERE ID = :id";
             Query["GetRailTrams"] = "SELECT * FROM SECTOR WHERE \"Spoor_ID\" = :railId AND \"Tram_ID\" IS NOT NULL";
             Query["CheckRailBlocked"] = "SELECT * FROM SECTOR WHERE \"Spoor_ID\" = :spoorid AND \"Blokkade\" = 0";
