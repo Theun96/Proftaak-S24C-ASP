@@ -12,14 +12,14 @@ namespace ICT4Rails.Classes
 {
     public class Rail
     {
-        readonly LinkButton _railLabel = new LinkButton();
-        readonly LinkButton _railLijnLabel = new LinkButton();
+        private readonly LinkButton _railLabel = new LinkButton();
+        private readonly LinkButton _railLijnLabel = new LinkButton();
 
         public int Id { get; private set; }
         public int Nummer { get; private set; }
         public string GridLocation { get; private set; }
 
-        public string Lijn { get; set; }
+        public string Lijn { private get; set; }
         public string GridLocationLijn { get; private set; }
 
         public Rail(int railId, int nummer)
@@ -304,8 +304,6 @@ namespace ICT4Rails.Classes
                     HttpContext.Current.Response.Redirect("/Beheer.aspx");
                 }
             }
-
-
         }
     }
 }
