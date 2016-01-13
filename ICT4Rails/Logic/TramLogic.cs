@@ -290,7 +290,7 @@ namespace ICT4Rails.Logic
             return sporen;
         }
 
-        public void MakeReservation(int railid, int tramid)
+        public static void MakeReservation(int railid, int tramid)
         {
             OracleParameter[] parameters =
             {

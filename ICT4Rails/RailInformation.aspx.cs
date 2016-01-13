@@ -122,7 +122,9 @@ namespace ICT4Rails
         {
             int tramid = TramLogic.GetIdFromTram(Convert.ToInt32(tbTramReserveren.Text));
             if (tramid == 0) MessageBox.Show("Tram niet gevonden");
-            _tramLogic.MakeReservation(Id, tramid);
+            TramLogic.MakeReservation(Id, tramid);
+            MessageBox.Show("Reservering is gemaakt");
+            tbTramReserveren.Text = "";
         }
     }
 }
