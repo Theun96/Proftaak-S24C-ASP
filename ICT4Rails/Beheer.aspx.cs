@@ -56,6 +56,8 @@ namespace ICT4Rails
                 tblBeheer.Rows.Add(r);
             }
 
+            GetLijnen();
+
             //data uit database halen
             GetAllRails();
 
@@ -68,6 +70,9 @@ namespace ICT4Rails
             btnSimulation.Enabled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void UpdateGrid()
         {
             foreach (TableCell tc in TableCells)
@@ -145,6 +150,19 @@ namespace ICT4Rails
             UpdateGrid();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GetLijnen()
+        {
+            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnSimulation_Click(object sender, EventArgs e)
         {
             btnSimulation.Enabled = false;
