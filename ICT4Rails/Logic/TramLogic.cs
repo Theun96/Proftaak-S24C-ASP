@@ -9,7 +9,7 @@ namespace ICT4Rails.Logic
 {
     public class TramLogic
     {
-       private List<int> _possbileTramNummerList = new List<int>();
+        private List<int> _possbileTramNummerList = new List<int>();
         private const int ParameterInt = 0;
 
         public void AddingTram()
@@ -141,6 +141,82 @@ namespace ICT4Rails.Logic
             };
             DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["CheckIfTramExists"], parameters);
             return (Convert.ToInt32(dt.Rows[0][0]) == 1);
+        }
+
+        public static void AddTramToMaintenance(int tramid, string maintenance)
+        {
+            if(maintenance == "") return;
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("tramid", tramid),
+                new OracleParameter("startdate", $"{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/{DateTime.Now.ToLongTimeString()}"), 
+                new OracleParameter("soort", maintenance)
+            };
+            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["AddTramToMaintenance"], parameters);
+        }
+
+        public static void Simulatie()
+        {
+            int[] simulatiesporen = { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39};
+            Shuffle(simulatiesporen);
+            DataTable freeTramsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeTramIds"], null);
+            List<int> freeTrams = (from DataRow dr in freeTramsDt.Rows select Convert.ToInt32(dr[0])).ToList();
+            Random rnd = new Random();
+            int randomindex = rnd.Next(freeTrams.Count);
+            int tramid = freeTrams[randomindex];
+
+            int randomsectorid = 0;
+            int randomspoorid = 0;
+            foreach (int spoor in simulatiesporen)
+            {
+                OracleParameter[] parameters =
+                {
+                    new OracleParameter("spoorid", spoor)
+                };
+                DataTable freeSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"], parameters);
+                List<int> freeSectors = (from DataRow dr in freeSectorsDt.Rows select Convert.ToInt32(dr[3])).ToList();
+                if(!freeSectors.Any()) continue;
+                freeSectors.Sort();
+                freeSectors.Reverse();
+                DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
+                int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
+                if (freeSectors[0] != amountOfSectors) continue;
+                int lastAvailable = amountOfSectors;
+                foreach (int number in freeSectors.Where(number => number != lastAvailable))
+                {
+                    if (number == lastAvailable - 1)
+                    {
+                        lastAvailable = number;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                randomsectorid = lastAvailable;
+                randomspoorid = spoor;
+                break;
+            }
+
+            if (randomspoorid == 0 || randomsectorid == 0) return;
+            AddTrainToSector(tramid, randomspoorid, randomsectorid);
+        }
+
+        private static readonly Random Random = new Random();
+
+        private static void Shuffle<T>(IList<T> array)
+        {
+            int n = array.Count;
+            for (int i = 0; i < n; i++)
+            {
+                // NextDouble returns a random number between 0 and 1.
+                // ... It is equivalent to Math.random() in Java.
+                int r = i + (int)(Random.NextDouble() * (n - i));
+                T t = array[r];
+                array[r] = array[i];
+                array[i] = t;
+            }
         }
     }
 

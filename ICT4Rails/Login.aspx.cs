@@ -13,14 +13,14 @@ namespace ICT4Rails
     {
         private DatabaseManager _databaseManager = new DatabaseManager();
         private readonly ActiveDirectory _activedirectory = new ActiveDirectory();
-        private bool testing = true;
+        private bool Testing = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {}
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            if (testing)
+            if (Testing)
             {
                 Session["User"] = "admin";
             }

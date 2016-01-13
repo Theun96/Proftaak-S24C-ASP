@@ -186,48 +186,7 @@ namespace ICT4Rails.Classes
             _sectorLabel.CssClass = "sectorDefault";
 
             _sectorLabel.Click += Sector_Click;
-            /*
-            int parameterint = 3;
-
-            if (SectorInformation == "" || SectorInformation == "X")
-            {
-                parameterint = 3;
-            }
-            else
-            {
-                parameterint = Convert.ToInt32(SectorInformation);
-            }
-
-            OracleParameter[] parameters1 = new OracleParameter[]
-            {
-                new OracleParameter("tramid", parameterint)
-            };
-
-            DataTable DT = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetTramStatus"], parameters1);
             
-            string tramID = "";
-            const int type = 3;
-            if (type == 0)
-            {
-                _sectorLabel.BackColor = Color.Yellow;
-            }
-
-            if (type == 1)
-            {
-                _sectorLabel.BackColor = Color.Orange;
-            }
-
-            if (Reserved)
-            {
-                _sectorLabel.ForeColor = Color.Green;
-            }
-
-            if (!Beschikbaar)
-            {
-                _sectorLabel.ForeColor = Color.White;
-                _sectorLabel.BackColor = Color.Black;
-            }
-            */
             return _sectorLabel;
         }
 

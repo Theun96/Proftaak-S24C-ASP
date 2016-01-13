@@ -14,7 +14,14 @@ namespace ICT4Rails.Data_Layer
             Query["GetAllSectors"] = "SELECT * FROM SectorOverzicht";
             Query["GetTramNummer"] = "SELECT \"Nummer\" FROM \"TRAM\" WHERE ID = :id";
             Query["GetSpecificSector"] = "SELECT * FROM SectorOverzicht WHERE ID = :id";
+            Query["GetRailTrams"] = "SELECT * FROM SECTOR WHERE \"Spoor_ID\" = :railId AND \"Tram_ID\" IS NOT NULL";
+            Query["CheckRailBlocked"] = "SELECT * FROM SECTOR WHERE \"Spoor_ID\" = :spoorid AND \"Blokkade\" = 0";
+
             Query["UpdateSectorBlokkade"] = "UPDATE SECTOR SET \"Blokkade\" = :blokkade WHERE ID = :id";
+            Query["BlokkeerRail"] = "UPDATE SECTOR SET \"Blokkade\" = 1 WHERE \"Spoor_ID\" = :spoorid";
+            Query["DeBlokkeerRail"] = "UPDATE SECTOR SET \"Blokkade\" = 0 WHERE \"Spoor_ID\" = :spoorid";
+            Query["UpdateTramSector"] = "UPDATE SECTOR SET \"Tram_ID\" = :tramid WHERE ID = :id";
+            Query["DeleteTramSector"] = "UPDATE SECTOR SET \"Tram_ID\" = null WHERE ID = :id";
 
             //tech en clean
             Query["GetAllEngineers"] = "SELECT m.\"Naam\", m.id FROM medewerker m, functie f WHERE f.ID = 4 AND f.id = m.\"Functie_ID\"";
@@ -44,6 +51,8 @@ namespace ICT4Rails.Data_Layer
             Query["GetAllAvailableTrams"] = "SELECT t.\"Nummer\" FROM Tram t,Sector s WHERE t.id = s.\"Tram_ID\"";
             Query["GetReservedSector"] = "SELECT \"Spoor_ID\", \"Nummer\" FROM SECTOR WHERE \"Beschikbaar\" = 0 AND \"Tram_ID\" =:tramid";
             Query["CheckIfTramExists"] = "SELECT COUNT(*) FROM SECTOR WHERE \"Tram_ID\" = :tramid";
+            Query["AddTramToMaintenance"] = "INSERT INTO TRAM_ONDERHOUD (\"Tram_ID\", \"DatumTijdstip\", \"TypeOnderhoud\", TYPE) VALUES (:tramid, TO_DATE(:startdate, 'YYYY-MM-DD HH24:MI:SS'), 'abc', :soort)";
+            Query["GetFreeTramIds"] = "SELECT T.ID FROM TRAM T LEFT JOIN SECTOR S ON T.\"ID\" = S.\"Tram_ID\" WHERE S.\"Tram_ID\" IS NULL";
         }
     }
 }
