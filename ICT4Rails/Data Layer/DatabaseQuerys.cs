@@ -55,7 +55,7 @@ namespace ICT4Rails.Data_Layer
             Query["GetAllAvailableTrams"] = "SELECT t.\"Nummer\" FROM Tram t,Sector s WHERE t.id = s.\"Tram_ID\"";
             Query["GetReservedSector"] = "SELECT \"Spoor_ID\", \"Nummer\" FROM SECTOR WHERE \"Beschikbaar\" = 0 AND \"Tram_ID\" =:tramid";
             Query["CheckIfTramExists"] = "SELECT COUNT(*) FROM SECTOR WHERE \"Tram_ID\" = :tramid";
-            Query["AddTramToMaintenance"] = "INSERT INTO TRAM_ONDERHOUD (\"Tram_ID\", \"DatumTijdstip\", \"TypeOnderhoud\", TYPE) VALUES (:tramid, TO_DATE(:startdate, 'YYYY-MM-DD HH24:MI:SS'), 'abc', :soort)";
+            Query["AddTramToMaintenance"] = "INSERT INTO TRAM_ONDERHOUD (\"Tram_ID\", \"DatumTijdstip\", \"TypeOnderhoud\", TYPE) VALUES (:tramid, SYSDATE, 'abc', :soort)";
             Query["GetFreeTramIds"] = "SELECT T.ID FROM TRAM T LEFT JOIN SECTOR S ON T.\"ID\" = S.\"Tram_ID\" WHERE S.\"Tram_ID\" IS NULL";
             Query["GetTramLine"] = "SELECT \"Nummer\" FROM LIJN L, TRAM_LIJN TL WHERE L.\"ID\" = TL.\"Lijn_ID\" AND \"Tram_ID\" = :tramid";
         }

@@ -236,7 +236,7 @@ namespace ICT4Rails.Logic
             OracleParameter[] parameters =
             {
                 new OracleParameter("tramid", tramid),
-                new OracleParameter("startdate", $"{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/{DateTime.Now.ToLongTimeString()}"), 
+                //new OracleParameter("startdate", $"{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/{DateTime.Now.ToLongTimeString()}"), 
                 new OracleParameter("soort", maintenance)
             };
             DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["AddTramToMaintenance"], parameters);
