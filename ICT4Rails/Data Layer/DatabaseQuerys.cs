@@ -14,6 +14,7 @@ namespace ICT4Rails.Data_Layer
             Query["GetAllSectors"] = "SELECT * FROM SectorOverzicht";
             Query["GetTramNummer"] = "SELECT \"Nummer\" FROM \"TRAM\" WHERE ID = :id";
             Query["GetSpecificSector"] = "SELECT * FROM SectorOverzicht WHERE ID = :id";
+            Query["GetSpecificRail"] = "SELECT * FROM SPOOR WHERE ID = :id";
             Query["GetRailTrams"] = "SELECT * FROM SECTOR WHERE \"Spoor_ID\" = :railId AND \"Tram_ID\" IS NOT NULL";
             Query["CheckRailBlocked"] = "SELECT * FROM SECTOR WHERE \"Spoor_ID\" = :spoorid AND \"Blokkade\" = 0";
 
@@ -42,6 +43,9 @@ namespace ICT4Rails.Data_Layer
             Query["GetFreeRailFromId"] = "SELECT \"Spoor_ID\" FROM \"SECTOR\" WHERE \"Tram_ID\" IS NULL AND \"Blokkade\" = 0 AND \"Spoor_ID\" = :spoorid";
             Query["GetAmountOfSectors"] = "SELECT COUNT(*) FROM \"SECTOR\" WHERE \"Spoor_ID\" = :spoorid";
             Query["GetReserved"] = "SELECT * FROM \"RESERVERING\" WHERE \"Tram_ID\" = :tramid";
+            Query["GetReservations"] = "SELECT \"Tram_ID\" FROM RESERVERING WHERE \"Spoor_ID\" = :spoorid";
+            Query["DeleteReservation"] = "DELETE FROM RESERVERING WHERE \"Spoor_ID\" = :spoorid AND \"Tram_ID\" = :tramid";
+            Query["MakeReservation"] = "INSERT INTO RESERVERING (\"Tram_ID\", \"Spoor_ID\") VALUES (:tramid, :railid)";
             Query["GetNumberFromRail"] = "SELECT \"Nummer\" FROM \"SPOOR\" WHERE \"ID\" = :id";
             Query["GetIdFromTram"] = "SELECT \"ID\" FROM \"TRAM\" WHERE \"Nummer\" = :tramnumber";
             Query["AddTramToSector"] = "UPDATE SECTOR SET \"Tram_ID\" = :tramid WHERE \"Spoor_ID\" = :spoor AND \"Nummer\" = :sector";
@@ -53,6 +57,7 @@ namespace ICT4Rails.Data_Layer
             Query["CheckIfTramExists"] = "SELECT COUNT(*) FROM SECTOR WHERE \"Tram_ID\" = :tramid";
             Query["AddTramToMaintenance"] = "INSERT INTO TRAM_ONDERHOUD (\"Tram_ID\", \"DatumTijdstip\", \"TypeOnderhoud\", TYPE) VALUES (:tramid, TO_DATE(:startdate, 'YYYY-MM-DD HH24:MI:SS'), 'abc', :soort)";
             Query["GetFreeTramIds"] = "SELECT T.ID FROM TRAM T LEFT JOIN SECTOR S ON T.\"ID\" = S.\"Tram_ID\" WHERE S.\"Tram_ID\" IS NULL";
+            Query["GetTramLine"] = "SELECT \"Nummer\" FROM LIJN L, TRAM_LIJN TL WHERE L.\"ID\" = TL.\"Lijn_ID\" AND \"Tram_ID\" = :tramid";
         }
     }
 }

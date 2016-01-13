@@ -95,6 +95,18 @@ body {
     margin-bottom: 0;
 }
 
+.lijnDefault {
+    background-color: lightgray;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: black;
+    display: block;
+    border: 1px solid black;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .touchpadtable {
     margin-bottom: 0px;
 }

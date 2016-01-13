@@ -87,6 +87,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\Server.pubxml" />
+    <Content Include="RailInformation.aspx" />
     <Content Include="SectorInformation.aspx" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
@@ -171,6 +172,13 @@
     </Compile>
     <Compile Include="Plugins\Messagebox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RailInformation.aspx.cs">
+      <DependentUpon>RailInformation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RailInformation.aspx.designer.cs">
+      <DependentUpon>RailInformation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Schoonmaak.aspx.cs">
       <DependentUpon>Schoonmaak.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

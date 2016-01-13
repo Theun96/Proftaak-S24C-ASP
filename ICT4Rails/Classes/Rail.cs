@@ -12,18 +12,22 @@ namespace ICT4Rails.Classes
 {
     public class Rail
     {
-        readonly LinkButton _railLabel = new LinkButton();
+        private readonly LinkButton _railLabel = new LinkButton();
+        private readonly Label _railLijnLabel = new Label();
 
         public int Id { get; private set; }
         public int Nummer { get; private set; }
         public string GridLocation { get; private set; }
 
+        public string Lijn { private get; set; }
+        public string GridLocationLijn { get; private set; }
 
         public Rail(int railId, int nummer)
         {
             Id = railId;
             Nummer = nummer;
             GridLocationMethod();
+            GridLocationMethodLijn();
         }
 
         private void GridLocationMethod()
@@ -158,6 +162,96 @@ namespace ICT4Rails.Classes
             }
         }
 
+        private void GridLocationMethodLijn()
+        {
+            switch (Nummer)
+            {
+                case 38:
+                    GridLocationLijn = "0_1";
+                    break;
+                case 37:
+                    GridLocationLijn = "1_1";
+                    break;
+                case 36:
+                    GridLocationLijn = "2_1";
+                    break;
+                case 35:
+                    GridLocationLijn = "3_1";
+                    break;
+                case 34:
+                    GridLocationLijn = "4_1";
+                    break;
+                case 33:
+                    GridLocationLijn = "5_1";
+                    break;
+                case 32:
+                    GridLocationLijn = "6_1";
+                    break;
+                case 31:
+                    GridLocationLijn = "7_1";
+                    break;
+                case 30:
+                    GridLocationLijn = "8_1";
+                    break;
+                case 40:
+                    GridLocationLijn = "10_1";
+                    break;
+                case 41:
+                    GridLocationLijn = "11_1";
+                    break;
+                case 42:
+                    GridLocationLijn = "12_1";
+                    break;
+                case 43:
+                    GridLocationLijn = "13_1";
+                    break;
+                case 44:
+                    GridLocationLijn = "14_1";
+                    break;
+                case 45:
+                    GridLocationLijn = "16_1";
+                    break;
+                case 58:
+                    GridLocationLijn = "18_1";
+                    break;
+                case 57:
+                    GridLocationLijn = "0_14";
+                    break;
+                case 56:
+                    GridLocationLijn = "1_14";
+                    break;
+                case 55:
+                    GridLocationLijn = "2_14";
+                    break;
+                case 54:
+                    GridLocationLijn = "3_14";
+                    break;
+                case 53:
+                    GridLocationLijn = "4_14";
+                    break;
+                case 52:
+                    GridLocationLijn = "5_14";
+                    break;
+                case 51:
+                    GridLocationLijn = "6_14";
+                    break;
+                case 64:
+                    GridLocationLijn = "7_14";
+                    break;
+                case 63:
+                    GridLocationLijn = "8_14";
+                    break;
+                case 62:
+                    GridLocationLijn = "9_14";
+                    break;
+                case 61:
+                    GridLocationLijn = "10_14";
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public LinkButton AddRailLabel()
         {
             _railLabel.Text = Nummer.ToString();
@@ -169,41 +263,18 @@ namespace ICT4Rails.Classes
             return _railLabel;
         }
 
+        public Label AddRailLijnLabel()
+        {
+            _railLijnLabel.Text = Lijn;
+            _railLijnLabel.ID = GridLocationLijn;
+            _railLijnLabel.CssClass = "lijnDefault";
+
+            return _railLijnLabel;
+        }
 
         private void Rail_Click(object sender, EventArgs e)
         {
-            OracleParameter[] parameter =
-            {
-                new OracleParameter("spoorid", Id)
-            };
-
-            DataTable tramsOnRailDataTable =
-                DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetRailTrams"], parameter);
-
-            DataTable getAmountOfSectorDataTable =
-                DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameter);
-            DataTable checkBlockedDataTable =
-                DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["CheckRailBlocked"], parameter);
-
-            if (tramsOnRailDataTable.Rows.Count != 0) return;
-
-            foreach (DataRow dr in getAmountOfSectorDataTable.Rows)
-            {
-                if (Convert.ToInt32(dr[0]) == checkBlockedDataTable.Rows.Count)
-                {
-                    DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["BlokkeerRail"], parameter);
-
-                    HttpContext.Current.Response.Redirect("/Beheer.aspx");
-                }
-                else
-                {
-                    DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["DeBlokkeerRail"], parameter);
-
-                    HttpContext.Current.Response.Redirect("/Beheer.aspx");
-                }
-            }
-
-
+            HttpContext.Current.Response.Redirect("/RailInformation.aspx?id=" + Id);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace ICT4Rails
         private List<Sector> Sectors { get; set; }
         private List<TableCell> TableCells { get; set; }
 
-        private TramLogic _tramLogic = new TramLogic();
+        private readonly TramLogic _tramLogic = new TramLogic();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -55,11 +55,11 @@ namespace ICT4Rails
                 }
                 tblBeheer.Rows.Add(r);
             }
-
-            GetLijnen();
-
+            
             //data uit database halen
             GetAllRails();
+
+            GetLijnen();
 
             GetAllSectors();
             UpdateGrid();
@@ -73,7 +73,7 @@ namespace ICT4Rails
         /// <summary>
         /// 
         /// </summary>
-        public void UpdateGrid()
+        private void UpdateGrid()
         {
             foreach (TableCell tc in TableCells)
             {
@@ -101,6 +101,17 @@ namespace ICT4Rails
                     tc.Controls.Add(l);
                 }
             }
+
+            foreach (Rail r in Rails)
+            {
+                if (r.GridLocation == null) continue;
+                Label l = r.AddRailLijnLabel();
+
+                foreach (var tc in TableCells.Where(tc => tc.ID.Substring(1) == r.GridLocationLijn))
+                {
+                    tc.Controls.Add(l);
+                }
+            }
         }
 
         /// <summary>
@@ -119,7 +130,7 @@ namespace ICT4Rails
         /// <summary>
         /// 
         /// </summary>
-        public void GetAllSectors()
+        private void GetAllSectors()
         {
             DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAllSectors"], null);
             
@@ -155,21 +166,148 @@ namespace ICT4Rails
         /// </summary>
         private void GetLijnen()
         {
-            
+            foreach (Rail r in Rails)
+            {
+                //30 t/m 38
+                if (r.Nummer == 38)
+                {
+                    r.Lijn = "2";
+                }
+
+                if (r.Nummer == 37)
+                {
+                    r.Lijn = "5";
+                }
+
+                if (r.Nummer == 36)
+                {
+                    r.Lijn = "1";
+                }
+
+                if (r.Nummer == 35)
+                {
+                    r.Lijn = "16/24";
+                }
+
+                if (r.Nummer == 34)
+                {
+                    r.Lijn = "2";
+                }
+
+                if (r.Nummer == 33)
+                {
+                    r.Lijn = "16/24";
+                }
+
+                if (r.Nummer == 32)
+                {
+                    r.Lijn = "10";
+                }
+
+                if (r.Nummer == 31)
+                {
+                    r.Lijn = "";
+                }
+
+                if (r.Nummer == 30)
+                {
+                    r.Lijn = "16/24";
+                }
+
+                //41 t/m 45
+                if (r.Nummer == 41)
+                {
+                    r.Lijn = "10";
+                }
+
+                if (r.Nummer == 42)
+                {
+                    r.Lijn = "55";
+                }
+
+                if (r.Nummer == 43)
+                {
+                    r.Lijn = "1";
+                }
+
+                if (r.Nummer == 44)
+                {
+                    r.Lijn = "13";
+                }
+
+                if (r.Nummer == 45)
+                {
+                    r.Lijn = "17";
+                }
+
+                //51 t/m 57
+                if (r.Nummer == 57)
+                {
+                    r.Lijn = "16/24";
+                }
+
+                if (r.Nummer == 56)
+                {
+                    r.Lijn = "5";
+                }
+
+                if (r.Nummer == 55)
+                {
+                    r.Lijn = "2";
+                }
+
+                if (r.Nummer == 54)
+                {
+                    r.Lijn = "5";
+                }
+
+                if (r.Nummer == 53)
+                {
+                    r.Lijn = "13";
+                }
+
+                if (r.Nummer == 52)
+                {
+                    r.Lijn = "17";
+                }
+
+                if (r.Nummer == 51)
+                {
+                    r.Lijn = "";
+                }
+
+                //61 t/m 64
+                if (r.Nummer == 64)
+                {
+                    r.Lijn = "";
+                }
+
+                if (r.Nummer == 63)
+                {
+                    r.Lijn = "2";
+                }
+
+                if (r.Nummer == 62)
+                {
+                    r.Lijn = "";
+                }
+
+                if (r.Nummer == 61)
+                {
+                    r.Lijn = "";
+                }
+            }
+
+
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         protected void btnSimulation_Click(object sender, EventArgs e)
         {
             btnSimulation.Enabled = false;
 
             for (int i = 1; i <= 15; i++)
             {
-                TramLogic.Simulatie();
+                _tramLogic.Simulatie();
             }
             Response.Redirect(Request.RawUrl);
 
