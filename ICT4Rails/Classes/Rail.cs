@@ -274,36 +274,7 @@ namespace ICT4Rails.Classes
 
         private void Rail_Click(object sender, EventArgs e)
         {
-            OracleParameter[] parameter =
-            {
-                new OracleParameter("spoorid", Id)
-            };
-
-            DataTable tramsOnRailDataTable =
-                DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetRailTrams"], parameter);
-
-            DataTable getAmountOfSectorDataTable =
-                DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameter);
-            DataTable checkBlockedDataTable =
-                DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["CheckRailBlocked"], parameter);
-
-            if (tramsOnRailDataTable.Rows.Count != 0) return;
-
-            foreach (DataRow dr in getAmountOfSectorDataTable.Rows)
-            {
-                if (Convert.ToInt32(dr[0]) == checkBlockedDataTable.Rows.Count)
-                {
-                    DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["BlokkeerRail"], parameter);
-
-                    HttpContext.Current.Response.Redirect("/Beheer.aspx");
-                }
-                else
-                {
-                    DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["DeBlokkeerRail"], parameter);
-
-                    HttpContext.Current.Response.Redirect("/Beheer.aspx");
-                }
-            }
+            HttpContext.Current.Response.Redirect("/RailInformation.aspx?id=" + Id);
         }
     }
 }
