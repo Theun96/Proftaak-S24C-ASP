@@ -67,13 +67,13 @@ namespace ICT4Rails {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor navInUitRij;
         
         /// <summary>
-        /// btnLogout control.
+        /// logoutBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnLogout;
+        protected global::System.Web.UI.WebControls.LinkButton logoutBtn;
         
         /// <summary>
         /// AnonymousPH control.

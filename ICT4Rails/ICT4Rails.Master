@@ -43,7 +43,7 @@
                         </ul>
 -                        <ul class="nav navbar-nav navbar-right">
 -                            <li>
-                                <asp:LinkButton runat="server" ID="btnLogout" Text="Logout" OnClick="btnLogout_OnClick"/>
+                                <asp:LinkButton runat="server" ID="logoutBtn" Text="Logout" OnClick="logoutBtn_OnClick" />
 -                            </li>
 -                        </ul>
 -                    </asp:PlaceHolder>

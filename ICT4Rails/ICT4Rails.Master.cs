@@ -16,7 +16,8 @@ namespace ICT4Rails
             AnonymousPH.Visible = false;
         }
 
-        protected void btnLogout_OnClick(object sender, EventArgs e)
+
+        protected void logoutBtn_OnClick(object sender, EventArgs e)
         {
             Session["User"] = null;
             Response.Redirect("/");
