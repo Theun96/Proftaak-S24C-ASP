@@ -9,7 +9,7 @@ namespace ICT4Rails.Logic
 {
     public class TramLogic
     {
-       private List<int> _possbileTramNummerList = new List<int>();
+        private List<int> _possbileTramNummerList = new List<int>();
         private const int ParameterInt = 0;
 
         public void AddingTram()
@@ -143,7 +143,7 @@ namespace ICT4Rails.Logic
             return (Convert.ToInt32(dt.Rows[0][0]) == 1);
         }
 
-        public void AddTramToMaintenance(int tramid, string maintenance)
+        public static void AddTramToMaintenance(int tramid, string maintenance)
         {
             if(maintenance == "") return;
             OracleParameter[] parameters =
@@ -157,7 +157,48 @@ namespace ICT4Rails.Logic
 
         public void Simulatie()
         {
-            
+            int[] simulatiesporen = { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39};
+            DataTable freeTramsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeTramIds"], null);
+            List<int> freeTrams = (from DataRow dr in freeTramsDt.Rows select Convert.ToInt32(dr[0])).ToList();
+            Random rnd = new Random();
+            int randomindex = rnd.Next(freeTrams.Count);
+            int tramid = freeTrams[randomindex];
+
+            int randomsectorid = 0;
+            int randomspoorid = 0;
+            foreach (int spoor in simulatiesporen)
+            {
+                OracleParameter[] parameters =
+                {
+                    new OracleParameter("spoorid", spoor)
+                };
+                DataTable freeSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"], parameters);
+                List<int> freeSectors = (from DataRow dr in freeSectorsDt.Rows select Convert.ToInt32(dr[3])).ToList();
+                freeSectors.Sort();
+                freeSectors.Reverse();
+                DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
+                int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
+                if (freeSectors[0] != amountOfSectors) continue;
+                int lastAvailable = amountOfSectors;
+                foreach (int number in freeSectors.Where(number => number != lastAvailable))
+                {
+                    if (number == lastAvailable - 1)
+                    {
+                        lastAvailable = number;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                randomsectorid = lastAvailable;
+                randomspoorid = spoor;
+                break;
+            }
+
+            if (randomspoorid == 0 || randomsectorid == 0) return;
+            AddTrainToSector(tramid, randomspoorid, randomsectorid);
         }
     }
 

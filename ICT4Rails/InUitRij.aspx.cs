@@ -74,7 +74,7 @@ namespace ICT4Rails
             }
             int railNumber = TramLogic.GetNumberFromRail(position[0]);
             TramLogic.AddTrainToSector(tramid, position[0], position[1]);
-            _tramLogic.AddTramToMaintenance(tramid, maintenance);
+            TramLogic.AddTramToMaintenance(tramid, maintenance);
             MessageBox.Show($"Spoor: {railNumber}, Sector: {position[1]}");
             TouchpadClear_Click(null, null);
         }
