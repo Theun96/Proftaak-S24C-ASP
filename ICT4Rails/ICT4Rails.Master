@@ -39,7 +39,6 @@
                         <li><a id="navSchoonmaak" runat="server" Visible="False" href="/Schoonmaak.aspx">Schoonmaak</a></li>
                         <li><a id="navTechniek" runat="server" Visible="False" href="/Techniek.aspx">Techniek</a></li>
                         <li><a id="navInUitRij" runat="server" Visible="False" href="/InUitRij.aspx">in/uit rij</a></li>
-                        <li><a id="navAdmin" runat="server" Visible="False" href="/Admin.aspx">Admin</a></li>
                     </ul>
 
                     

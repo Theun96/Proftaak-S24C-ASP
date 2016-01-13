@@ -15,6 +15,11 @@ namespace ICT4Rails
             {
                 LoggedInPH.Visible = true;
                 AnonymousPH.Visible = false;
+
+                navBeheer.Visible = true;
+                navInUitRij.Visible = true;
+                navSchoonmaak.Visible = true;
+                navTechniek.Visible = true;
             }
         }
     }
