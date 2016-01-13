@@ -13,8 +13,12 @@ namespace ICT4Rails.Data_Layer
             Query["GetAllRails"] = "SELECT \"ID\", \"Nummer\" FROM SPOOR";
             Query["GetAllSectors"] = "SELECT * FROM SectorOverzicht";
             Query["GetTramNummer"] = "SELECT \"Nummer\" FROM \"TRAM\" WHERE ID = :id";
+            Query["GetTramID"] = "SELECT ID FROM \"TRAM\" WHERE \"Nummer\" = :nummer";
             Query["GetSpecificSector"] = "SELECT * FROM SectorOverzicht WHERE ID = :id";
+
             Query["UpdateSectorBlokkade"] = "UPDATE SECTOR SET \"Blokkade\" = :blokkade WHERE ID = :id";
+            Query["UpdateTramSector"] = "UPDATE SECTOR SET \"Tram_ID\" = :tramid WHERE ID = :id";
+            Query["DeleteTramSector"] = "UPDATE SECTOR SET \"Tram_ID\" = null WHERE ID = :id";
 
             //tech en clean
             Query["GetAllEngineers"] = "SELECT m.\"Naam\", m.id FROM medewerker m, functie f WHERE f.ID = 4 AND f.id = m.\"Functie_ID\"";
