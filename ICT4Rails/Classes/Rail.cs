@@ -13,7 +13,7 @@ namespace ICT4Rails.Classes
     public class Rail
     {
         private readonly LinkButton _railLabel = new LinkButton();
-        private readonly LinkButton _railLijnLabel = new LinkButton();
+        private readonly Label _railLijnLabel = new Label();
 
         public int Id { get; private set; }
         public int Nummer { get; private set; }
@@ -263,7 +263,7 @@ namespace ICT4Rails.Classes
             return _railLabel;
         }
 
-        public LinkButton AddRailLijnLabel()
+        public Label AddRailLijnLabel()
         {
             _railLijnLabel.Text = Lijn;
             _railLijnLabel.ID = GridLocationLijn;
