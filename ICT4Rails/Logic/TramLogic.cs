@@ -142,6 +142,23 @@ namespace ICT4Rails.Logic
             DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["CheckIfTramExists"], parameters);
             return (Convert.ToInt32(dt.Rows[0][0]) == 1);
         }
+
+        public void AddTramToMaintenance(int tramid, string maintenance)
+        {
+            if(maintenance == "") return;
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("tramid", tramid),
+                new OracleParameter("startdate", $"{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/{DateTime.Now.ToLongTimeString()}"), 
+                new OracleParameter("soort", maintenance)
+            };
+            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["AddTramToMaintenance"], parameters);
+        }
+
+        public void Simulatie()
+        {
+            
+        }
     }
 
 
