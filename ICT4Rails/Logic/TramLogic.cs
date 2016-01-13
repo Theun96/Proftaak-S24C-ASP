@@ -155,9 +155,10 @@ namespace ICT4Rails.Logic
             DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["AddTramToMaintenance"], parameters);
         }
 
-        public void Simulatie()
+        public static void Simulatie()
         {
-            int[] simulatiesporen = { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39};
+            int[] simulatiesporen = { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39};
+            Shuffle(simulatiesporen);
             DataTable freeTramsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeTramIds"], null);
             List<int> freeTrams = (from DataRow dr in freeTramsDt.Rows select Convert.ToInt32(dr[0])).ToList();
             Random rnd = new Random();
@@ -174,6 +175,7 @@ namespace ICT4Rails.Logic
                 };
                 DataTable freeSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"], parameters);
                 List<int> freeSectors = (from DataRow dr in freeSectorsDt.Rows select Convert.ToInt32(dr[3])).ToList();
+                if(!freeSectors.Any()) continue;
                 freeSectors.Sort();
                 freeSectors.Reverse();
                 DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
@@ -199,6 +201,22 @@ namespace ICT4Rails.Logic
 
             if (randomspoorid == 0 || randomsectorid == 0) return;
             AddTrainToSector(tramid, randomspoorid, randomsectorid);
+        }
+
+        private static readonly Random Random = new Random();
+
+        private static void Shuffle<T>(IList<T> array)
+        {
+            int n = array.Count;
+            for (int i = 0; i < n; i++)
+            {
+                // NextDouble returns a random number between 0 and 1.
+                // ... It is equivalent to Math.random() in Java.
+                int r = i + (int)(Random.NextDouble() * (n - i));
+                T t = array[r];
+                array[r] = array[i];
+                array[i] = t;
+            }
         }
     }
 
