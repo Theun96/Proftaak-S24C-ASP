@@ -19,6 +19,8 @@ namespace ICT4Rails
 
         private bool Blokkade { get; set; }
 
+        private TramLogic _tramLogic = new TramLogic();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             string idstring = Request.QueryString["id"];
@@ -120,6 +122,7 @@ namespace ICT4Rails
         {
             int tramid = TramLogic.GetIdFromTram(Convert.ToInt32(tbTramReserveren.Text));
             if (tramid == 0) MessageBox.Show("Tram niet gevonden");
+            _tramLogic.MakeReservation(Id, tramid);
         }
     }
 }

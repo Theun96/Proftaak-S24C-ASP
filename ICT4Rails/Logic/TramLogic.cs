@@ -290,6 +290,16 @@ namespace ICT4Rails.Logic
             return sporen;
         }
 
+        public void MakeReservation(int railid, int tramid)
+        {
+            OracleParameter[] parameters =
+            {
+                new OracleParameter("tramid", tramid),
+                new OracleParameter("railid", railid)
+            };
+            DatabaseManager.ExecuteInsertQuery(DatabaseQuerys.Query["MakeReservation"], parameters);
+        }
+
         private static readonly Random Random = new Random();
 
         private static void Shuffle<T>(IList<T> array)
