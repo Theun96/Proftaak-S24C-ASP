@@ -217,22 +217,22 @@ namespace ICT4Rails
                 //41 t/m 45
                 if (r.Nummer == 41)
                 {
-                    r.Lijn = "5";
+                    r.Lijn = "10";
                 }
 
                 if (r.Nummer == 42)
                 {
-                    r.Lijn = "5";
+                    r.Lijn = "55";
                 }
 
                 if (r.Nummer == 43)
                 {
-                    r.Lijn = "5";
+                    r.Lijn = "1";
                 }
 
                 if (r.Nummer == 44)
                 {
-                    r.Lijn = "5";
+                    r.Lijn = "13";
                 }
 
                 if (r.Nummer == 45)
