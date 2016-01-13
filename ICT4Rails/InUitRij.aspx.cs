@@ -42,7 +42,7 @@ namespace ICT4Rails
                 return;
             }
 
-            bool alreadyExists = _tramLogic.CheckIfExists(tramid);
+            bool alreadyExists = TramLogic.CheckIfExists(tramid);
             if (alreadyExists)
             {
                 MessageBox.Show("Tram staat al op een sector");

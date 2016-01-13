@@ -107,72 +107,86 @@ namespace ICT4Rails.Logic
             {
                 OracleParameter[] parameters1 = {new OracleParameter("tramid", tramid)};
                 DataTable dt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetTramLine"], parameters1);
-                if (dt.Rows.Count > 0)
+                if (dt.Rows.Count <= 0) return FindReserveRail();
+                int linenumber = Convert.ToInt32(dt.Rows[0][0]);
+
+                int[] sporen = FindRailFromLine(linenumber);
+
+                int[] spoorandnumber = null;
+                if (sporen == null) return null;
+
+                foreach (int spoorI in sporen)
                 {
-                    int linenumber = Convert.ToInt32(dt.Rows[0][0]);
+                    OracleParameter[] parameters = {new OracleParameter("spoorid", spoorI)};
+                    DataTable freeSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"],parameters);
+                    List<int> freeSectors = (from DataRow freeSector in freeSectorsDt.Rows select Convert.ToInt32(freeSector[3])).ToList();
+                    freeSectors.Sort();
+                    freeSectors.Reverse();
 
-                    int[] sporen = FindRailFromLine(linenumber);
+                    DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
+                    int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
 
-                    int[] spoorandnumber = null;
-                    if (sporen == null) return null;
+                    if (!maintenance && amountOfSectors <= 1) continue;
+                    if (maintenance && amountOfSectors > 1) continue;
+                    if (freeSectors[0] != amountOfSectors) continue;
 
-                    foreach (int spoorI in sporen)
+                    int lastAvailable = amountOfSectors;
+                    foreach (int number in freeSectors.Where(number => number != lastAvailable))
                     {
-                        OracleParameter[] parameters = {new OracleParameter("spoorid", spoorI)};
-                        DataTable freeSectorsDt =
-                            DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"],
-                                parameters);
-                        List<int> freeSectors =
-                            (from DataRow freeSector in freeSectorsDt.Rows select Convert.ToInt32(freeSector[3])).ToList
-                                ();
-                        freeSectors.Sort();
-                        freeSectors.Reverse();
-
-                        DataTable amountOfSectorsDt =
-                            DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
-                        int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
-
-                        if (!maintenance && amountOfSectors <= 1) continue;
-                        if (maintenance && amountOfSectors > 1) continue;
-                        if (freeSectors[0] != amountOfSectors) continue;
-
-                        int lastAvailable = amountOfSectors;
-                        foreach (int number in freeSectors.Where(number => number != lastAvailable))
+                        if (number == lastAvailable - 1)
                         {
-                            if (number == lastAvailable - 1)
-                            {
-                                lastAvailable = number;
-                            }
-                            else
-                            {
-                                break;
-                            }
+                            lastAvailable = number;
                         }
-
-                        spoorandnumber = new[] {spoorI, lastAvailable};
-                        break;
-                    }
-
-                    if (spoorandnumber == null)
-                    {
-                        DataTable freeRailsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeRails"], null);
-                        List<int> freeRails = (from DataRow dr in freeRailsDt.Rows select Convert.ToInt32(dr[0])).ToList();
-                        foreach (int rail in freeRails)
+                        else
                         {
-                            
+                            break;
                         }
                     }
 
-                    return spoorandnumber;
+                    spoorandnumber = new[] {spoorI, lastAvailable};
+                    break;
                 }
-                else
-                {
-                    
-                }
+
+                return spoorandnumber ?? FindReserveRail();
             }  
         }
 
-        public bool CheckIfExists(int tramid)
+        private int[] FindReserveRail()
+        {
+            int[] spoorandnumber = null;
+            foreach (int rail in _reserve)
+            {
+                OracleParameter[] parameters = { new OracleParameter("spoorid", rail) };
+                DataTable freeSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetFreeSectors"], parameters);
+                List<int> freeSectors = (from DataRow freeSector in freeSectorsDt.Rows select Convert.ToInt32(freeSector[3])).ToList();
+                freeSectors.Sort();
+                freeSectors.Reverse();
+
+                DataTable amountOfSectorsDt = DatabaseManager.ExecuteReadQuery(DatabaseQuerys.Query["GetAmountOfSectors"], parameters);
+                int amountOfSectors = Convert.ToInt32(amountOfSectorsDt.Rows[0][0]);
+                if (freeSectors[0] != amountOfSectors) continue;
+
+                int lastAvailable = amountOfSectors;
+                foreach (int number in freeSectors.Where(number => number != lastAvailable))
+                {
+                    if (number == lastAvailable - 1)
+                    {
+                        lastAvailable = number;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                spoorandnumber = new[] { rail, lastAvailable };
+                break;
+            }
+
+            return spoorandnumber;
+        }
+
+        public static bool CheckIfExists(int tramid)
         {
             OracleParameter[] parameters =
             {
