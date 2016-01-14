@@ -2,7 +2,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
     <div class="col-md-4 col-md-offset-4">
-        <asp:Label ID="lblTramNumber" runat="server" Text="Geef een tramnummer in." CssClass="sectorlabel bg-primary" />
+        <!--<asp:Label ID="lblTramNumber" runat="server" Text="Geef een tramnummer in." CssClass="sectorlabel bg-primary" />!-->
+        <asp:TextBox runat="server" ID="tbTramNumber" CssClass="sectorlabel bg-primary" Placeholder="Geef een tramnummer in."></asp:TextBox>
     </div>
     <div class="col-md-4 col-md-offset-4">
         <table class="touchpadtable table">

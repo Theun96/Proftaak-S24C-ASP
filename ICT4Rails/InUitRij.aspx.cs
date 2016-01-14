@@ -23,22 +23,22 @@ namespace ICT4Rails
             Button button = sender as Button;
             //Checks
             if (button == null) return;
-            if (lblTramNumber.Text == "Geef een tramnummer in.") { lblTramNumber.Text = ""; }
-            if (lblTramNumber.Text.Length > 5) return;
+            if (tbTramNumber.Text == "Geef een tramnummer in.") { tbTramNumber.Text = ""; }
+            //if (lblTramNumber.Text.Length > 5) return;
 
-            lblTramNumber.Text += button.Text;
+            tbTramNumber.Text += button.Text;
         }
 
         protected void TouchpadEnter_Click(object sender, EventArgs e)
         {
             //Checks
-            if (lblTramNumber.Text == "Geef een tramnummer in." || lblTramNumber.Text.Length < 1) return;
-            int tramnumber = Convert.ToInt32(Regex.Replace(lblTramNumber.Text, @"\s+", ""));
+            if (tbTramNumber.Text == "Geef een tramnummer in." || tbTramNumber.Text.Length < 1) return;
+            int tramnumber = Convert.ToInt32(Regex.Replace(tbTramNumber.Text, @"\s+", ""));
             int tramid = TramLogic.GetIdFromTram(tramnumber);
             if (tramid == 0)
             {
                 MessageBox.Show("Tramnummer niet gevonden");
-                lblTramNumber.Text = "Geef een tramnummer in.";
+                tbTramNumber.Text = "";
                 return;
             }
 
@@ -46,7 +46,7 @@ namespace ICT4Rails
             if (alreadyExists)
             {
                 MessageBox.Show("Tram staat al op een sector");
-                lblTramNumber.Text = "Geef een tramnummer in.";
+                tbTramNumber.Text = "";
                 return;
             }
 
@@ -69,7 +69,7 @@ namespace ICT4Rails
             if (position == null)
             {
                 MessageBox.Show("Er is op dit moment geen plek beschikbaar");
-                lblTramNumber.Text = "Geef een tramnummer in.";
+                tbTramNumber.Text = "";
                 return;
             }
             int railNumber = TramLogic.GetNumberFromRail(position[0]);
@@ -86,7 +86,7 @@ namespace ICT4Rails
 
         protected void TouchpadClear_Click(object sender, EventArgs e)
         {
-            lblTramNumber.Text = "Geef een tramnummer in.";
+            tbTramNumber.Text = "";
         }
     }
 }
